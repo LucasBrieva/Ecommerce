@@ -1,0 +1,80 @@
+<app-sidebar></app-sidebar>
+
+<div class="border-bottom pt-5 mt-2 mb-5">
+    <h1 class="mt-2 mt-md-4 mb-3 pt-5">Editar cliente</h1>
+</div>
+
+<form #updateForm="ngForm" (ngSubmit)="actualizar(updateForm)">
+  <div class="card box-shadow-sm">
+        <div class="card-header" *ngIf="cliente != undefined">
+            <h5 style="margin-bottom: 0px;">Datos del cliente</h5>
+        </div>
+        <ng-container *ngIf="load_data">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-12 text-center">
+                        <div class="spinner-grow text-muted m-2" role="status"><span class="visually-hidden"></span></div>
+                    </div>
+                </div>
+            </div>
+        </ng-container>
+        <ng-container *ngIf="!load_data">
+            <div class="card-body" *ngIf="cliente != undefined">
+                <div class="row">
+                    <div class="col-md-4 form-group">
+                        <label for="validationCustom01" class="form-label">Nombres</label>
+                        <input class="form-control" type="text" placeholder="Nombres" name="nombres" [(ngModel)]="cliente.nombres" required>
+                    </div>
+                    <div class="col-md-4 form-group">
+                        <label for="validationCustom01" class="form-label">Apellidos</label>
+                        <input class="form-control" type="text" placeholder="Apellidos" name="apellidos" [(ngModel)]="cliente.apellidos" required>
+                    </div>
+                    <div class="col-md-4 form-group">
+                        <label for="validationCustom01" class="form-label">Correo electrónico</label>
+                        <input class="form-control" type="email" placeholder="Correo electrónico" name="email" [(ngModel)]="cliente.email" required>
+                    </div>
+    
+                    <div class="col-md-4 form-group">
+                        <label for="validationCustom01" class="form-label">Telefono</label>
+                        <input class="form-control" type="text" placeholder="Telefono" name="telefono" [(ngModel)]="cliente.telefono" required>
+                    </div>
+                    <div class="col-md-4 form-group">
+                        <label for="validationCustom01" class="form-label">Fecha nacimiento</label>
+                        <input class="form-control" type="date" name="f_nacimiento" [(ngModel)]="cliente.f_nacimiento" required>
+                    </div>
+                    <div class="col-md-4 form-group">
+                        <label for="validationCustom01" class="form-label">DNI</label>
+                        <input class="form-control" type="text" placeholder="Documento" name="dni" [(ngModel)]="cliente.dni" required>
+                    </div>
+    
+                    <div class="col-md-4">
+                        <label for="validationCustom01" class="form-label">Genero</label>
+                        <select class="form-control custom-select" name="genero" required [(ngModel)]="cliente.genero">
+                            <option value="" disabled selected>-- Seleccionar --</option>
+                            <option value="Masculino">Masculino</option>
+                            <option value="Femenino">Femenino</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body" *ngIf="cliente == undefined">
+                <h3 class="text-center">No se encontró el registro</h3>
+                <div class="row">
+                    <div class="col-2 mx-auto">
+                        <img src="assets/img/advertencia.png" alt="" style="width: 100%;">
+                    </div>
+                </div>
+            </div>
+        </ng-container>
+        <div class="card-footer">
+            <button class="btn btn-primary mr-3" type="submit" *ngIf="cliente != undefined || !load_btn">Editar cliente</button>
+            <button *ngIf="load_btn" type="button" class="btn btn-secondary" disabled>
+                <span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+                Editando...
+            </button>
+            <a [routerLink]="['/panel/clientes']"  class="btn btn-warning">Regresar</a>
+        </div>
+  </div>    
+</form>
+
+
