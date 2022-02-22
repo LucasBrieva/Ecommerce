@@ -81,15 +81,15 @@
                             <div class="modal-dialog modal-dialog-centered" role="document">
                               <div class="modal-content">
                                 <div class="modal-header">
-                                  <h4 class="modal-title">Eliminar, {{item.nombres}} {{item.apellidos}}</h4>
+                                  <h4 class="modal-title">Confirmación de eliminación</h4>
                                   <button class="close" type="button" data-dismiss="modal" aria-label="Close">x</button>
                                 </div>
                                 <div class="modal-body">
-                                  <p class="fs-sm">Desea eliminar este cliente?</p>
+                                  <p class="fs-sm">Desea eliminar el producto <b>[{{item.codigo}}] - {{item.titulo}}</b>?</p>
                                 </div>
                                 <div class="modal-footer">
                                   <button class="btn btn-secondary btn-sm" type="button" data-dismiss="modal">Cancelar</button>
-                                  <button class="btn btn-danger btn-sm"  type="button">Sí, eliminar</button>
+                                  <button class="btn btn-danger btn-sm" (click)="baja(item._id)"  type="button">Sí, eliminar</button>
                                 </div>
                               </div>
                             </div>

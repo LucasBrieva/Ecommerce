@@ -159,7 +159,6 @@ const baja_cliente_admin = async function(req, res){
     if(req.user){
         if(req.user.role == "Gerente general"){
             var id = req.params['id'];
-            var id = req.params['id'];
             var data = req.body;
             var reg = await Cliente.findByIdAndUpdate({_id:id},{
                 nombres: data.nombres,

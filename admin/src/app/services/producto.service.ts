@@ -64,5 +64,10 @@ export class ProductoService {
       return this._http.put(this.url+'actualizar_producto_admin/' + id, data, {headers:headers});
     }
   }
+
+  baja_producto_admin(id:any, token:any):Observable<any>{
+    let headers = new HttpHeaders({'Content-Type':'application/json','Authorization': token});
+    return this._http.post(this.url+'baja_producto_admin/'+ id, null,{headers:headers});
+  }
   
 }

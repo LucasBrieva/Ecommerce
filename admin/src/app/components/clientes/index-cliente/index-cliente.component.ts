@@ -121,7 +121,9 @@ export class IndexClienteComponent implements OnInit {
           position: 'topRight',
           message: 'No se pudo dar de baja el cliente',
           messageColor:'#F4EDED'
-        })
+        });
+        $('#delete-'+id).modal('hide');
+        $('.modal-backdrop').removeClass('show');
       }
     )
   }

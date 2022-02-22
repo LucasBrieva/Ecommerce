@@ -140,10 +140,28 @@ const actualizar_producto_admin = async function(req, res){
     }
 }
 
+const baja_producto_admin = async function(req, res){
+    if(req.user){
+        if(req.user.role == "Gerente general"){
+            var id = req.params['id'];
+            console.log(id);
+            var reg = await Producto.findByIdAndUpdate({_id:id},{
+                dadoBaja: true
+            });
+            res.status(200).send({data:reg});
+        }else{
+            res.status(500).send({message: 'Hubo un error en el servidor1',data: undefined});
+        }
+    }else{
+        res.status(500).send({message: 'Hubo un error en el servidor2',data: undefined});
+    }
+}
+
 module.exports = {
     registro_producto_admin,
     listar_productos_filtro_admin,
     obtener_portada,
     obetener_producto_admin,
-    actualizar_producto_admin
+    actualizar_producto_admin,
+    baja_producto_admin
 }
