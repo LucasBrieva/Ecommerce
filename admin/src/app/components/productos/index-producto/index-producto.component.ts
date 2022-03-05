@@ -45,7 +45,6 @@ export class IndexProductoComponent implements OnInit {
       response => {
         this.productos = response.data;
         this.load_data = false;
-
       },
       error=>{
         console.log(error);

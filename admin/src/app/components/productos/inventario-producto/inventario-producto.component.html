@@ -6,6 +6,7 @@
     <div class="d-flex flex-wrap flex-md-nowrap justify-content-between">
       <p class="text-muted">Este módulo lista el inventario.</p>
       <p class="font-size-sm font-weight-medium pl-md-4">
+        <button class="btn btn-outline-primary mb-2 mr-3" data-toggle="modal" [attr.data-target]="'#newInventary'" type="button">Nuevo</button>
         <button class="btn btn-outline-warning mb-2 me-1" [routerLink]="['/panel/productos']" type="button">Regresar</button>
       </p>
     </div>
@@ -75,3 +76,43 @@
             ></ngb-pagination>
         </div>-->
   </div>  
+
+  <div class="modal fade" id="newInventary" tabindex="-1" style="display: none;" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Cambio de stock</h4>
+          <button class="close" type="button" data-dismiss="modal" aria-label="Close">x</button>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-lg-4">
+              <div class="form-group">
+                <label for="">Proveedor</label>
+                <input type="text" required class="form-control">
+              </div>
+            </div>
+            <div class="col-lg-4">
+              <div class="form-group">
+                <label for="">Cantidad</label>
+                <input type="number" required class="form-control">
+              </div>
+            </div>
+            <div class="col-lg-4">
+              <div class="form-group">
+                <label for="">Tipo movimiento</label>
+                <div class="btn-group" role="group" aria-label="Solid button group">
+                  <button type="button" value="0" class="btn btn-success">Ingreso</button>
+                  <button type="button" value="1" class="btn btn-danger">Egreso</button>
+                </div>
+              </div>
+            </div>
+            
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary btn-sm" type="button" data-dismiss="modal">Cancelar</button>
+        </div>
+      </div>
+    </div>
+  </div>
