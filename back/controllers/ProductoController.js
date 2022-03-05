@@ -108,7 +108,6 @@ const actualizar_producto_admin = async function(req, res){
                     titulo : data.titulo,
                     codigo : data.codigo,
                     categoria : data.categoria,
-                    stock : data.stock,
                     precio : data.precio,
                     descripcion : data.descripcion,
                     contenido : data.contenido,
