@@ -73,6 +73,9 @@
                           <a type="button" class="btn btn-sm btn-outline-info rounded-pill btn-icon mr-2" [routerLink]="['/panel/productos',item._id]" >
                             <i class="fa fa-pencil mt-n1 align-middle"></i>
                           </a>
+                          <a type="button" class="btn btn-sm btn-outline-info rounded-pill btn-icon mr-2" [routerLink]="['/panel/productos/inventario',item._id]" >
+                            <i class="fa fa-th-list mt-n1 align-middle"></i>
+                          </a>
                           <button style="cursor: pointer;" data-toggle="modal" [attr.data-target]="'#delete-'+item._id" type="button" class="btn btn-sm btn-outline-danger rounded-pill btn-icon">
                             <i class="fa fa-trash mt-n1 align-middle"></i>
                           </button>

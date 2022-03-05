@@ -10,7 +10,7 @@ var cliente_route = require('./routes/cliente');
 var producto_route = require('./routes/producto');
 var admin_route = require('./routes/admin');
 
-mongoose.connect('mongodb://127.0.0.1:27017/Concesionaria', (err, res)=>{
+mongoose.connect('mongodb://127.0.0.1:27017/tienda', (err, res)=>{
     if(err){
         console.log(err);
     }

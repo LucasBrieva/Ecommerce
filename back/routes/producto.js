@@ -18,6 +18,9 @@ api.get('/listar_productos_filtro_admin/:tipo/:filtro?', auth.auth, productoCont
 api.get('/obtener_portada/:img', productoController.obtener_portada);
 api.get('/obetener_producto_admin/:id', auth.auth, productoController.obetener_producto_admin);
 
+//INVENTARIO
+api.get('/listar_inventario_producto_admin/:id', auth.auth, productoController.listar_inventario_producto_admin);
+
 
 
 module.exports = api;

@@ -13,6 +13,7 @@ const registro_admin = async function(req, res){
 
     if(admin_arr.length == 0){
         //
+        console.log(data);
         if(data.password){
             bcrypt.hash(data.password, null, null, async function(err, hash){
                  if(hash){

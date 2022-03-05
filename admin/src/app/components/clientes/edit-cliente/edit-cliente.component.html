@@ -33,21 +33,20 @@
                         <label for="validationCustom01" class="form-label">Correo electrónico</label>
                         <input class="form-control" type="email" placeholder="Correo electrónico" name="email" [(ngModel)]="cliente.email" required>
                     </div>
-    
-                    <div class="col-md-4 form-group">
-                        <label for="validationCustom01" class="form-label">Telefono</label>
-                        <input class="form-control" type="text" placeholder="Telefono" name="telefono" [(ngModel)]="cliente.telefono" required>
-                    </div>
-                    <div class="col-md-4 form-group">
-                        <label for="validationCustom01" class="form-label">Fecha nacimiento</label>
-                        <input class="form-control" type="date" name="f_nacimiento" [(ngModel)]="cliente.f_nacimiento" required>
-                    </div>
-                    <div class="col-md-4 form-group">
+                    <div class="col-md-3 form-group">
                         <label for="validationCustom01" class="form-label">DNI</label>
                         <input class="form-control" type="text" placeholder="Documento" name="dni" [(ngModel)]="cliente.dni" required>
                     </div>
+                    <div class="col-md-3 form-group">
+                        <label for="validationCustom01" class="form-label">Telefono</label>
+                        <input class="form-control" type="text" placeholder="Telefono" name="telefono" [(ngModel)]="cliente.telefono" required>
+                    </div>
+                    <div class="col-md-3 form-group">
+                        <label for="validationCustom01" class="form-label">Fecha nacimiento</label>
+                        <input class="form-control" type="date" name="f_nacimiento" [(ngModel)]="cliente.f_nacimiento" required>
+                    </div>
     
-                    <div class="col-md-4">
+                    <div class="col-md-3">
                         <label for="validationCustom01" class="form-label">Genero</label>
                         <select class="form-control custom-select" name="genero" required [(ngModel)]="cliente.genero">
                             <option value="" disabled selected>-- Seleccionar --</option>

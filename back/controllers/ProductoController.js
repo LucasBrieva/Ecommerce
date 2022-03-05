@@ -1,6 +1,7 @@
 'use strict'
 
 var Producto = require('../models/producto');
+var Inventario = require('../models/inventario');
 var fs = require('fs');
 var path = require('path');
 
@@ -14,7 +15,15 @@ const registro_producto_admin = async function(req, res){
             data.slug= data.titulo.toLowerCase().replace(/ /g, "-").replace(/[^\w-]+/g, "");
             data.portada = portada_name;
             let reg = await Producto.create(data);
-            res.status(200).send({data: reg});
+
+            let inventario = await Inventario.create({
+                admin: req.user.sub, 
+                cantidad: reg.stock,
+                proveedor: 'Primer registro',
+                producto: reg._id
+            })
+
+            res.status(200).send({data: reg, inventario:inventario});
         }else{
             res.status(500).send({message:'NoAccess'})
         }
@@ -157,11 +166,40 @@ const baja_producto_admin = async function(req, res){
     }
 }
 
+const listar_inventario_producto_admin = async function(req, res){
+    if(req.user){
+        if(req.user.role == "Gerente general"){
+            var id = req.params['id'];
+            var reg = await Inventario.find({producto: id}).populate('admin');
+            res.status(200).send({data:reg});
+        }else{
+            res.status(500).send({message: 'Hubo un error en el servidor1',data: undefined});
+        }
+    }else{
+        res.status(500).send({message: 'Hubo un error en el servidor2',data: undefined});
+    }
+}
+
+const baja_inventario_producto_admin = async function(req, res){
+    if(req.user){
+        if(req.user.role == "Gerente general"){
+            var id = req.params['id'];
+            var reg = await Inventario.find({producto: id}).populate('admin');
+            res.status(200).send({data:reg});
+        }else{
+            res.status(500).send({message: 'Hubo un error en el servidor1',data: undefined});
+        }
+    }else{
+        res.status(500).send({message: 'Hubo un error en el servidor2',data: undefined});
+    }
+}
 module.exports = {
     registro_producto_admin,
     listar_productos_filtro_admin,
     obtener_portada,
     obetener_producto_admin,
     actualizar_producto_admin,
-    baja_producto_admin
+    baja_producto_admin, 
+    listar_inventario_producto_admin,
+    baja_inventario_producto_admin
 }
