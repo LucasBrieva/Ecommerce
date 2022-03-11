@@ -20,6 +20,7 @@ api.get('/obetener_producto_admin/:id', auth.auth, productoController.obetener_p
 
 //INVENTARIO
 api.get('/listar_inventario_producto_admin/:id', auth.auth, productoController.listar_inventario_producto_admin);
+api.post('/registro_inventario_producto_admin', auth.auth, productoController.registro_inventario_producto_admin);
 
 
 

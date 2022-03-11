@@ -70,8 +70,14 @@ export class ProductoService {
     return this._http.post(this.url+'baja_producto_admin/'+ id, null,{headers:headers});
   }
   
+
+  /* INVENTARIO */
   listar_inventario_producto_admin(id:any, token:any):Observable<any>{
     let headers = new HttpHeaders({'Content-Type':'application/json','Authorization': token});
     return this._http.get(this.url+'listar_inventario_producto_admin/'+ id,{headers:headers});
+  }
+  registro_inventario_producto_admin(data:any, token:any):Observable<any>{
+    let headers = new HttpHeaders({'Content-Type':'application/json','Authorization': token});
+    return this._http.post(this.url+'registro_inventario_producto_admin/', data, {headers:headers});
   }
 }

@@ -20,7 +20,8 @@ const registro_producto_admin = async function(req, res){
                 admin: req.user.sub, 
                 cantidad: reg.stock,
                 proveedor: 'Primer registro',
-                producto: reg._id
+                producto: reg._id,
+                tipo: true
             })
 
             res.status(200).send({data: reg, inventario:inventario});
@@ -158,13 +159,14 @@ const baja_producto_admin = async function(req, res){
             });
             res.status(200).send({data:reg});
         }else{
-            res.status(500).send({message: 'Hubo un error en el servidor1',data: undefined});
+            res.status(500).send({message: 'Hubo un error en el servidor',data: undefined});
         }
     }else{
-        res.status(500).send({message: 'Hubo un error en el servidor2',data: undefined});
+        res.status(500).send({message: 'Hubo un error en el servidor',data: undefined});
     }
 }
 
+/* INVENTARIO */
 const listar_inventario_producto_admin = async function(req, res){
     if(req.user){
         if(req.user.role == "Gerente general"){
@@ -172,26 +174,38 @@ const listar_inventario_producto_admin = async function(req, res){
             var reg = await Inventario.find({producto: id}).populate('admin');
             res.status(200).send({data:reg});
         }else{
-            res.status(500).send({message: 'Hubo un error en el servidor1',data: undefined});
+            res.status(500).send({message: 'Hubo un error en el servidor',data: undefined});
         }
     }else{
-        res.status(500).send({message: 'Hubo un error en el servidor2',data: undefined});
+        res.status(500).send({message: 'Hubo un error en el servidor',data: undefined});
     }
 }
 
-const baja_inventario_producto_admin = async function(req, res){
+const registro_inventario_producto_admin = async function(req, res){
     if(req.user){
         if(req.user.role == "Gerente general"){
-            var id = req.params['id'];
-            var reg = await Inventario.find({producto: id}).populate('admin');
-            res.status(200).send({data:reg});
+            var data = req.body;
+            //Hago una conversión para poder guardar el producto y no tener que ir nuevamente a la bd.
+            let productoAux = data.producto;
+            data.producto = productoAux._id;
+            //Seteo el admin
+            data.admin = req.user.sub;
+            //Creo el nuevo reg de inventario
+            let reg = await Inventario.create(data);
+            //Verifico el tipo del registro, para saber si aumento o bajo el stock del producto.
+            console.log(data.tipo);
+            var producto = await Producto.findByIdAndUpdate({_id: reg.producto._id},{
+                stock: data.tipo == "true"? Number.parseInt(productoAux.stock + data.cantidad) : Number.parseInt(productoAux.stock - data.cantidad),
+            });
+            res.status(200).send({data: reg, producto:producto});
         }else{
-            res.status(500).send({message: 'Hubo un error en el servidor1',data: undefined});
+            res.status(500).send({message:'NoAccess'})
         }
     }else{
-        res.status(500).send({message: 'Hubo un error en el servidor2',data: undefined});
+        res.status(500).send({message:'NoAccess'})
     }
 }
+
 module.exports = {
     registro_producto_admin,
     listar_productos_filtro_admin,
@@ -200,5 +214,5 @@ module.exports = {
     actualizar_producto_admin,
     baja_producto_admin, 
     listar_inventario_producto_admin,
-    baja_inventario_producto_admin
+    registro_inventario_producto_admin
 }

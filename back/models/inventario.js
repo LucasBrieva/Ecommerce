@@ -7,6 +7,7 @@ var InventarioSchema = Schema({
     producto: {type: Schema.ObjectId, ref: 'producto', required: true},
     cantidad: {type: Number, required: true},
     proveedor: {type: String, required: true},
+    tipo: {type: Boolean, required: true},
     admin: {type: Schema.ObjectId, ref: 'admin', required: true},
     createdAt: {type:Date, default: Date.now, required: true},
 });

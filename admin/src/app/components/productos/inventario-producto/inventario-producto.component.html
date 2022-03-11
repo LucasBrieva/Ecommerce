@@ -84,35 +84,43 @@
           <h4 class="modal-title">Cambio de stock</h4>
           <button class="close" type="button" data-dismiss="modal" aria-label="Close">x</button>
         </div>
-        <div class="modal-body">
-          <div class="row">
-            <div class="col-lg-4">
-              <div class="form-group">
-                <label for="">Proveedor</label>
-                <input type="text" required class="form-control">
-              </div>
-            </div>
-            <div class="col-lg-4">
-              <div class="form-group">
-                <label for="">Cantidad</label>
-                <input type="number" required class="form-control">
-              </div>
-            </div>
-            <div class="col-lg-4">
-              <div class="form-group">
-                <label for="">Tipo movimiento</label>
-                <div class="btn-group" role="group" aria-label="Solid button group">
-                  <button type="button" value="0" class="btn btn-success">Ingreso</button>
-                  <button type="button" value="1" class="btn btn-danger">Egreso</button>
+        <form #registroForm = "ngForm" (ngSubmit)="registro(registroForm)">
+          <div class="modal-body">
+            <div class="row">
+              <div class="col-lg-4">
+                <div class="form-group">
+                  <label for="">Proveedor</label>
+                  <input type="text" required class="form-control" name="proveedor" [(ngModel)]="inventario.proveedor">
                 </div>
               </div>
+              <div class="col-lg-4">
+                <div class="form-group">
+                  <label for="">Cantidad</label>
+                  <input type="number" required class="form-control" name="cantidad" [(ngModel)]="inventario.cantidad">
+                </div>
+              </div>
+              <div class="col-lg-4">
+                <div class="form-group">
+                  <label for="">Tipo movimiento</label>
+                  <div class="btn-group " data-toggle="buttons">
+                    <label class="btn btn-success btn-sm">
+                      <input type="radio" name="tipo" id="ingreso" value="true" name="tipo" [(ngModel)]="inventario.tipo"> Ingreso
+                    </label>
+                    <label class="btn btn-danger btn-sm">
+                      <input type="radio" name="tipo" id="egreso" value="false" name="tipo" [(ngModel)]="inventario.tipo"> Egreso
+                    </label>
+                  </div>
+                </div>
+              </div>
+              
+              
             </div>
-            
           </div>
-        </div>
-        <div class="modal-footer">
-          <button class="btn btn-secondary btn-sm" type="button" data-dismiss="modal">Cancelar</button>
-        </div>
+          <div class="modal-footer">
+            <button class="btn btn-primary mr-3" type="submit">Crear</button>
+            <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
+          </div>
+        </form>
       </div>
     </div>
   </div>
