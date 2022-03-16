@@ -23,7 +23,7 @@
 
   <div class="card box-shadow-sm" *ngIf="producto">
         <div class="card-header">
-            <h5 style="margin-bottom: 0px;"> <i class="fa fa-th-list mt-n1 align-middle"></i> Inventario de {{producto.titulo}}</h5>
+            <h5 style="margin-bottom: 0px;"> <i class="fa fa-th-list mt-n1 align-middle"></i> Inventario de <u>{{producto.titulo}}</u></h5>
         </div>
         <div class="card-header">
             
@@ -35,8 +35,8 @@
                     <tr>
                       <th>Admin</th>
                       <th>Cantidad</th>
-                      <th>Proveedor</th>
-                      <th>Opciones</th>
+                      <th>Descripción</th>
+                      <th>Movimiento</th>
                     </tr>
                   </thead>
                   <ng-container *ngIf="inventarios.length == 0">
@@ -60,6 +60,12 @@
                         </td>
                         <td>
                           {{item.proveedor}}
+                        </td>
+                        <td *ngIf="item.tipo">
+                          <span class="badge badge-success">Ingreso</span>
+                        </td>
+                        <td *ngIf="!item.tipo">
+                          <span class="badge badge-danger">Egreso</span>
                         </td>
                       </tr>
                     </tbody>
@@ -89,14 +95,14 @@
             <div class="row">
               <div class="col-lg-4">
                 <div class="form-group">
-                  <label for="">Proveedor</label>
+                  <label for="">Descripción</label>
                   <input type="text" required class="form-control" name="proveedor" [(ngModel)]="inventario.proveedor">
                 </div>
               </div>
               <div class="col-lg-4">
                 <div class="form-group">
                   <label for="">Cantidad</label>
-                  <input type="number" required class="form-control" name="cantidad" [(ngModel)]="inventario.cantidad">
+                  <input type="number" required min="1" class="form-control" name="cantidad" [(ngModel)]="inventario.cantidad">
                 </div>
               </div>
               <div class="col-lg-4">
@@ -104,7 +110,7 @@
                   <label for="">Tipo movimiento</label>
                   <div class="btn-group " data-toggle="buttons">
                     <label class="btn btn-success btn-sm">
-                      <input type="radio" name="tipo" id="ingreso" value="true" name="tipo" [(ngModel)]="inventario.tipo"> Ingreso
+                      <input type="radio" name="tipo" id="ingreso" value="true" name="tipo" [(ngModel)]="inventario.tipo" checked> Ingreso
                     </label>
                     <label class="btn btn-danger btn-sm">
                       <input type="radio" name="tipo" id="egreso" value="false" name="tipo" [(ngModel)]="inventario.tipo"> Egreso

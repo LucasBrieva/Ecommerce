@@ -66,7 +66,7 @@ export class InventarioProductoComponent implements OnInit {
   registro(registroForm : any){
     if(registroForm.valid){
         this.load_btn = true;
-        this.inventario.producto = this.producto;
+        this.inventario.producto = this.producto._id;
         this._productoService.registro_inventario_producto_admin(this.inventario, this.token).subscribe(
           response=>{
             iziToast.show({
@@ -88,7 +88,9 @@ export class InventarioProductoComponent implements OnInit {
               contenido:'',
             };
             this.load_btn = false;
-            this._router.navigate(['/panel/productos/inventario/' + this.producto._id]);
+            $('#newInventary').modal('hide');
+            $('.modal-backdrop').removeClass('show');
+            this.ngOnInit();
           },
           error=>{
             iziToast.show({
@@ -101,6 +103,8 @@ export class InventarioProductoComponent implements OnInit {
               messageColor:'#F4EDED'
             });
             this.load_btn = false;
+            $('#newInventary').modal('hide');
+            $('.modal-backdrop').removeClass('show');
           }
       );
 
@@ -115,6 +119,8 @@ export class InventarioProductoComponent implements OnInit {
         messageColor:'#F4EDED'
       });
       this.load_btn = false;
+      $('#newInventary').modal('hide');
+      $('.modal-backdrop').removeClass('show');
     }
   }
 }

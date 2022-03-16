@@ -23,11 +23,11 @@
                     </div>
                       <div class="col-lg-4 form-group">	
                           <label for="">Stock</label>
-                          <input type="number" class="form-control" placeholder="Cantidad inicial" required name="stock" [(ngModel)]="producto.stock">
+                          <input type="number" class="form-control" placeholder="Cantidad inicial" min="1" required name="stock" [(ngModel)]="producto.stock">
                       </div>
                       <div class="col-lg-4 form-group">	
                           <label for="">Precio</label>
-                          <input type="number" class="form-control" placeholder="Precio" required name="precio" [(ngModel)]="producto.precio">
+                          <input type="number" class="form-control" placeholder="Precio" min="1" required name="precio" [(ngModel)]="producto.precio">
                       </div>
                       <div class="col-lg-4 form-group">	
                           <label for="">Categoría</label>

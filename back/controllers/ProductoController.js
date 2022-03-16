@@ -185,17 +185,15 @@ const registro_inventario_producto_admin = async function(req, res){
     if(req.user){
         if(req.user.role == "Gerente general"){
             var data = req.body;
-            //Hago una conversión para poder guardar el producto y no tener que ir nuevamente a la bd.
-            let productoAux = data.producto;
-            data.producto = productoAux._id;
             //Seteo el admin
             data.admin = req.user.sub;
             //Creo el nuevo reg de inventario
             let reg = await Inventario.create(data);
+            //Voy a buscar el producto a la bd para obtener el stock
+            let prod = await Producto.findById({_id:reg.producto});
             //Verifico el tipo del registro, para saber si aumento o bajo el stock del producto.
-            console.log(data.tipo);
             var producto = await Producto.findByIdAndUpdate({_id: reg.producto._id},{
-                stock: data.tipo == "true"? Number.parseInt(productoAux.stock + data.cantidad) : Number.parseInt(productoAux.stock - data.cantidad),
+                stock: data.tipo == "true"? Number.parseInt(prod.stock + data.cantidad) : Number.parseInt(prod.stock - data.cantidad),
             });
             res.status(200).send({data: reg, producto:producto});
         }else{
