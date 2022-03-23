@@ -22,15 +22,15 @@ const registro_admin = async function(req, res){
                     res.status(200).send({data: reg});
                  }
                  else{
-                    res.status(200).send({message: 'ErrorServer',data: undefined});
+                    res.status(500).send({message: 'ErrorServer',data: undefined});
                  }
             });
         }else{
-            res.status(200).send({message: 'No hay una contraseña',data: undefined});
+            res.status(500).send({message: 'No hay una contraseña',data: undefined});
         }
     }
     else{
-        res.status(200).send({message: 'El correo ya existe en la base de datos',data: undefined});
+        res.status(500).send({message: 'El correo ya existe en la base de datos',data: undefined});
     }
     
 }

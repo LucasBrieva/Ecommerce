@@ -65,6 +65,8 @@ export class InventarioProductoComponent implements OnInit {
 
   registro(registroForm : any){
     if(registroForm.valid){
+      console.log(this.inventario.tipo);
+      if(this.inventario.tipo != undefined && this.inventario.tipo != ""){
         this.load_btn = true;
         this.inventario.producto = this.producto._id;
         this._productoService.registro_inventario_producto_admin(this.inventario, this.token).subscribe(
@@ -90,6 +92,7 @@ export class InventarioProductoComponent implements OnInit {
             this.load_btn = false;
             $('#newInventary').modal('hide');
             $('.modal-backdrop').removeClass('show');
+            $('.btns').removeClass('active');
             this.ngOnInit();
           },
           error=>{
@@ -106,8 +109,19 @@ export class InventarioProductoComponent implements OnInit {
             $('#newInventary').modal('hide');
             $('.modal-backdrop').removeClass('show');
           }
-      );
-
+        );
+      }
+      else{
+        iziToast.show({
+          title: 'ERROR',
+          titleColor:'#F4EDED',
+          backgroundColor:'#F54646',
+          class:'text-danger',
+          position: 'topRight',
+          message: 'Debe seleccionar un tipo de movimiento',
+          messageColor:'#F4EDED'
+        });
+      }
     }else{
       iziToast.show({
         title: 'ERROR',
