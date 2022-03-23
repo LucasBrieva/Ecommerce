@@ -1,6 +1,6 @@
 <header class="navbar navbar-expand navbar-light fixed-top navbar-box-shadow bg-light px-3 px-lg-4" data-scroll-header data-fixed-element>
-    <a class="navbar-brand d-lg-none" href="dev-setup.html">
-      <img src="assets/img/components/logo/logo-dark.svg" alt="Createx" width="130">
+    <a class="navbar-brand d-lg-none" >
+      <img src="assets/img/components/logo/logo-dark.svg" [routerLink] = "['/inicio']" alt="Createx" width="130">
     </a>
     <button class="navbar-toggler d-block d-lg-none mr-3 ml-auto" type="button" data-toggle="offcanvas" data-target="componentsNav">
       <span class="navbar-toggler-icon"></span>
@@ -20,7 +20,7 @@
 
   <aside class="cs-offcanvas cs-offcanvas-expand bg-dark" id="componentsNav">
     <div class="cs-offcanvas-cap d-none d-lg-block py-4">
-      <a class="navbar-brand py-2" href="dev-setup.html">
+      <a class="navbar-brand py-2" [routerLink] = "['/inicio']">
         <img src="assets/img/components/logo/logo-white.svg" alt="Createx" width="130">
       </a>
       <!--<span class="badge badge-warning">Docs</span>-->
@@ -45,6 +45,7 @@
         <a class="nav-link px-4" [routerLink] = "['/inicio']" routerLinkActive= "active" >Inicio</a>
         <a class="nav-link px-4" [routerLink]="['/panel/clientes']" routerLinkActive="active" >Clientes</a>
         <a class="nav-link px-4" [routerLink]="['/panel/productos']" routerLinkActive="active" >Productos</a>
+        <a class="nav-link px-4" [routerLink]="['/panel/cupones/registro']" routerLinkActive="active" >Cupones</a>
       </nav>
     </div>
   </aside>
