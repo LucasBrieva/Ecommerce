@@ -43,15 +43,12 @@ const listar_productos_filtro_admin = async function(req, res){
                 res.status(200).send({data:reg});
             }else{
                 if(tipo == 'titulo'){
-                    let reg = await Producto.find({titulo:new RegExp(filtro,'i')});
+                    let reg = await Producto.find({titulo:new RegExp(filtro,'i'), dadoBaja: new RegExp(false,'i')});
                     res.status(200).send({data:reg});
                 }else if(tipo == "codigo"){
-                    let reg = await Producto.find({codigo:new RegExp(filtro,'i')});
+                    let reg = await Producto.find({codigo:new RegExp(filtro,'i'), dadoBaja: new RegExp(false,'i')});
                     res.status(200).send({data:reg});
-                }/*else if(tipo == 'categoria'){
-                    let reg = await Producto.find({categoria:new RegExp(filtro,'i')});
-                    res.status(200).send({data:reg});
-                }*/
+                }
             }
         }else{
             res.status(500).send({message:'NoAccess'})

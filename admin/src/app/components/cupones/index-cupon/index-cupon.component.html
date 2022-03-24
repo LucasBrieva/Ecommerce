@@ -1,0 +1,95 @@
+<app-sidebar></app-sidebar>
+
+<!-- Page title-->
+<div class="border-bottom pt-5 mt-2 mb-5">
+    <h1 class="mt-2 mt-md-4 mb-3 pt-5">Cupones</h1>
+    <div class="d-flex flex-wrap flex-md-nowrap justify-content-between">
+      <p class="text-muted">Este módulo lista todos los cupones de la tienda.</p>
+      <p class="font-size-sm font-weight-medium pl-md-4">
+        <button class="btn btn-outline-primary mb-2 me-1" [routerLink]="['/panel/cupones/registro']" type="button">Nuevo</button>
+      </p>
+    </div>
+  </div>
+
+  <div class="card box-shadow-sm">
+        <div class="card-header">
+            <h5 style="margin-bottom: 0px;">Filtro de cupones</h5>
+        </div>
+        <div class="card-header">
+            <form class="form-inline">
+                <label class="sr-only" for="inline-form-input-name">Código</label>
+                <input class="form-control col-6 mb-3 mr-sm-6" (keyup) = "filtro('codigo')" name="filtro_codigo" [(ngModel)] = "filtro_codigo" type="text" id="inline-form-input-name" placeholder="Buscar por código">
+            </form>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                  <thead class="thead-dark">
+                    <tr>
+                      <th>Código</th>
+                      <th>Tipo</th>
+                      <th>Valor</th>
+                      <th>Límite</th>
+                      <th>Opciones</th>
+                    </tr>
+                  </thead>
+                  <tbody *ngIf="load_data">
+                    <tr>
+                      <td class="text-center" colspan="5">
+                        <div class="spinner-border text-danger m-2" role="status">
+                          <span class="visually-hidden"></span>
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                  <ng-container *ngIf="!load_data">
+                    <tbody *ngFor="let item of cupones | slice:(page - 1) * pageSize:(page-1)* pageSize+ pageSize; let indice = index">
+                      <tr>
+                        <td>{{item.codigo}}</td>
+                        <td>{{item.tipo}}</td>
+                        <td>{{item.valor}}</td>
+                        <td>{{item.limite}}</td>
+                        <td>
+                          <a type="button" class="btn btn-sm btn-outline-info rounded-pill btn-icon mr-2" [routerLink]="['/panel/productos',item._id]" >
+                            <i class="fa fa-pencil mt-n1 align-middle"></i>
+                          </a>
+                          <a type="button" class="btn btn-sm btn-outline-info rounded-pill btn-icon mr-2" [routerLink]="['/panel/productos/inventario',item._id]" >
+                            <i class="fa fa-th-list mt-n1 align-middle"></i>
+                          </a>
+                          <button style="cursor: pointer;" data-toggle="modal" [attr.data-target]="'#delete-'+item._id" type="button" class="btn btn-sm btn-outline-danger rounded-pill btn-icon">
+                            <i class="fa fa-trash mt-n1 align-middle"></i>
+                          </button>
+  
+                          <div class="modal fade" id="delete-{{item._id}}" tabindex="-1" style="display: none;" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered" role="document">
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  <h4 class="modal-title">Confirmación de eliminación</h4>
+                                  <button class="close" type="button" data-dismiss="modal" aria-label="Close">x</button>
+                                </div>
+                                <div class="modal-body">
+                                  <p class="fs-sm">Desea eliminar el producto <b>[{{item.codigo}}] - {{item.titulo}}</b>?</p>
+                                </div>
+                                <div class="modal-footer">
+                                  <button class="btn btn-secondary btn-sm" type="button" data-dismiss="modal">Cancelar</button>
+                                  <button class="btn btn-danger btn-sm"   type="button">Sí, eliminar</button>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          
+                        </td>
+                      </tr>
+                    </tbody>
+                  </ng-container>
+                </table>
+            </div>
+        </div>
+        <div class="card-footer">
+            <ngb-pagination
+              [(page)]="page"
+              [pageSize] = "pageSize"
+              [collectionSize]="cupones.length"
+            ></ngb-pagination>
+        </div>
+  </div>  
