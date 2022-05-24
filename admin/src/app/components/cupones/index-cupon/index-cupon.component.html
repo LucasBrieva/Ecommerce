@@ -30,6 +30,7 @@
                       <th>Tipo</th>
                       <th>Valor</th>
                       <th>Límite</th>
+                      <th>Vencimiento</th>
                       <th>Opciones</th>
                     </tr>
                   </thead>
@@ -46,9 +47,10 @@
                     <tbody *ngFor="let item of cupones | slice:(page - 1) * pageSize:(page-1)* pageSize+ pageSize; let indice = index">
                       <tr>
                         <td>{{item.codigo}}</td>
-                        <td>{{item.tipo}}</td>
+                        <td><span class="badge badge-primary">{{item.tipo? "Porcentaje" : "Fijo"}}</span></td>
                         <td>{{item.valor}}</td>
                         <td>{{item.limite}}</td>
+                        <td>{{item.vencimiento| date:'dd/MM/yyyy'}}</td>
                         <td>
                           <a type="button" class="btn btn-sm btn-outline-info rounded-pill btn-icon mr-2" [routerLink]="['/panel/productos',item._id]" >
                             <i class="fa fa-pencil mt-n1 align-middle"></i>

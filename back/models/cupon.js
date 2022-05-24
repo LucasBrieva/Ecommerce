@@ -8,7 +8,8 @@ var CuponSchema = Schema({
     codigo:{type: String, required:true},
     valor:{type: Number, required:true},
     limite:{type: Number, required:true},
-    tipo:{type: String, required:true}, //Porcentaje o Precio fijo
+    vencimiento:{type: Date, required:false},
+    tipo:{type: Boolean, required:true}, //Porcentaje = true o Precio fijo = false
 });
 
 module.exports= mongoose.model('cupon', CuponSchema);

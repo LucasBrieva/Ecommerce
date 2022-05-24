@@ -14,7 +14,7 @@ export class CreateCuponComponent implements OnInit {
   public token:any; 
 
   public cupon : any = {
-    tipo:''
+    tipo:'true'
   };
   public load_btn = false;
 
@@ -63,7 +63,7 @@ export class CreateCuponComponent implements OnInit {
         backgroundColor:'#F54646',
         class:'text-danger',
         position: 'topRight',
-        message: 'No se pudo crear el cupón',
+        message: 'Faltan datos para crear el cupón.',
         messageColor:'#F4EDED'
       });
       this.load_btn = false;
