@@ -53,18 +53,14 @@ export class IndexProductoComponent implements OnInit {
   }
 
   filtro(tipo:any){
+    debugger;
     if(tipo=="titulo"){
       if(this.filtro_titulo){
         this.metFiltro(tipo, this.filtro_titulo);
-      }else{
-        this.initData()
       }
-    }else if(tipo == "codigo"){
-      if(this.filtro_codigo){
-        this.metFiltro(tipo, this.filtro_codigo);
-      }else{
-        this.initData();
-      }
+    }
+    else{
+      this.initData()
     };
     /*else if(tipo == "apellido"){
       if(this.filtro_apellido){

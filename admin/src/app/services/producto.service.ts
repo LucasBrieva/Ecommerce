@@ -35,7 +35,7 @@ export class ProductoService {
 
   listar_productos_filtro_admin(tipo:any, filtro:any, token:any):Observable<any>{
     let headers = new HttpHeaders({'Content-Type':'application/json','Authorization': token});
-    return this._http.get(this.url+'listar_productos_filtro_admin/' + tipo + "/" + filtro, {headers:headers});
+    return this._http.get(this.url+'listar_productos_filtro_admin/' + filtro, {headers:headers});
   }
 
   obetener_producto_admin(id:any, token:any):Observable<any>{

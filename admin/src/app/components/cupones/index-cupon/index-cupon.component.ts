@@ -30,7 +30,7 @@ export class IndexCuponComponent implements OnInit {
     this.initData();
   }
   initData(){
-    this._cuponService.listar_cupones_filtro_admin(null, null, this.token).subscribe(
+    this._cuponService.listar_cupones_filtro_admin(this.filtro_codigo, this.token).subscribe(
       response => {
         this.cupones = response.data;
         this.load_data = false;
@@ -40,25 +40,7 @@ export class IndexCuponComponent implements OnInit {
       }
     )
   }
-  filtro(tipo:any){
-    if(tipo=="titulo"){
-      if(this.filtro_codigo){
-        this.metFiltro(tipo, this.filtro_codigo);
-      }else{
-        this.initData()
-      }
-    }
-  }
-  metFiltro(tipo: any, filtro: any){
-    this.load_data = true;
-    this._cuponService.listar_cupones_filtro_admin(tipo, filtro, this.token).subscribe(
-      response => {
-        this.cupones = response.data;
-        this.load_data = false;
-      },
-      error=>{
-        console.log(error);
-      }
-    )
+  filtrar(){
+        this.initData();
   }
 }

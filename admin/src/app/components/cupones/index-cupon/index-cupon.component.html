@@ -16,10 +16,16 @@
             <h5 style="margin-bottom: 0px;">Filtro de cupones</h5>
         </div>
         <div class="card-header">
-            <form class="form-inline">
-                <label class="sr-only" for="inline-form-input-name">Código</label>
-                <input class="form-control col-6 mb-3 mr-sm-6" (keyup) = "filtro('codigo')" name="filtro_codigo" [(ngModel)] = "filtro_codigo" type="text" id="inline-form-input-name" placeholder="Buscar por código">
-            </form>
+          <div class="row">
+            <div class="col-6">
+              <div class="input-group">
+                <input class="form-control" type="text" placeholder="Buscar por código" name="filtro_codigo" [(ngModel)]="filtro_codigo">
+                <div class="input-group-append">
+                  <button class="btn btn-primary" (click)="filtrar()" type="button">Filtrar</button>
+                </div>
+              </div>
+          </div>
+          </div>
         </div>
         <div class="card-body">
             <div class="table-responsive">

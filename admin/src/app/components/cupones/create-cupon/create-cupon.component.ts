@@ -30,6 +30,7 @@ export class CreateCuponComponent implements OnInit {
 
   registro(registroForm:any){
     if(registroForm.valid){
+      this.load_btn = true;
       this._cuponService.registro_cupon_admin(this.cupon, this.token).subscribe(
         response=>{
           iziToast.show({
@@ -53,7 +54,7 @@ export class CreateCuponComponent implements OnInit {
         },
         error=>{
           console.log(error);
-          
+          this.load_btn = false;
         }
       )
     }else{

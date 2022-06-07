@@ -42,11 +42,11 @@
                
                 <div class="col-lg-2 col-md-6 form-group">
                     <label class="form-label">Valor</label>
-                    <input class="form-control" type="number" placeholder="Valor del descuento" name="valor" [(ngModel)]="cupon.valor" required>
+                    <input class="form-control" type="number" min="1" placeholder="Valor del descuento" name="valor" [(ngModel)]="cupon.valor" required>
                 </div>
                 <div class="col-lg-2 col-md-6 form-group">
                     <label class="form-label">Límite</label>
-                    <input class="form-control" type="number" placeholder="Cantidad de cupones" name="limite" [(ngModel)]="cupon.limite" required>
+                    <input class="form-control" type="number" min="1" placeholder="Cantidad de cupones" name="limite" [(ngModel)]="cupon.limite" required>
                 </div>
                 <div class="col-lg-2 col-md-6 form-group">
                     <label class="form-label">Vencimiento</label>

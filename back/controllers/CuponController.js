@@ -20,17 +20,10 @@ const registro_cupon_admin = async function(req, res){
 const listar_cupones_filtro_admin = async function(req, res){
     if(req.user){
         if(req.user.role == "Gerente general"){
-            let tipo = req.params['tipo'];
             let filtro = req.params['filtro'];
-            if(tipo == null || tipo == 'null'){
-                let reg = await Cupon.find();
-                res.status(200).send({data:reg});
-            }else{
-                if(tipo == 'codigo'){
-                    let reg = await Cupon.find({codigo:new RegExp(filtro,'i')});
-                    res.status(200).send({data:reg});
-                }
-            }
+            console.log(req.params);
+            let reg = await Cupon.find({codigo: new RegExp(filtro, 'i')});
+            res.status(200).send({data:reg});
         }else{
             res.status(500).send({message:'NoAccess'})
         }
