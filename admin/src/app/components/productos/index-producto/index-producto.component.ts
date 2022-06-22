@@ -14,7 +14,7 @@ declare var $:any;
   styleUrls: ['./index-producto.component.css']
 })
 export class IndexProductoComponent implements OnInit {
-
+  
   public productos : Array<any> =[];
   public filtro_titulo = '';
   public filtro_codigo = '';
@@ -25,7 +25,10 @@ export class IndexProductoComponent implements OnInit {
   public page = 1;
   public pageSize = 10;
   public url:any; 
-  public producto:any = {};
+  public producto:any = {
+    titulo: "",
+    codigo: ""
+  };
 
   constructor(
     private _productoService : ProductoService,
@@ -41,7 +44,7 @@ export class IndexProductoComponent implements OnInit {
   }
 
   initData(){
-    this._productoService.listar_productos_filtro_admin(null, null, this.token).subscribe(
+    this._productoService.listar_productos_filtro_admin(this.producto, this.token).subscribe(
       response => {
         this.productos = response.data;
         this.load_data = false;
@@ -52,27 +55,17 @@ export class IndexProductoComponent implements OnInit {
     )
   }
 
-  filtro(tipo:any){
-    debugger;
-    if(tipo=="titulo"){
-      if(this.filtro_titulo){
-        this.metFiltro(tipo, this.filtro_titulo);
-      }
-    }
-    else{
-      this.initData()
-    };
-    /*else if(tipo == "apellido"){
-      if(this.filtro_apellido){
-        this.metFiltro(tipo, this.filtro_apellido)
-      }else{
-        this.initData()
-      }
-    }*/
+  filtrar(){
+    this.metFiltro(this.producto);
   }
-  metFiltro(tipo: any, filtro: any){
+  limpiarFiltro(){
+    this.producto.titulo = '';
+    this.producto.codigo = '';
+    this.metFiltro(this.producto);
+  }
+  metFiltro(filtro: any){
     this.load_data = true;
-    this._productoService.listar_productos_filtro_admin(tipo, filtro, this.token).subscribe(
+    this._productoService.listar_productos_filtro_admin(filtro, this.token).subscribe(
       response => {
         this.productos = response.data;
         this.load_data = false;

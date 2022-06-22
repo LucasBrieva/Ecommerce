@@ -16,17 +16,23 @@
             <h5 style="margin-bottom: 0px;">Filtro de productos</h5>
         </div>
         <div class="card-header">
-            <form class="form-inline pt-2">
-                <label class="sr-only" for="inline-form-input-name">Título</label>
-                <input class="form-control mb-3 mr-sm-4" (keyup) = "filtro('titulo')" name="filtro_titulo" [(ngModel)] = "filtro_titulo" type="text" id="inline-form-input-name" placeholder="Título">
-                <!-- <label class="sr-only" for="inline-form-input-name">Categoría</label>
-                <div class="btn-group dropdown d-inline-block mb-3 me-2">
-                    <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</button>
-                    <div class="dropdown-menu"><a class="dropdown-item" href="#">Action</a><a class="dropdown-item" href="#">Another action</a>
-                      <div class="dropdown-divider"></div>
-                      <a class="dropdown-item" href="#">Something else here</a>
-                    </div>
-                </div> -->
+            <form #filtroForm = "ngForm" (ngSubmit)="filtrar()">
+              <div class="row">
+                <div class="col-lg-3 form-group">	
+                  <label class="sr-only" for="inline-form-input-name">Título</label>
+                  <input class="form-control mb-3 mr-sm-4" id="filtro_titulo" name="filtro_titulo" [(ngModel)] = "producto.titulo" type="text" placeholder="Título">
+                </div>
+                <div class="col-lg-3 form-group">	
+                  <label class="sr-only" for="inline-form-input-name">Código</label>
+                  <input class="form-control mb-3 mr-sm-4" id="filtro_codigo" name="filtro_codigo" [(ngModel)] = "producto.codigo" type="text" placeholder="Código">
+                </div>
+              </div>
+              <div class="card-footer">
+                <div class="row justify-content-end">
+                    <button class="btn btn-primary mr-3" type="submit">Filtrar</button>
+                    <a (click)="limpiarFiltro()" class="btn btn-warning">Limpiar filtros</a>
+                </div>
+              </div>
             </form>
         </div>
         <div class="card-body">

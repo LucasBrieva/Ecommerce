@@ -36,20 +36,10 @@ const registro_producto_admin = async function(req, res){
 const listar_productos_filtro_admin = async function(req, res){
     if(req.user){
         if(req.user.role == "Gerente general"){
-            let tipo = req.params['tipo'];
-            let filtro = req.params['filtro'];
-            if(tipo == null || tipo == 'null'){
-                let reg = await Producto.find({dadoBaja: false});
-                res.status(200).send({data:reg});
-            }else{
-                if(tipo == 'titulo'){
-                    let reg = await Producto.find({titulo:new RegExp(filtro,'i'), dadoBaja: new RegExp(false,'i')});
-                    res.status(200).send({data:reg});
-                }else if(tipo == "codigo"){
-                    let reg = await Producto.find({codigo:new RegExp(filtro,'i'), dadoBaja: new RegExp(false,'i')});
-                    res.status(200).send({data:reg});
-                }
-            }
+            let data = req.body;
+            let reg = await Producto.find({titulo:new RegExp(data.titulo,'i'), codigo:new RegExp(data.codigo,'i'), dadoBaja: new RegExp(false,'i')});
+            res.status(200).send({data:reg});
+            
         }else{
             res.status(500).send({message:'NoAccess'})
         }

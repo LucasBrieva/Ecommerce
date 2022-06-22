@@ -22,7 +22,6 @@ export class CuponService {
   }
 
   listar_cupones_filtro_admin(filtro:any, token:any):Observable<any>{
-    debugger;
     let headers = new HttpHeaders({'Content-Type':'application/json','Authorization': token});
     return this._http.get(this.url+'listar_cupones_filtro_admin/' + filtro, {headers:headers});
   }

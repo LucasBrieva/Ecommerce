@@ -32,12 +32,10 @@ export class ProductoService {
 
     return this._http.post(this.url+'registro_producto_admin/', fd, {headers:headers});
   }
-
-  listar_productos_filtro_admin(tipo:any, filtro:any, token:any):Observable<any>{
+  listar_productos_filtro_admin(filtro:any, token:any):Observable<any>{
     let headers = new HttpHeaders({'Content-Type':'application/json','Authorization': token});
-    return this._http.get(this.url+'listar_productos_filtro_admin/' + filtro, {headers:headers});
+    return this._http.post(this.url+'listar_productos_filtro_admin/', filtro, {headers:headers});
   }
-
   obetener_producto_admin(id:any, token:any):Observable<any>{
     let headers = new HttpHeaders({'Content-Type':'application/json','Authorization': token});
     return this._http.get(this.url+'obetener_producto_admin/' + id, {headers:headers});

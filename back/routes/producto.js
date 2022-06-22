@@ -11,10 +11,10 @@ var path = multiparty({uploadDir:'./uploads/productos'})
 //Le paso el path porque le mando una imagen.
 api.post('/registro_producto_admin', [auth.auth, path], productoController.registro_producto_admin);
 api.post('/baja_producto_admin/:id', auth.auth, productoController.baja_producto_admin);
+api.post('/listar_productos_filtro_admin/', [auth.auth, path], productoController.listar_productos_filtro_admin);
 
 api.put('/actualizar_producto_admin/:id', [auth.auth, path], productoController.actualizar_producto_admin);
 
-api.get('/listar_productos_filtro_admin/:tipo/:filtro?', auth.auth, productoController.listar_productos_filtro_admin);
 api.get('/obtener_portada/:img', productoController.obtener_portada);
 api.get('/obetener_producto_admin/:id', auth.auth, productoController.obetener_producto_admin);
 
