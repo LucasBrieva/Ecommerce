@@ -104,7 +104,7 @@
               </ng-container>
             </div>
         </div>
-        <div class="card-footer">
+        <div class="card-footer" *ngIf="has_data">
             <ngb-pagination
               [(page)]="page"
               [pageSize] = "pageSize"

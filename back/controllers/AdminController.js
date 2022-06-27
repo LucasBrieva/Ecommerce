@@ -36,7 +36,6 @@ const registro_admin = async function(req, res){
 }
 
 const login_admin = async function(req, res){
-    debugger;
     var data = req.body;
     var admin_arr = [];
 

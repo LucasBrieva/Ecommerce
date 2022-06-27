@@ -57,7 +57,6 @@ export class EditCuponComponent implements OnInit {
 
   update(updateForm:any){
     if(updateForm.valid){
-      debugger;
       this.load_btn = true;
       this._cuponService.actualizar_cupon_admin(this.id, this.cupon, this.token).subscribe(
         response=>{

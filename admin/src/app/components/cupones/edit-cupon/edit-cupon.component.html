@@ -6,10 +6,10 @@
 
 <form #updateForm="ngForm" (ngSubmit)="update(updateForm)">
   <div class="card box-shadow-sm">
-        <div class="card-header">
+        <div class="card-header" *ngIf="cupon != undefined">
             <h5 style="margin-bottom: 0px;">Datos del cupón</h5>
         </div>
-        <div class="card-body">
+        <div class="card-body" *ngIf="cupon != undefined">
             <div class="row">
                 <div class="col-lg-3 col-md-6 form-group">
                     <!-- Inline radio buttons -->
@@ -51,6 +51,14 @@
                 <div class="col-lg-2 col-md-6 form-group">
                     <label class="form-label">Vencimiento</label>
                     <input class="form-control" type="date" id="vencimiento" name="vencimiento" [(ngModel)]="cupon.vencimiento">
+                </div>
+            </div>
+        </div>
+        <div class="card-body" *ngIf="cupon == undefined">
+            <h3 class="text-center">No se encontró el registro</h3>
+            <div class="row">
+                <div class="col-2 mx-auto">
+                    <img src="assets/img/advertencia.png" alt="" style="width: 100%;">
                 </div>
             </div>
         </div>

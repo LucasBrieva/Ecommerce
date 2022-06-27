@@ -39,7 +39,6 @@ export class LoginComponent implements OnInit {
         email: this.user.email,
         password: this.user.password
       }
-      debugger;
       this._adminService.login_admin(data).subscribe(
         response => {
           if(response.data == undefined){
