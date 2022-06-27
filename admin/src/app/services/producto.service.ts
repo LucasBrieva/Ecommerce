@@ -36,9 +36,9 @@ export class ProductoService {
     let headers = new HttpHeaders({'Content-Type':'application/json','Authorization': token});
     return this._http.post(this.url+'listar_productos_filtro_admin/', filtro, {headers:headers});
   }
-  obetener_producto_admin(id:any, token:any):Observable<any>{
+  obtener_producto_admin(id:any, token:any):Observable<any>{
     let headers = new HttpHeaders({'Content-Type':'application/json','Authorization': token});
-    return this._http.get(this.url+'obetener_producto_admin/' + id, {headers:headers});
+    return this._http.get(this.url+'obtener_producto_admin/' + id, {headers:headers});
   }
 
   actualizar_producto_admin(data:any, id:any, token:any):Observable<any>{
@@ -65,7 +65,7 @@ export class ProductoService {
 
   baja_producto_admin(id:any, token:any):Observable<any>{
     let headers = new HttpHeaders({'Content-Type':'application/json','Authorization': token});
-    return this._http.get(this.url+'baja_producto_admin/'+ id, {headers:headers});
+    return this._http.put(this.url+'baja_producto_admin/'+ id, null, {headers:headers});
   }
   
 

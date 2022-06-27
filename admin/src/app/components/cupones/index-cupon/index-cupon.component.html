@@ -86,16 +86,16 @@
                       </td>
                     </tr>
                   </tbody>
-                  <ng-container *ngIf="!load_data">
+                  <ng-container *ngIf="!load_data && has_data">
                     <tbody *ngFor="let item of cupones | slice:(page - 1) * pageSize:(page-1)* pageSize+ pageSize; let indice = index">
                       <tr>
                         <td>{{item.codigo}}</td>
                         <td><span class="badge badge-primary">{{item.tipo? "Porcentaje" : "Fijo"}}</span></td>
                         <td>{{item.valor}}</td>
                         <td>{{item.limite}}</td>
-                        <td>{{item.vencimiento| date:'dd/MM/yyyy'}}</td>
+                        <td>{{item.vencimiento| date:'dd/MM/yyyy':'+0'}}</td>
                         <td>
-                          <a type="button" class="btn btn-sm btn-outline-info rounded-pill btn-icon mr-2" [routerLink]="['/panel/productos',item._id]" >
+                          <a type="button" class="btn btn-sm btn-outline-info rounded-pill btn-icon mr-2" [routerLink]="['/panel/cupones',item._id]" >
                             <i class="fa fa-pencil mt-n1 align-middle"></i>
                           </a>
                           <a type="button" class="btn btn-sm btn-outline-info rounded-pill btn-icon mr-2" [routerLink]="['/panel/productos/inventario',item._id]" >
@@ -128,6 +128,9 @@
                     </tbody>
                   </ng-container>
                 </table>
+                <ng-container *ngIf="!has_data">
+                  <h3 class="text-center shadow-text">No hay cupones registrados</h3>
+              </ng-container>
             </div>
         </div>
         <div class="card-footer">

@@ -37,7 +37,7 @@ export class InventarioProductoComponent implements OnInit {
       params => {
         this.load_data = true;
         this.id = params['id'];
-        this._productoService.obetener_producto_admin(this.id, this.token).subscribe(
+        this._productoService.obtener_producto_admin(this.id, this.token).subscribe(
           response => {
             if(response.data == undefined){
               this.producto = undefined;

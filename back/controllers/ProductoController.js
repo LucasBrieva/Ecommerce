@@ -61,7 +61,7 @@ const obtener_portada = async function(req,res){
     });
 }
 
-const obetener_producto_admin = async function (req, res){
+const obtener_producto_admin = async function (req, res){
     if(req.user){
         if(req.user.role == "Gerente general"){
             var id = req.params['id'];
@@ -194,7 +194,7 @@ module.exports = {
     registro_producto_admin,
     listar_productos_filtro_admin,
     obtener_portada,
-    obetener_producto_admin,
+    obtener_producto_admin,
     actualizar_producto_admin,
     baja_producto_admin, 
     listar_inventario_producto_admin,

@@ -1,0 +1,68 @@
+<app-sidebar></app-sidebar>
+
+<div class="border-bottom pt-5 mt-2 mb-5">
+    <h1 class="mt-2 mt-md-4 mb-3 pt-5">Actualizar cupón</h1>
+</div>
+
+<form #updateForm="ngForm" (ngSubmit)="update(updateForm)">
+  <div class="card box-shadow-sm">
+        <div class="card-header">
+            <h5 style="margin-bottom: 0px;">Datos del cupón</h5>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-lg-3 col-md-6 form-group">
+                    <!-- Inline radio buttons -->
+                    <label class="form-label">Tipo</label>
+                    <div class="cntr">
+                        <label for="rdo-1" class="btn-radio cursor">
+                          <input type="radio" id="rdo-1" value="true" name="tipo" [(ngModel)]="cupon.tipo">
+                          <svg width="20px" height="20px" viewBox="0 0 20 20">
+                            <circle cx="10" cy="10" r="9"></circle>
+                            <path d="M10,7 C8.34314575,7 7,8.34314575 7,10 C7,11.6568542 8.34314575,13 10,13 C11.6568542,13 13,11.6568542 13,10 C13,8.34314575 11.6568542,7 10,7 Z" class="inner"></path>
+                            <path d="M10,1 L10,1 L10,1 C14.9705627,1 19,5.02943725 19,10 L19,10 L19,10 C19,14.9705627 14.9705627,19 10,19 L10,19 L10,19 C5.02943725,19 1,14.9705627 1,10 L1,10 L1,10 C1,5.02943725 5.02943725,1 10,1 L10,1 Z" class="outer"></path>
+                          </svg>
+                          <label for="rdo-1" class="cursor">Procentaje</label>
+                        </label>
+                        <label for="rdo-2" class="btn-radio cursor">
+                          <input type="radio" id="rdo-2" value="false" name="tipo" [(ngModel)]="cupon.tipo">
+                          <svg width="20px" height="20px" viewBox="0 0 20 20">
+                            <circle cx="10" cy="10" r="9"></circle>
+                            <path d="M10,7 C8.34314575,7 7,8.34314575 7,10 C7,11.6568542 8.34314575,13 10,13 C11.6568542,13 13,11.6568542 13,10 C13,8.34314575 11.6568542,7 10,7 Z" class="inner"></path>
+                            <path d="M10,1 L10,1 L10,1 C14.9705627,1 19,5.02943725 19,10 L19,10 L19,10 C19,14.9705627 14.9705627,19 10,19 L10,19 L10,19 C5.02943725,19 1,14.9705627 1,10 L1,10 L1,10 C1,5.02943725 5.02943725,1 10,1 L10,1 Z" class="outer"></path>
+                            </svg>
+                            <label for="rdo-2" class="cursor">Fijo</label>
+                        </label>
+                      </div>
+                </div>
+                <div class="col-lg-3 col-md-6 form-group">
+                    <label class="form-label">Código de cupón</label>
+                    <input class="form-control" type="text" placeholder="Código de cupón" name="codigo" [(ngModel)]="cupon.codigo" required>
+                </div>
+               
+                <div class="col-lg-2 col-md-6 form-group">
+                    <label class="form-label">Valor</label>
+                    <input class="form-control" type="number" min="1" placeholder="Valor del descuento" name="valor" [(ngModel)]="cupon.valor" required>
+                </div>
+                <div class="col-lg-2 col-md-6 form-group">
+                    <label class="form-label">Límite</label>
+                    <input class="form-control" type="number" min="1" placeholder="Cantidad de cupones" name="limite" [(ngModel)]="cupon.limite" required>
+                </div>
+                <div class="col-lg-2 col-md-6 form-group">
+                    <label class="form-label">Vencimiento</label>
+                    <input class="form-control" type="date" id="vencimiento" name="vencimiento" [(ngModel)]="cupon.vencimiento">
+                </div>
+            </div>
+        </div>
+        <div class="card-footer">
+            <button *ngIf="!load_btn" class="btn btn-primary mr-3" type="submit">Actualizar cupón</button>
+            <button *ngIf="load_btn" type="button" class="btn btn-secondary" disabled>
+                <span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+                Creando...
+            </button>
+            <a [routerLink]="['/panel/cupones']"  class="btn btn-warning">Regresar</a>
+        </div>
+  </div>    
+</form>
+
+

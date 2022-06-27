@@ -15,6 +15,7 @@ declare var $:any;
 export class IndexCuponComponent implements OnInit {
 
   public load_data = true;
+  public has_data=true;
   public page = 1;
   public pageSize = 10;
   public cupones : Array<any> =[];
@@ -39,6 +40,7 @@ export class IndexCuponComponent implements OnInit {
     this._cuponService.listar_cupones_filtro_admin(this.filtro, this.token).subscribe(
       response => {
         this.cupones = response.data;
+        this.has_data = this.cupones.length > 0;
         this.load_data = false;
       },
       error=>{
@@ -58,12 +60,12 @@ export class IndexCuponComponent implements OnInit {
     this._cuponService.baja_cupon_admin(id, this.token).subscribe(
       response=>{
         iziToast.show({
-          title: 'PRODUCTO DADO DE BAJA',
+          title: 'CUPÓN DADO DE BAJA',
           titleColor:'#FFF',
           backgroundColor:'#83DF4E',
           class:'text-danger',
           position: 'topRight',
-          message: 'El producto fue dado de baja correctamente',
+          message: 'El cupón fue dado de baja correctamente',
           messageColor:'#FFF'
         });
         $('#delete-'+id).modal('hide');
@@ -79,7 +81,7 @@ export class IndexCuponComponent implements OnInit {
           backgroundColor:'#F54646',
           class:'text-danger',
           position: 'topRight',
-          message: 'No se pudo dar de baja el producto',
+          message: 'No se pudo dar de baja el cupón',
           messageColor:'#F4EDED'
         });
         $('#delete-'+id).modal('hide');

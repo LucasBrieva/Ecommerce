@@ -26,9 +26,9 @@ export class ClienteService {
     return this._http.post(this.url+'registro_cliente_admin/', data, {headers:headers});
   }
 
-  obetener_cliente_admin(id:any, token:any):Observable<any>{
+  obtener_cliente_admin(id:any, token:any):Observable<any>{
     let headers = new HttpHeaders({'Content-Type':'application/json','Authorization': token});
-    return this._http.get(this.url+'obetener_cliente_admin/' + id, {headers:headers});
+    return this._http.get(this.url+'obtener_cliente_admin/' + id, {headers:headers});
   }
 
   actualizar_cliente_admin(id:any, data:any, token:any):Observable<any>{
@@ -36,9 +36,9 @@ export class ClienteService {
     return this._http.put(this.url+'actualizar_cliente_admin/'+ id, data, {headers:headers});
   }
 
-  baja_cliente_admin(id:any, data:any, token:any):Observable<any>{
+  baja_cliente_admin(id:any, token:any):Observable<any>{
     let headers = new HttpHeaders({'Content-Type':'application/json','Authorization': token});
-    return this._http.put(this.url+'baja_cliente_admin/'+ id, data,{headers:headers});
+    return this._http.put(this.url+'baja_cliente_admin/'+ id, null,{headers:headers});
   }
 
 }

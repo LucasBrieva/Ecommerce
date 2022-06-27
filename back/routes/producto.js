@@ -15,8 +15,8 @@ api.post('/listar_productos_filtro_admin/', [auth.auth, path], productoControlle
 api.put('/actualizar_producto_admin/:id', [auth.auth, path], productoController.actualizar_producto_admin);
 
 api.get('/obtener_portada/:img', productoController.obtener_portada);
-api.get('/obetener_producto_admin/:id', auth.auth, productoController.obetener_producto_admin);
-api.get('/baja_producto_admin/:id', auth.auth, productoController.baja_producto_admin);
+api.get('/obtener_producto_admin/:id', auth.auth, productoController.obtener_producto_admin);
+api.put('/baja_producto_admin/:id', auth.auth, productoController.baja_producto_admin);
 
 //INVENTARIO
 api.get('/listar_inventario_producto_admin/:id', auth.auth, productoController.listar_inventario_producto_admin);

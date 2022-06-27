@@ -13,7 +13,7 @@ api.post('/login_cliente', clienteController.login_cliente);
 api.post('/registro_cliente_admin', auth.auth, clienteController.registro_cliente_admin);
 api.post('/listar_clientes_filtro_admin/', [auth.auth, path], clienteController.listar_clientes_filtro_admin);
 
-api.get('/obetener_cliente_admin/:id', auth.auth, clienteController.obetener_cliente_admin);
+api.get('/obtener_cliente_admin/:id', auth.auth, clienteController.obtener_cliente_admin);
 
 api.put('/actualizar_cliente_admin/:id', auth.auth, clienteController.actualizar_cliente_admin);
 api.put('/baja_cliente_admin/:id', auth.auth, clienteController.baja_cliente_admin);

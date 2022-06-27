@@ -43,7 +43,7 @@ export class EditProductoComponent implements OnInit {
       params => {
         this.load_data = true;
         this.id = params['id'];
-        this._productoService.obetener_producto_admin(this.id, this.token).subscribe(
+        this._productoService.obtener_producto_admin(this.id, this.token).subscribe(
           response => {
             if(response.data == undefined){
               this.producto = undefined;
@@ -80,12 +80,12 @@ export class EditProductoComponent implements OnInit {
       this._productoService.actualizar_producto_admin(data, this.id, this.token).subscribe(
         response => {
           iziToast.show({
-            title: 'Producto editado',
+            title: 'Producto actualizado',
             titleColor:'#FFF',
             backgroundColor:'#83DF4E',
             class:'text-danger',
             position: 'topRight',
-            message: '[' + this.producto.codigo + '] ' + this.producto.titulo + ', fue editado correctamente',
+            message: '[' + this.producto.codigo + '] ' + this.producto.titulo + ', fue actualizado correctamente',
             messageColor:'#FFF'
           });
           this.load_btn = false;

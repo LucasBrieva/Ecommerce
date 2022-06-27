@@ -19,6 +19,7 @@ export class IndexProductoComponent implements OnInit {
   //public filtro_categoria = '';
 
   public load_data=true;
+  public has_data=true;
   public token: any;
   public page = 1;
   public pageSize = 10;
@@ -54,6 +55,7 @@ export class IndexProductoComponent implements OnInit {
     this._productoService.listar_productos_filtro_admin(this.filtro, this.token).subscribe(
       response => {
         this.productos = response.data;
+        this.has_data = this.productos.length > 0;
         this.load_data = false;
       },
       error=>{
@@ -63,7 +65,7 @@ export class IndexProductoComponent implements OnInit {
   }
   
   obtenerProducto(id:any){
-    this._productoService.obetener_producto_admin(id,this.token).subscribe(
+    this._productoService.obtener_producto_admin(id,this.token).subscribe(
       response =>{
         if(response.data == undefined){
           this.filtro = undefined;

@@ -1,43 +1,47 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AdminService } from 'src/app/services/admin.service';
-import { ClienteService } from 'src/app/services/cliente.service';
-
+import * as moment from 'moment';
+import { CuponService } from 'src/app/services/cupon.service';
 declare var iziToast: any;
+declare var jquery:any;
+declare var $:any;
 
 @Component({
-  selector: 'app-edit-cliente',
-  templateUrl: './edit-cliente.component.html',
-  styleUrls: ['./edit-cliente.component.css']
+  selector: 'app-edit-cupon',
+  templateUrl: './edit-cupon.component.html',
+  styleUrls: ['./edit-cupon.component.css']
 })
-export class EditClienteComponent implements OnInit {
-
-  public cliente:any = {};
+export class EditCuponComponent implements OnInit {
+  public token:any; 
   public id:any;
-  public token:any;
+  public cupon : any = {
+  };
   public load_btn = false;
   public load_data = true;
 
   constructor(
+    private _cuponService : CuponService,
     private _route : ActivatedRoute,
-    private _clienteService : ClienteService,
-    private _adminService : AdminService,
-    private _router : Router
+    private _router: Router
   ) {
-    this.token = this._adminService.getToken();
-    }
+    this.token = localStorage.getItem('token');
+   }
 
   ngOnInit(): void {
     this._route.params.subscribe(
       params =>{
         this.id = params['id'];
-        this._clienteService.obtener_cliente_admin(this.id,this.token).subscribe(
+
+        this._cuponService.obtener_cupon_admin(this.id,this.token).subscribe(
           response =>{
             if(response.data == undefined){
-              this.cliente = undefined;
+              this.cupon = undefined;
               this.load_data = false;
             }else{
-              this.cliente = response.data;
+              this.cupon = response.data;
+              //TODO: CHEQUEAR CON LUKE
+              this.cupon.tipo = response.data.tipo.toString();
+              this.cupon.vencimiento = moment(this.cupon.vencimiento).add('hours',4).format('yyyy-MM-DD');
               setTimeout(() => {
                 this.load_data = false;
               }, 2000);
@@ -51,22 +55,23 @@ export class EditClienteComponent implements OnInit {
     )
   }
 
-  actualizar(updateForm:any){
+  update(updateForm:any){
     if(updateForm.valid){
+      debugger;
       this.load_btn = true;
-      this._clienteService.actualizar_cliente_admin(this.id, this.cliente, this.token).subscribe(
+      this._cuponService.actualizar_cupon_admin(this.id, this.cupon, this.token).subscribe(
         response=>{
           iziToast.show({
-            title: 'Cliente actualizado',
+            title: 'Cupón actualizado',
             titleColor:'#FFF',
             backgroundColor:'#83DF4E',
             class:'text-danger',
             position: 'topRight',
-            message: 'Cliente, '+ this.cliente.nombres + " " + this.cliente.apellidos +', fue actualizado correctamente',
+            message: 'Cupón, '+ this.cupon.codigo +', fue actualizado correctamente',
             messageColor:'#FFF'
           });
           this.load_btn = false;
-          this._router.navigate(['/panel/clientes']);
+          this._router.navigate(['/panel/cupones']);
         },
         error => {
         }
@@ -78,7 +83,7 @@ export class EditClienteComponent implements OnInit {
         backgroundColor:'#F54646',
         class:'text-danger',
         position: 'topRight',
-        message: 'No se pudo actualizar el cliente',
+        message: 'No se pudo actualizar el cupón',
         messageColor:'#F4EDED'
       })
     }

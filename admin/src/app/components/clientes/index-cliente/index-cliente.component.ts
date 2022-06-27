@@ -20,6 +20,7 @@ export class IndexClienteComponent implements OnInit {
   public pageSize = 10;
   public token: any;
   public load_data=true;
+  public has_data=true;
   public filtro:any = {
     nombre: "",
     apellido: "",
@@ -50,6 +51,7 @@ export class IndexClienteComponent implements OnInit {
     this._clienteService.listar_clientes_filtro_admin(this.filtro, this.token).subscribe(
       response => {
         this.clientes = response.data;
+        this.has_data = this.clientes.length > 0;
         this.load_data = false;
       },
       error=>{
@@ -59,7 +61,7 @@ export class IndexClienteComponent implements OnInit {
   }
 
   obtenerCliente(id:any){
-    this._clienteService.obetener_cliente_admin(id,this.token).subscribe(
+    this._clienteService.obtener_cliente_admin(id,this.token).subscribe(
       response =>{
         if(response.data == undefined){
           this.cliente = undefined;
@@ -75,7 +77,7 @@ export class IndexClienteComponent implements OnInit {
 
   baja(id:any){
     this.obtenerCliente(id);
-    this._clienteService.baja_cliente_admin(id, this.cliente, this.token).subscribe(
+    this._clienteService.baja_cliente_admin(id, this.token).subscribe(
       response=>{
         iziToast.show({
           title: 'CLIENTE DADO DE BAJA',

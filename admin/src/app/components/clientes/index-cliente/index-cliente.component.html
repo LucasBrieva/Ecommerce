@@ -26,8 +26,11 @@
                 <label class="sr-only" for="inline-form-input-name">Apellido</label>
                 <input class="form-control" id="filtro_apellido" name="filtro_apellido" [(ngModel)] = "filtro.apellido" type="text" placeholder="Apellido">
               </div>
-              <div class="col-lg-3 form-group">	
+              <div class="col-lg-3 input-group form-group">	
                 <label class="sr-only" for="inline-form-input-name">Correo</label>
+                <div class="input-group-prepend">
+                  <div class="input-group-text">@</div>
+                  </div>
                 <input class="form-control" id="filtro_correo" name="filtro_correo" [(ngModel)] = "filtro.correo" type="text" placeholder="Correo">
               </div>
             </div>
@@ -59,7 +62,7 @@
                       </td>
                     </tr>
                   </tbody>
-                  <ng-container *ngIf="!load_data">
+                  <ng-container *ngIf="!load_data && has_data">
                     <tbody *ngFor="let item of clientes | slice:(page - 1) * pageSize:(page-1)* pageSize+ pageSize; let indice = index">
                       <tr>
                         <td>{{indice + 1}}</td>
@@ -96,6 +99,9 @@
                     </tbody>
                   </ng-container>
                 </table>
+                <ng-container *ngIf="!has_data">
+                  <h3 class="text-center shadow-text">No hay clientes registrados</h3>
+              </ng-container>
             </div>
         </div>
         <div class="card-footer">

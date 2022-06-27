@@ -60,7 +60,7 @@
                       </td>
                     </tr>
                   </tbody>
-                  <ng-container *ngIf="!load_data">
+                  <ng-container *ngIf="!load_data && has_data">
                     <tbody *ngFor="let item of productos | slice:(page - 1) * pageSize:(page-1)* pageSize+ pageSize; let indice = index">
                       <tr>
                         <td>{{indice + 1}}</td>
@@ -109,6 +109,9 @@
                     </tbody>
                   </ng-container>
                 </table>
+                <ng-container *ngIf="!has_data">
+                    <h3 class="text-center shadow-text">No hay productos registrados</h3>
+                </ng-container>
             </div>
         </div>
         <div class="card-footer">

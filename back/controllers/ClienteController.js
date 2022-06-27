@@ -96,7 +96,7 @@ const registro_cliente_admin = async function(req, res){
     }
 }
 
-const obetener_cliente_admin = async function (req, res){
+const obtener_cliente_admin = async function (req, res){
     if(req.user){
         if(req.user.role == "Gerente general"){
             var id = req.params['id'];
@@ -141,15 +141,7 @@ const baja_cliente_admin = async function(req, res){
     if(req.user){
         if(req.user.role == "Gerente general"){
             var id = req.params['id'];
-            var data = req.body;
             var reg = await Cliente.findByIdAndUpdate({_id:id},{
-                nombres: data.nombres,
-                apellidos: data.apellidos,
-                email:data.email,
-                telefono: data.telefono,
-                f_nacimiento: data.f_nacimiento,
-                genero: data.genero,
-                dni: data.dni,
                 dadoBaja: true
             });
             res.status(200).send({data:reg});
@@ -166,7 +158,7 @@ module.exports = {
     login_cliente,
     listar_clientes_filtro_admin,
     registro_cliente_admin,
-    obetener_cliente_admin,
+    obtener_cliente_admin,
     actualizar_cliente_admin,
     baja_cliente_admin
 }
