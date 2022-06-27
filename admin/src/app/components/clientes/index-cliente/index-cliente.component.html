@@ -16,19 +16,28 @@
             <h5 style="margin-bottom: 0px;">Filtro de clientes</h5>
         </div>
         <div class="card-header">
-            <form class="form-inline pt-2">
+          <form #filtroForm = "ngForm" (ngSubmit)="filtrar()">
+            <div class="row">
+              <div class="col-lg-3 form-group">	
                 <label class="sr-only" for="inline-form-input-name">Nombre</label>
-                <input class="form-control mb-3 mr-sm-4" (keyup) = "filtro('nombre')" name="filtro_nombre" [(ngModel)] = "filtro_nombre" type="text" id="inline-form-input-name" placeholder="Nombre">
-                <!--<label class="sr-only" for="inline-form-input-name">Apellido</label>
-                <input class="form-control mb-3 mr-sm-4" (keyup) = "filtro('apellido')" name="filtro_apellido" [(ngModel)] = "filtro_apellido" type="text" id="inline-form-input-name" placeholder="Apellido">
-                <label class="sr-only" for="inline-form-input-username">Correo</label>
-                <div class="input-group mb-3 mr-sm-4">
-                <div class="input-group-prepend">
-                    <div class="input-group-text">@</div>
-                </div>
-                  <input class="form-control" type="text" (keyup) = "filtro('correo')" name="filtro_correo" [(ngModel)] = "filtro_correo" placeholder="Correo">
-                </div>-->
-            </form>
+                <input class="form-control" id="filtro_nombre" name="filtro_nombre" [(ngModel)] = "filtro.nombre" type="text" placeholder="Nombre">
+              </div>
+              <div class="col-lg-3 form-group">	
+                <label class="sr-only" for="inline-form-input-name">Apellido</label>
+                <input class="form-control" id="filtro_apellido" name="filtro_apellido" [(ngModel)] = "filtro.apellido" type="text" placeholder="Apellido">
+              </div>
+              <div class="col-lg-3 form-group">	
+                <label class="sr-only" for="inline-form-input-name">Correo</label>
+                <input class="form-control" id="filtro_correo" name="filtro_correo" [(ngModel)] = "filtro.correo" type="text" placeholder="Correo">
+              </div>
+            </div>
+            <div class="card-footer">
+              <div class="row justify-content-end">
+                  <button class="btn btn-outline-primary mr-3" type="submit">Filtrar</button>
+                  <a (click)="limpiarFiltro()" class="btn btn-outline-warning">Limpiar filtros</a>
+              </div>
+            </div>
+          </form>
         </div>
         <div class="card-body">
             <div class="table-responsive">

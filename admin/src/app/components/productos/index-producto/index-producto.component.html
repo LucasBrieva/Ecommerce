@@ -20,17 +20,17 @@
               <div class="row">
                 <div class="col-lg-3 form-group">	
                   <label class="sr-only" for="inline-form-input-name">Título</label>
-                  <input class="form-control mb-3 mr-sm-4" id="filtro_titulo" name="filtro_titulo" [(ngModel)] = "producto.titulo" type="text" placeholder="Título">
+                  <input class="form-control" id="filtro_titulo" name="filtro_titulo" [(ngModel)] = "filtro.titulo" type="text" placeholder="Título">
                 </div>
                 <div class="col-lg-3 form-group">	
                   <label class="sr-only" for="inline-form-input-name">Código</label>
-                  <input class="form-control mb-3 mr-sm-4" id="filtro_codigo" name="filtro_codigo" [(ngModel)] = "producto.codigo" type="text" placeholder="Código">
+                  <input class="form-control" id="filtro_codigo" name="filtro_codigo" [(ngModel)] = "filtro.codigo" type="text" placeholder="Código">
                 </div>
               </div>
               <div class="card-footer">
                 <div class="row justify-content-end">
-                    <button class="btn btn-primary mr-3" type="submit">Filtrar</button>
-                    <a (click)="limpiarFiltro()" class="btn btn-warning">Limpiar filtros</a>
+                    <button class="btn btn-outline-primary mr-3" type="submit">Filtrar</button>
+                    <a (click)="limpiarFiltro()" class="btn btn-outline-warning">Limpiar filtros</a>
                 </div>
               </div>
             </form>

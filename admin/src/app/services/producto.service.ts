@@ -65,7 +65,7 @@ export class ProductoService {
 
   baja_producto_admin(id:any, token:any):Observable<any>{
     let headers = new HttpHeaders({'Content-Type':'application/json','Authorization': token});
-    return this._http.post(this.url+'baja_producto_admin/'+ id, null,{headers:headers});
+    return this._http.get(this.url+'baja_producto_admin/'+ id, {headers:headers});
   }
   
 

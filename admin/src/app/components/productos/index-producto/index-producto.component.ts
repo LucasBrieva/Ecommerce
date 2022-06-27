@@ -16,8 +16,6 @@ declare var $:any;
 export class IndexProductoComponent implements OnInit {
   
   public productos : Array<any> =[];
-  public filtro_titulo = '';
-  public filtro_codigo = '';
   //public filtro_categoria = '';
 
   public load_data=true;
@@ -25,7 +23,7 @@ export class IndexProductoComponent implements OnInit {
   public page = 1;
   public pageSize = 10;
   public url:any; 
-  public producto:any = {
+  public filtro:any = {
     titulo: "",
     codigo: ""
   };
@@ -40,32 +38,20 @@ export class IndexProductoComponent implements OnInit {
    }
 
   ngOnInit(): void {
-    this.initData();
-  }
-
-  initData(){
-    this._productoService.listar_productos_filtro_admin(this.producto, this.token).subscribe(
-      response => {
-        this.productos = response.data;
-        this.load_data = false;
-      },
-      error=>{
-        console.log(error);
-      }
-    )
+    this.metFiltro();
   }
 
   filtrar(){
-    this.metFiltro(this.producto);
+    this.metFiltro();
   }
   limpiarFiltro(){
-    this.producto.titulo = '';
-    this.producto.codigo = '';
-    this.metFiltro(this.producto);
+    this.filtro.titulo = '';
+    this.filtro.codigo = '';
+    this.metFiltro();
   }
-  metFiltro(filtro: any){
+  metFiltro(){
     this.load_data = true;
-    this._productoService.listar_productos_filtro_admin(filtro, this.token).subscribe(
+    this._productoService.listar_productos_filtro_admin(this.filtro, this.token).subscribe(
       response => {
         this.productos = response.data;
         this.load_data = false;
@@ -80,9 +66,9 @@ export class IndexProductoComponent implements OnInit {
     this._productoService.obetener_producto_admin(id,this.token).subscribe(
       response =>{
         if(response.data == undefined){
-          this.producto = undefined;
+          this.filtro = undefined;
         }else{
-          this.producto = response.data;
+          this.filtro = response.data;
         }
       },
       error =>{
@@ -105,7 +91,7 @@ export class IndexProductoComponent implements OnInit {
         });
         $('#delete-'+id).modal('hide');
         $('.modal-backdrop').removeClass('show');
-        this.initData();
+        this.metFiltro();
       },
       error=>{
         console.log(error);

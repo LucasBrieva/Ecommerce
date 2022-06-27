@@ -14,16 +14,17 @@ declare var $:any;
 export class IndexClienteComponent implements OnInit {
 
   public clientes : Array<any> =[];
-  public filtro_nombre = '';
-  public filtro_apellido = '';
-  public filtro_correo = '';
-  public cliente:any = {};
+  public cliente : any ={};
 
   public page = 1;
   public pageSize = 10;
   public token: any;
   public load_data=true;
-
+  public filtro:any = {
+    nombre: "",
+    apellido: "",
+    correo: "",
+  };
   constructor(
     private _clienteService : ClienteService,
     private _adminService : AdminService
@@ -32,50 +33,27 @@ export class IndexClienteComponent implements OnInit {
    }
 
   ngOnInit(): void {
-    this.initData();
+    this.metFiltro();
   }
 
-  initData(){
-    this._clienteService.listar_clientes_filtro_admin(null, null, this.token).subscribe(
-      response => {
-        this.clientes = response.data;
-        this.load_data = false;
-      },
-      error=>{
-      }
-    )
+  filtrar(){
+    this.metFiltro();
   }
-
-  filtro(tipo:any){
-    if(tipo=="nombre"){
-      if(this.filtro_nombre){
-        this.metFiltro(tipo, this.filtro_nombre);
-      }else{
-        this.initData()
-      }
-    }else if(tipo == "correo"){
-      if(this.filtro_correo){
-        this.metFiltro(tipo, this.filtro_correo)
-      }else{
-        this.initData()
-      }
-    }
-    else if(tipo == "apellido"){
-      if(this.filtro_apellido){
-        this.metFiltro(tipo, this.filtro_apellido)
-      }else{
-        this.initData()
-      }
-    }
+  limpiarFiltro(){
+    this.filtro.nombre = '';
+    this.filtro.apellido = '';
+    this.filtro.correo = '';
+    this.metFiltro();
   }
-  metFiltro(tipo: any, filtro: any){
+  metFiltro(){
     this.load_data = true;
-    this._clienteService.listar_clientes_filtro_admin(tipo, filtro, this.token).subscribe(
+    this._clienteService.listar_clientes_filtro_admin(this.filtro, this.token).subscribe(
       response => {
         this.clientes = response.data;
         this.load_data = false;
       },
       error=>{
+        console.log(error);
       }
     )
   }
@@ -110,7 +88,7 @@ export class IndexClienteComponent implements OnInit {
         });
         $('#delete-'+id).modal('hide');
         $('.modal-backdrop').removeClass('show');
-        this.initData();
+        this.metFiltro();
       },
       error=>{
         iziToast.show({

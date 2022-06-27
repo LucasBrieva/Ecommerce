@@ -23,6 +23,11 @@ export class CuponService {
 
   listar_cupones_filtro_admin(filtro:any, token:any):Observable<any>{
     let headers = new HttpHeaders({'Content-Type':'application/json','Authorization': token});
-    return this._http.get(this.url+'listar_cupones_filtro_admin/' + filtro, {headers:headers});
+    return this._http.post(this.url+'listar_cupones_filtro_admin/', filtro, {headers:headers});
+  }
+
+  baja_cupon_admin(id:any, token:any):Observable<any>{
+    let headers = new HttpHeaders({'Content-Type':'application/json','Authorization': token});
+    return this._http.get(this.url+'baja_producto_admin/'+ id, {headers:headers});
   }
 }

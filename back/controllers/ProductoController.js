@@ -140,7 +140,6 @@ const baja_producto_admin = async function(req, res){
     if(req.user){
         if(req.user.role == "Gerente general"){
             var id = req.params['id'];
-            console.log(id);
             var reg = await Producto.findByIdAndUpdate({_id:id},{
                 dadoBaja: true
             });

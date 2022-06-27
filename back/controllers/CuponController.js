@@ -16,14 +16,19 @@ const registro_cupon_admin = async function(req, res){
         res.status(500).send({message:'NoAccess'})
     }
 }
-
 const listar_cupones_filtro_admin = async function(req, res){
     if(req.user){
         if(req.user.role == "Gerente general"){
-            let filtro = req.params['filtro'];
-            console.log(req.params);
-            let reg = await Cupon.find({codigo: new RegExp(filtro, 'i')});
-            res.status(200).send({data:reg});
+            let data = req.body;
+            if(data.tipo != ""){
+                let reg = await Cupon.find({tipo:data.tipo, codigo:new RegExp(data.codigo,'i'), dadoBaja: false});
+                res.status(200).send({data:reg});
+            }
+            else{
+                let reg = await Cupon.find({codigo:new RegExp(data.codigo,'i'), dadoBaja: false});
+                res.status(200).send({data:reg});
+            }
+            
         }else{
             res.status(500).send({message:'NoAccess'})
         }

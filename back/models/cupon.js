@@ -9,6 +9,7 @@ var CuponSchema = Schema({
     valor:{type: Number, required:true},
     limite:{type: Number, required:true},
     vencimiento:{type: Date, required:false},
+    dadoBaja:{type:Boolean, required: true, default: false},
     tipo:{type: Boolean, required:true}, //Porcentaje = true o Precio fijo = false
 });
 

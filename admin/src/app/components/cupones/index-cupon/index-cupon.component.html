@@ -16,16 +16,53 @@
             <h5 style="margin-bottom: 0px;">Filtro de cupones</h5>
         </div>
         <div class="card-header">
-          <div class="row">
-            <div class="col-6">
-              <div class="input-group">
-                <input class="form-control" type="text" placeholder="Buscar por código" name="filtro_codigo" [(ngModel)]="filtro_codigo">
-                <div class="input-group-append">
-                  <button class="btn btn-primary" (click)="filtrar()" type="button">Filtrar</button>
-                </div>
+          <form #filtroForm = "ngForm" (ngSubmit)="filtrar()">
+            <div class="row">
+              <div class="col-lg-3 form-group">	
+                <label class="sr-only" for="inline-form-input-name">Código</label>
+                <input class="form-control" id="filtro_codigo" name="filtro_codigo" [(ngModel)] = "filtro.codigo" type="text" placeholder="Código">
               </div>
-          </div>
-          </div>
+              <div class="col-lg-5 col-md-6 form-group">
+                <!-- Inline radio buttons -->
+                <label class="sr-only">Tipo</label>
+                <div class="cntr">
+                    <label for="rdo-1" class="btn-radio cursor">
+                      <input type="radio" id="rdo-1" value="" name="tipo" [(ngModel)]="filtro.tipo">
+                      <svg width="20px" height="20px" viewBox="0 0 20 20">
+                        <circle cx="10" cy="10" r="9"></circle>
+                        <path d="M10,7 C8.34314575,7 7,8.34314575 7,10 C7,11.6568542 8.34314575,13 10,13 C11.6568542,13 13,11.6568542 13,10 C13,8.34314575 11.6568542,7 10,7 Z" class="inner"></path>
+                        <path d="M10,1 L10,1 L10,1 C14.9705627,1 19,5.02943725 19,10 L19,10 L19,10 C19,14.9705627 14.9705627,19 10,19 L10,19 L10,19 C5.02943725,19 1,14.9705627 1,10 L1,10 L1,10 C1,5.02943725 5.02943725,1 10,1 L10,1 Z" class="outer"></path>
+                      </svg>
+                      <label for="rdo-1" class="cursor">Todos</label>
+                    </label>
+                      <label for="rdo-2" class="btn-radio cursor">
+                        <input type="radio" id="rdo-2" value="true" name="tipo" [(ngModel)]="filtro.tipo">
+                        <svg width="20px" height="20px" viewBox="0 0 20 20">
+                          <circle cx="10" cy="10" r="9"></circle>
+                          <path d="M10,7 C8.34314575,7 7,8.34314575 7,10 C7,11.6568542 8.34314575,13 10,13 C11.6568542,13 13,11.6568542 13,10 C13,8.34314575 11.6568542,7 10,7 Z" class="inner"></path>
+                          <path d="M10,1 L10,1 L10,1 C14.9705627,1 19,5.02943725 19,10 L19,10 L19,10 C19,14.9705627 14.9705627,19 10,19 L10,19 L10,19 C5.02943725,19 1,14.9705627 1,10 L1,10 L1,10 C1,5.02943725 5.02943725,1 10,1 L10,1 Z" class="outer"></path>
+                        </svg>
+                        <label for="rdo-2" class="cursor">Procentaje</label>
+                      </label>
+                      <label for="rdo-3" class="btn-radio cursor">
+                        <input type="radio" id="rdo-3" value="false" name="tipo" [(ngModel)]="filtro.tipo">
+                        <svg width="20px" height="20px" viewBox="0 0 20 20">
+                        <circle cx="10" cy="10" r="9"></circle>
+                        <path d="M10,7 C8.34314575,7 7,8.34314575 7,10 C7,11.6568542 8.34314575,13 10,13 C11.6568542,13 13,11.6568542 13,10 C13,8.34314575 11.6568542,7 10,7 Z" class="inner"></path>
+                        <path d="M10,1 L10,1 L10,1 C14.9705627,1 19,5.02943725 19,10 L19,10 L19,10 C19,14.9705627 14.9705627,19 10,19 L10,19 L10,19 C5.02943725,19 1,14.9705627 1,10 L1,10 L1,10 C1,5.02943725 5.02943725,1 10,1 L10,1 Z" class="outer"></path>
+                        </svg>
+                        <label for="rdo-3" class="cursor">Fijo</label>
+                    </label>
+                  </div>
+            </div>  
+          </div>  
+            <div class="card-footer">
+              <div class="row justify-content-end">
+                  <button class="btn btn-outline-primary mr-3" type="submit">Filtrar</button>
+                  <a (click)="limpiarFiltro()" class="btn btn-outline-warning">Limpiar filtros</a>
+              </div>
+            </div>
+          </form>
         </div>
         <div class="card-body">
             <div class="table-responsive">

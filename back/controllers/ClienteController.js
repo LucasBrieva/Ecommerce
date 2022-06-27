@@ -33,37 +33,19 @@ const registro_cliente = async function(req, res){
     }
     
 }
-
 const listar_clientes_filtro_admin = async function(req, res){
-
     if(req.user){
-        if(req.user.role == 'Gerente general' ){
-            let tipo = req.params['tipo'];
-            let filtro = req.params['filtro'];
+        if(req.user.role == "Gerente general"){
+            let data = req.body;
+            let reg = await Cliente.find({nombres:new RegExp(data.nombre,'i'),email:new RegExp(data.correo,'i'), apellidos:new RegExp(data.apellido,'i'),dadoBaja: false});
+            res.status(200).send({data:reg});
         
-            if(tipo == null || tipo == 'null'){
-                let reg = await Cliente.find({dadoBaja: false});
-                res.status(200).send({data:reg});
-            }else{
-                if(tipo == 'nombre'){
-                    let reg = await Cliente.find({nombres:new RegExp(filtro,'i'), dadoBaja: new RegExp(false,'i')});
-                    res.status(200).send({data:reg});
-                }else if(tipo == 'correo'){
-                    let reg = await Cliente.find({email:new RegExp(filtro,'i'), dadoBaja: new RegExp(false,'i')});
-                    res.status(200).send({data:reg});
-                }
-                else if(tipo == 'apellido'){
-                    let reg = await Cliente.find({apellidos:new RegExp(filtro,'i'), dadoBaja: new RegExp(false,'i')});
-                    res.status(200).send({data:reg});
-                }
-            }
         }else{
             res.status(500).send({message:'NoAccess'})
         }
     }else{
         res.status(500).send({message:'NoAccess'})
     }
-    
 }
 
 const login_cliente = async function(req, res){
