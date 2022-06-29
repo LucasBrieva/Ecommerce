@@ -15,91 +15,97 @@
     </div>
 
     <div class="card-body">
-      <div style="max-width: 48rem;">
-        <div class="form-group row align-items-center">
-          <label class="col-md-3 col-form-label font-weight-medium" for="text-input">Nombre de la tienda</label>
-          <div class="col-md-9">
-            <input class="form-control" required type="text" id="text-input" name="razonSocial" [(ngModel)]="config.razonSocial">
-          </div>
-        </div>
-        <div class="form-group row align-items-center">
-          <label class="col-md-3 col-form-label font-weight-medium" for="text-input">Facturación</label>
-          <div class="col-md-4">
-            <input class="form-control" required type="number" id="text-input" name="nSerie" [(ngModel)]="config.nSerie">
-          </div>
-          <div class="col-md-5">
-            <input class="form-control" required type="number" id="text-input" name="correlativo" [(ngModel)]="config.correlativo">
-          </div>
-        </div>
-        <div class="form-group row align-items-center">
-          <label class="col-md-3 col-form-label font-weight-medium" for="text-input">Categorías</label>
-          <div class="col-md-4">
-            <input class="form-control" type="text" id="text-input" placeholder="Titulo" name="titulo_cat" [(ngModel)]="titulo_cat">
-
-          </div>
-          <div class="col-md-5">
-            <input class="form-control" type="text" id="text-input" placeholder="Icono" name="icono_cat" [(ngModel)]="icono_cat">
-          </div>
-          <div class="col-md-3">
-
-          </div>
-          <div class="col-md-9">
-            <a style="cursor: pointer;" (click)="agregar_cat()" class="mb-5">Agregar</a>
-            <div class="table-responsive mt-3">
-              <table class="table table-sm" *ngIf="config.categorias">
-                <thead class="thead-dark">
-                  <tr>
-
-                    <th>Categoria</th>
-                    <th>Icono</th>
-                    <th></th>
-
-                  </tr>
-                </thead>
-                <ng-container *ngIf="config.categorias.length == 0">
-                  <tbody>
-                    <tr>
-                      <td class="text-center" colspan="2">
-                        <span class="text-muted">No hay categorías disponibles</span>
-                      </td>
-                    </tr>
-                  </tbody>
-                </ng-container>
-
-                <ng-container *ngIf="config.categorias.length > 0">
-                  <tbody *ngFor="let item of config.categorias; let indice = index">
-                    <tr>
-                      <td>
-                        {{item.titulo}}
-                      </td>
-                      <td>
-                        <i class="{{item.icono}}"></i> - {{item.icono}}
-                      </td>
-                      <td>
-                        <a class="text-danger" style="cursor:pointer" (click)="eliminar_categoria(indice)"><i class="fa fa-times" aria-hidden="true"></i></a>
-                      </td>
-                    </tr>
-                  </tbody>
-                </ng-container>
-              </table>
+      <div style="max-width: 100rem;">
+        <div class="row">
+        <div class="col-lg-8">
+          <div class="form-group row align-items-center">
+            <label class="col-md-3 col-form-label font-weight-medium" for="text-input">Nombre de la tienda</label>
+            <div class="col-md-9">
+              <input class="form-control" required type="text" id="text-input" name="razonSocial" [(ngModel)]="config.razonSocial">
             </div>
           </div>
+          <div class="form-group row align-items-center">
+            <label class="col-md-3 col-form-label font-weight-medium" for="text-input">Facturación</label>
+            <div class="col-md-4">
+              <input class="form-control" required type="number" id="text-input" name="nSerie" [(ngModel)]="config.nSerie">
+            </div>
+            <div class="col-md-5">
+              <input class="form-control" required type="number" id="text-input" name="correlativo" [(ngModel)]="config.correlativo">
+            </div>
+          </div>
+          <div class="form-group row align-items-center">
+            <label class="col-md-3 col-form-label font-weight-medium" for="text-input">Categorías</label>
+            <div class="col-md-4">
+              <input class="form-control" type="text" id="text-input" placeholder="Titulo" name="titulo_cat" [(ngModel)]="titulo_cat">
 
-        </div>
-        <div class="form-group row align-items-center">
-          <label class="col-md-3 col-form-label font-weight-medium" for="file-input">Logo</label>
-          <div class="col-md-9">
-            <div class="cs-file-drop-area">
-              <div class="cs-file-drop-preview img-thumbnail rounded">
-                <img [src]="imgSelect">
+            </div>
+            <div class="col-md-5">
+              <input class="form-control" type="text" id="text-input" placeholder="Icono" name="icono_cat" [(ngModel)]="icono_cat">
+            </div>
+            <div class="col-md-3">
+            </div>
+            <div class="col-md-9">
+              <div class="row justify-content-end col">
+                <button (click)="agregar_cat()" class="btn btn-success mt-2">Agregar</button>
               </div>
-              <span class="cs-file-drop-message">Arrastrar imagen o subir imagen</span>
-              <input type="file" class="cs-file-drop-input" (change)="fileChangeEvent($event)">
-            </div>
-          </div>
+              <div class="table-responsive mt-3">
+                <table class="table table-sm" *ngIf="config.categorias">
+                  <thead class="thead-dark">
+                    <tr>
 
+                      <th>Categoria</th>
+                      <th>Icono</th>
+                      <th></th>
+
+                    </tr>
+                  </thead>
+                  <ng-container *ngIf="config.categorias.length == 0">
+                    <tbody>
+                      <tr>
+                        <td class="text-center" colspan="2">
+                          <span class="text-muted">No hay categorías disponibles</span>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </ng-container>
+
+                  <ng-container *ngIf="config.categorias.length > 0">
+                    <tbody *ngFor="let item of config.categorias; let indice = index">
+                      <tr>
+                        <td>
+                          {{item.titulo}}
+                        </td>
+                        <td>
+                          <i class="{{item.icono}}"></i> - {{item.icono}}
+                        </td>
+                        <td>
+                          <a class="text-danger" style="cursor:pointer" (click)="eliminar_categoria(indice)"><i class="fa fa-times" aria-hidden="true"></i></a>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </ng-container>
+                </table>
+              </div>
+            </div>
+
+          </div>
+        </div>
+        <div class="col-lg-4">
+          <div class="form-group row align-items-center">
+            <div class="col-md-9">
+              <div class="cs-file-drop-area">
+                <div class="cs-file-drop-preview img-thumbnail rounded">
+                  <img [src]="imgSelect">
+                </div>
+                <span class="cs-file-drop-message">Arrastrar imagen o subir imagen</span>
+                <input type="file" class="cs-file-drop-input" (change)="fileChangeEvent($event)">
+              </div>
+            </div>
+
+          </div>
         </div>
       </div>
+    </div>
 
     </div>
     <div class="card-footer">
