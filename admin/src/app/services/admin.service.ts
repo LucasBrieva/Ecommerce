@@ -30,7 +30,7 @@ export class AdminService {
    public isAuthenticated(allowRoles : string[]):boolean{
 
     const token:any = localStorage.getItem('token');
-    
+
 
       if(!token){
         return false;
@@ -47,7 +47,33 @@ export class AdminService {
         localStorage.removeItem('token');
         return false;
       }
-      
+
       return allowRoles.includes(decodedToken['role']);
    }
+
+  obtener_config_admin(token:any):Observable<any>{
+    let headers = new HttpHeaders({'Content-Type':'application/json','Authorization': token});
+    return this._http.get(this.url+'obtener_config_admin/', {headers:headers});
+  }
+  actualizar_config_admin(id:any, data:any, token:any):Observable<any>{
+    if(data.logo){
+      let headers = new HttpHeaders({'Authorization': token});
+
+      //Se lo envío así ya que tengo la imagen y necesito mandarla con un nuevo obj
+      const fd = new FormData();
+      fd.append('razonSocial',data.razonSocial);
+      fd.append('nSerie',data.nSerie);
+      fd.append('correlativo',data.correlativo);
+      fd.append('categorias', JSON.stringify(data.categorias));
+      fd.append('logo',data.logo);
+
+      return this._http.put(this.url+'actualizar_config_admin/' + id, fd, {headers:headers});
+    }
+    let headers = new HttpHeaders({'Content-Type':'application/json','Authorization': token});
+    return this._http.put(this.url+'actualizar_config_admin/' + id, data, {headers:headers});
+  }
+  obtener_config_public():Observable<any>{
+    let headers = new HttpHeaders({'Content-Type':'application/json'});
+    return this._http.get(this.url+'obtener_config_public/', {headers:headers});
+  }
 }

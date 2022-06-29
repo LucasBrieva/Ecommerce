@@ -15,6 +15,7 @@ declare var $:any;
 export class EditProductoComponent implements OnInit {
 
   public producto : any = {};
+  public config_text : any = {};
   public config : any = {};
   public imgSelect : any | ArrayBuffer;
   public load_data = false;
@@ -31,11 +32,16 @@ export class EditProductoComponent implements OnInit {
     private _productoService : ProductoService,
     private _adminService : AdminService,
   ) {
-    this.config = {
+    this.config_text = {
       height: 250,
     },
     this.token = this._adminService.getToken();
     this.url = GLOBAL.url;
+    this._adminService.obtener_config_public().subscribe(
+      response=>{
+        this.config = response.data;
+      }
+    )
   }
 
   ngOnInit(): void {
@@ -90,7 +96,7 @@ export class EditProductoComponent implements OnInit {
           });
           this.load_btn = false;
           this._router.navigate(['/panel/productos']);
-          
+
         },
         error => {
           iziToast.show({

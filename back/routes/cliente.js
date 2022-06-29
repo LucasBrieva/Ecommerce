@@ -5,13 +5,11 @@ var clienteController = require("../controllers/ClienteController");
 
 var api = express.Router();
 var auth = require("../middlewares/authenticate");
-var multiparty = require('connect-multiparty');
-var path = multiparty({uploadDir:'./uploads/productos'})
 
 api.post('/registro_cliente', clienteController.registro_cliente);
 api.post('/login_cliente', clienteController.login_cliente);
 api.post('/registro_cliente_admin', auth.auth, clienteController.registro_cliente_admin);
-api.post('/listar_clientes_filtro_admin/', [auth.auth, path], clienteController.listar_clientes_filtro_admin);
+api.post('/listar_clientes_filtro_admin/', auth.auth, clienteController.listar_clientes_filtro_admin);
 
 api.get('/obtener_cliente_admin/:id', auth.auth, clienteController.obtener_cliente_admin);
 

@@ -17,19 +17,28 @@ export class CreateProductoComponent implements OnInit {
   };
   public file:any=undefined;
   public imgSelect : any | ArrayBuffer = 'assets/img/default-product.png';
-  public config: any = {};
+  public config_text: any = {};
   public token: any;
   public load_btn = false;
+  public config: any = {};
 
   constructor(
     private _productoService : ProductoService,
     private _adminService: AdminService,
     private _router: Router
   ) {
-    this.config = {
+    this.config_text = {
       height: 250,
     },
     this.token = this._adminService.getToken();
+    this._adminService.obtener_config_public().subscribe(
+      response=>{
+        this.config = response.data;
+      },
+      error=>{
+
+      }
+    );
    }
 
   ngOnInit(): void {
@@ -167,6 +176,6 @@ export class CreateProductoComponent implements OnInit {
       $("#portadaText").text('Seleccionar imagen');
       this.file = undefined;
     }
-    
+
   }
 }

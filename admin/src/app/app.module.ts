@@ -21,6 +21,7 @@ import { InventarioProductoComponent } from './components/productos/inventario-p
 import { CreateCuponComponent } from './components/cupones/create-cupon/create-cupon.component';
 import { IndexCuponComponent } from './components/cupones/index-cupon/index-cupon.component';
 import { EditCuponComponent } from './components/cupones/edit-cupon/edit-cupon.component';
+import { ConfigComponent } from './components/config/config.component';
 
 @NgModule({
   declarations: [
@@ -38,6 +39,7 @@ import { EditCuponComponent } from './components/cupones/edit-cupon/edit-cupon.c
     CreateCuponComponent,
     IndexCuponComponent,
     EditCuponComponent,
+    ConfigComponent,
   ],
   imports: [
     BrowserModule,
