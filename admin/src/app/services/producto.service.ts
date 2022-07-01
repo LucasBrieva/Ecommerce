@@ -18,7 +18,7 @@ export class ProductoService {
 
   registro_producto_admin(data:any, file:any, token:any):Observable<any>{
     let headers = new HttpHeaders({'Authorization': token});
-    
+
     //Se lo envío así ya que tengo la imagen y necesito mandarla con un nuevo obj
     const fd = new FormData();
     fd.append('titulo',data.titulo);
@@ -44,7 +44,7 @@ export class ProductoService {
   actualizar_producto_admin(data:any, id:any, token:any):Observable<any>{
     if(data.portada){
       let headers = new HttpHeaders({'Authorization': token});
-    
+
       //Se lo envío así ya que tengo la imagen y necesito mandarla con un nuevo obj
       const fd = new FormData();
       fd.append('titulo',data.titulo);
@@ -67,7 +67,7 @@ export class ProductoService {
     let headers = new HttpHeaders({'Content-Type':'application/json','Authorization': token});
     return this._http.put(this.url+'baja_producto_admin/'+ id, null, {headers:headers});
   }
-  
+
 
   /* INVENTARIO */
   listar_inventario_producto_admin(id:any, token:any):Observable<any>{
@@ -77,5 +77,12 @@ export class ProductoService {
   registro_inventario_producto_admin(data:any, token:any):Observable<any>{
     let headers = new HttpHeaders({'Content-Type':'application/json','Authorization': token});
     return this._http.post(this.url+'registro_inventario_producto_admin/', data, {headers:headers});
+  }
+
+  /*VARIEDADES */
+  actualizar_producto_variedades_admin(data:any, id:any, token:any):Observable<any>{
+
+    let headers = new HttpHeaders({'Content-Type':'application/json','Authorization': token});
+    return this._http.put(this.url+'actualizar_producto_variedades_admin/' + id, data, {headers:headers});
   }
 }

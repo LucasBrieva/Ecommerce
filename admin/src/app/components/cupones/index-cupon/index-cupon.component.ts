@@ -19,7 +19,7 @@ export class IndexCuponComponent implements OnInit {
   public page = 1;
   public pageSize = 10;
   public cupones : Array<any> =[];
-  public url:any; 
+  public url:any;
   public token: any;
   public filtro:any = {
     codigo: "",
@@ -73,8 +73,6 @@ export class IndexCuponComponent implements OnInit {
         this.metFiltro();
       },
       error=>{
-        console.log(error);
-        
         iziToast.show({
           title: 'ERROR',
           titleColor:'#F4EDED',

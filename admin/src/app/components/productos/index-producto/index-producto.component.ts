@@ -14,7 +14,7 @@ declare var $:any;
   styleUrls: ['./index-producto.component.css']
 })
 export class IndexProductoComponent implements OnInit {
-  
+
   public productos : Array<any> =[];
   //public filtro_categoria = '';
 
@@ -23,7 +23,7 @@ export class IndexProductoComponent implements OnInit {
   public token: any;
   public page = 1;
   public pageSize = 10;
-  public url:any; 
+  public url:any;
   public filtro:any = {
     titulo: "",
     codigo: ""
@@ -63,7 +63,7 @@ export class IndexProductoComponent implements OnInit {
       }
     )
   }
-  
+
   obtenerProducto(id:any){
     this._productoService.obtener_producto_admin(id,this.token).subscribe(
       response =>{
@@ -96,8 +96,6 @@ export class IndexProductoComponent implements OnInit {
         this.metFiltro();
       },
       error=>{
-        console.log(error);
-        
         iziToast.show({
           title: 'ERROR',
           titleColor:'#F4EDED',

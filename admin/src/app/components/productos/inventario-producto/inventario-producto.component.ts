@@ -65,7 +65,6 @@ export class InventarioProductoComponent implements OnInit {
 
   registro(registroForm : any){
     if(registroForm.valid){
-      console.log(this.inventario.tipo);
       if(this.inventario.tipo != undefined && this.inventario.tipo != ""){
         this.load_btn = true;
         this.inventario.producto = this.producto._id;

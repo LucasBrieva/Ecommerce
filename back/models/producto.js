@@ -18,7 +18,9 @@ var ProductoSchema = Schema({
     categoria: {type: String, required: true},
     estado:{type:String, required: true, default: 'Edicion'},
     createdAt: {type:Date, default: Date.now, require: true},
-    dadoBaja:{type:String, required: false, default: false}
+    dadoBaja:{type:String, required: false, default: false},
+    variedades:[{type:Object, required: false}],
+    titulo_variedad:{type:String, required: false},
 });
 
 module.exports= mongoose.model('producto', ProductoSchema);
