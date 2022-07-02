@@ -77,6 +77,7 @@ export class EditProductoComponent implements OnInit {
       data.titulo = this.producto.titulo;
       data.codigo = this.producto.codigo;
       data.stock = this.producto.stock;
+      data.alerta_stock = this.producto.alerta_stock;
       data.precio = this.producto.precio;
       data.categoria = this.producto.categoria;
       data.descripcion = this.producto.descripcion;

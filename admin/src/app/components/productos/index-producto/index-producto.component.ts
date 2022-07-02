@@ -17,6 +17,10 @@ export class IndexProductoComponent implements OnInit {
 
   public productos : Array<any> =[];
   //public filtro_categoria = '';
+  public producto : any = {};
+
+  public nueva_varidad ="";
+  public load_btn = false;
 
   public load_data=true;
   public has_data=true;
@@ -110,4 +114,94 @@ export class IndexProductoComponent implements OnInit {
       }
     )
   }
+
+  abirPopup(idx:any){
+    this._productoService.obtener_producto_admin(idx, this.token).subscribe(
+      response => {
+        if(response.data == undefined){
+          this.producto = undefined;
+        }else{
+          this.producto = response.data;
+          $('#modalVariedad').modal('show');
+          $('.modal-backdrop').addClass('show');
+        };
+      },
+      error => {
+      }
+    );
+  }
+
+  agregar_variedad(){
+    if(this.nueva_varidad){
+      this.producto.variedades.push({titulo: this.nueva_varidad});
+      this.nueva_varidad = "";
+      document.getElementById("nueva_variedad")?.focus();
+    }else{
+      iziToast.show({
+        title: 'ERROR',
+        titleColor:'#000000',
+        backgroundColor:'#F4DF43',
+        class:'text-danger',
+        position: 'topRight',
+        message: 'Debe ingresar el título de la variedad',
+        messageColor:'#000000'
+      })
+    }
+  }
+
+  eliminar_variedad(idx:any){
+    this.producto.variedades.splice(idx,1);
+  }
+
+  actualizar_variedad(){
+    debugger;
+    if(this.producto.titulo_variedad){
+      if(this.producto.variedades.length > 0){
+        this.load_btn = true;
+        this._productoService.actualizar_producto_variedades_admin({
+          titulo_variedad: this.producto.titulo_variedad,
+          variedades: this.producto.variedades
+        }, this.producto._id, this.token).subscribe(
+          response=>{
+            iziToast.show({
+              title: 'Variedad actualizada',
+              titleColor:'#FFF',
+              backgroundColor:'#83DF4E',
+              class:'text-danger',
+              position: 'topRight',
+              message: 'Se actualizo correctamente las variedades',
+              messageColor:'#FFF'
+            });
+            this.load_btn = false;
+          },
+          error=>{
+            this.load_btn = false;
+          }
+        )
+      }else{
+        iziToast.show({
+          title: 'ERROR',
+          titleColor:'#000000',
+          backgroundColor:'#F4DF43',
+          class:'text-danger',
+          position: 'topRight',
+          message: 'Debe ingresar al menos una variedad',
+          messageColor:'#000000'
+        });
+        this.load_btn = false;
+      }
+    }else{
+      iziToast.show({
+        title: 'ERROR',
+        titleColor:'#000000',
+        backgroundColor:'#F4DF43',
+        class:'text-danger',
+        position: 'topRight',
+        message: 'Debe ingresar el título',
+        messageColor:'#000000'
+      });
+      this.load_btn = false;
+    }
+  }
+
 }

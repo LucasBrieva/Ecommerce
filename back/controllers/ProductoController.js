@@ -100,6 +100,7 @@ const actualizar_producto_admin = async function(req, res){
                     descripcion : data.descripcion,
                     contenido : data.contenido,
                     portada : portada_name,
+                    alerta_stock : alerta_stock,
                 });
                 //BORRO LA IMG PARA QUE NO ME ACUMULE INFO BASURA EN LA BD
                 fs.stat('./uploads/productos/' + reg.portada, function(error){
@@ -119,6 +120,7 @@ const actualizar_producto_admin = async function(req, res){
                     titulo : data.titulo,
                     codigo : data.codigo,
                     categoria : data.categoria,
+                    alerta_stock : alerta_stock,
                     stock : data.stock,
                     precio : data.precio,
                     descripcion : data.descripcion,

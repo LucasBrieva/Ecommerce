@@ -74,6 +74,7 @@ export class CreateProductoComponent implements OnInit {
             titulo: '',
             codigo: '',
             stock: '',
+            alerta_stock: '',
             precio:'',
             categoria: '',
             descripcion:'',

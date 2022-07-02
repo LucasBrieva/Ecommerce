@@ -18,7 +18,7 @@
         <div class="card-header">
           <form #filtroForm = "ngForm" (ngSubmit)="filtrar()">
             <div class="row">
-              <div class="col-lg-3 form-group">	
+              <div class="col-lg-3 form-group">
                 <label class="sr-only" for="inline-form-input-name">Código</label>
                 <input class="form-control" id="filtro_codigo" name="filtro_codigo" [(ngModel)] = "filtro.codigo" type="text" placeholder="Código">
               </div>
@@ -54,8 +54,8 @@
                         <label for="rdo-3" class="cursor">Fijo</label>
                     </label>
                   </div>
-            </div>  
-          </div>  
+            </div>
+          </div>
             <div class="card-footer">
               <div class="row justify-content-end">
                   <button class="btn btn-outline-primary mr-3" type="submit">Filtrar</button>
@@ -95,16 +95,15 @@
                         <td>{{item.limite}}</td>
                         <td>{{item.vencimiento| date:'dd/MM/yyyy':'+0'}}</td>
                         <td>
-                          <a type="button" class="btn btn-sm btn-outline-info rounded-pill btn-icon mr-2" [routerLink]="['/panel/cupones',item._id]" >
+                          <a type="button" class="btn btn-sm btn-outline-info rounded-pill btn-icon mr-2" data-tooltip="Editar"
+                          data-tooltip-location="top" [routerLink]="['/panel/cupones',item._id]" >
                             <i class="fa fa-pencil mt-n1 align-middle"></i>
                           </a>
-                          <a type="button" class="btn btn-sm btn-outline-info rounded-pill btn-icon mr-2" [routerLink]="['/panel/productos/inventario',item._id]" >
-                            <i class="fa fa-th-list mt-n1 align-middle"></i>
-                          </a>
-                          <button style="cursor: pointer;" data-toggle="modal" [attr.data-target]="'#delete-'+item._id" type="button" class="btn btn-sm btn-outline-danger rounded-pill btn-icon">
+                          <button style="cursor: pointer;" data-toggle="modal" data-tooltip="Eliminar"
+                          data-tooltip-location="top" [attr.data-target]="'#delete-'+item._id" type="button" class="btn btn-sm btn-outline-danger rounded-pill btn-icon">
                             <i class="fa fa-trash mt-n1 align-middle"></i>
                           </button>
-  
+
                           <div class="modal fade" id="delete-{{item._id}}" tabindex="-1" style="display: none;" aria-hidden="true">
                             <div class="modal-dialog modal-dialog-centered" role="document">
                               <div class="modal-content">
@@ -122,7 +121,7 @@
                               </div>
                             </div>
                           </div>
-                          
+
                         </td>
                       </tr>
                     </tbody>
@@ -140,4 +139,4 @@
               [collectionSize]="cupones.length"
             ></ngb-pagination>
         </div>
-  </div>  
+  </div>

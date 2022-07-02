@@ -105,8 +105,6 @@ export class InventarioProductoComponent implements OnInit {
               messageColor:'#F4EDED'
             });
             this.load_btn = false;
-            $('#newInventary').modal('hide');
-            $('.modal-backdrop').removeClass('show');
           }
         );
       }
@@ -132,8 +130,6 @@ export class InventarioProductoComponent implements OnInit {
         messageColor:'#F4EDED'
       });
       this.load_btn = false;
-      $('#newInventary').modal('hide');
-      $('.modal-backdrop').removeClass('show');
     }
   }
 }
