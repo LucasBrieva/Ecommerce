@@ -2,227 +2,329 @@
 
 <!-- Page title-->
 <div class="border-bottom pt-5 mt-2 mb-5">
-    <h1 class="mt-2 mt-md-4 mb-3 pt-5">Productos</h1>
-    <div class="d-flex flex-wrap flex-md-nowrap justify-content-between">
-      <p class="text-muted">Este módulo lista todos los productos de la tienda.</p>
-      <p class="font-size-sm font-weight-medium pl-md-4">
-        <button class="btn btn-outline-primary mb-2 me-1" [routerLink]="['/panel/productos/registro']" type="button">Nuevo</button>
-      </p>
-    </div>
+  <h1 class="mt-2 mt-md-4 mb-3 pt-5">Productos</h1>
+  <div class="d-flex flex-wrap flex-md-nowrap justify-content-between">
+    <p class="text-muted">Este módulo lista todos los productos de la tienda.</p>
+    <p class="font-size-sm font-weight-medium pl-md-4">
+      <button class="btn btn-outline-primary mb-2 me-1" [routerLink]="['/panel/productos/registro']"
+        type="button">Nuevo</button>
+    </p>
   </div>
+</div>
 
-  <div class="card box-shadow-sm">
-        <div class="card-header">
-            <h5 style="margin-bottom: 0px;">Filtro de productos</h5>
-        </div>
-        <div class="card-header">
-            <form #filtroForm = "ngForm" (ngSubmit)="filtrar()">
-              <div class="row">
-                <div class="col-lg-3 form-group">
-                  <label class="sr-only" for="inline-form-input-name">Título</label>
-                  <input class="form-control" id="filtro_titulo" name="filtro_titulo" [(ngModel)] = "filtro.titulo" type="text" placeholder="Título">
-                </div>
-                <div class="col-lg-3 form-group">
-                  <label class="sr-only" for="inline-form-input-name">Código</label>
-                  <input class="form-control" id="filtro_codigo" name="filtro_codigo" [(ngModel)] = "filtro.codigo" type="text" placeholder="Código">
-                </div>
-              </div>
-              <div class="card-footer">
-                <div class="row justify-content-end">
-                    <button class="btn btn-outline-primary mr-3" type="submit">Filtrar</button>
-                    <a (click)="limpiarFiltro()" class="btn btn-outline-warning">Limpiar filtros</a>
-                </div>
-              </div>
-            </form>
-        </div>
-        <div class="card-body">
-            <div class="table-responsive">
-                <table class="table table-bordered">
-                  <thead class="thead-dark">
-                    <tr>
-                      <th>#</th>
-                      <th>Título</th>
-                      <th>Código</th>
-                      <th>Stock</th>
-                      <th>Precio</th>
-                      <th>Categoría</th>
-                      <th>Ventas</th>
-                      <th>Opciones</th>
-
-                    </tr>
-                  </thead>
-                  <tbody *ngIf="load_data">
-                    <tr>
-                      <td class="text-center" colspan="8">
-                        <div class="spinner-border text-danger m-2" role="status">
-                          <span class="visually-hidden"></span>
-                        </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                  <ng-container *ngIf="!load_data && has_data">
-                    <tbody *ngFor="let item of productos | slice:(page - 1) * pageSize:(page-1)* pageSize+ pageSize; let indice = index">
-                      <tr>
-                        <td>{{indice + 1}}</td>
-                        <td>
-                          <h6 style="padding-bottom: 0; margin-bottom: 0;">
-                            <img style="width: 50px; height: 50px;" [src]="url+'obtener_portada/'+item.portada" class="img-thumbnail" alt="Rounded image">
-                            {{item.titulo}}
-                          </h6>
-                        </td>
-                        <td>{{item.codigo}}</td>
-                        <td>
-                          <div *ngIf="item.stock <= item.alerta_stock" class="badge badge-warning" style="color:black;">
-                            {{item.stock}}
-                          </div>
-                          <div *ngIf="item.stock > item.alerta_stock" class="badge badge-success" style="color:black;">
-                            {{item.stock}}
-                          </div>
-                        </td>
-                        <td>${{item.precio}}</td>
-                        <td>{{item.categoria}}</td>
-                        <td>{{item.nventas}}</td>
-                        <td>
-                          <a type="button" class="btn btn-sm btn-outline-info rounded-pill btn-icon mr-2" data-tooltip="Editar"
-                          data-tooltip-location="top" [routerLink]="['/panel/productos',item._id]" >
-                            <i class="fa fa-pencil mt-n1 align-middle"></i>
-                          </a>
-                          <a type="button" class="btn btn-sm btn-outline-info rounded-pill btn-icon mr-2" data-tooltip="Inventario"
-                          data-tooltip-location="top" [routerLink]="['/panel/productos/inventario',item._id]" >
-                            <i class="fa fa-th-list mt-n1 align-middle" title="Inventario"></i>
-                          </a>
-                          <a type="button" class="btn btn-sm btn-outline-info rounded-pill btn-icon mr-2" data-tooltip="Variedades"
-                          data-tooltip-location="top" data-toggle="modal" (click)="abirPopup(item._id)" >
-                            <i class="fa fa-list-ol mt-n1 align-middle" title="Variedades"></i>
-                          </a>
-                          <button style="cursor: pointer;" data-toggle="modal" [attr.data-target]="'#delete-'+item._id" data-tooltip="Eliminar"
-                          data-tooltip-location="top" type="button" class="btn btn-sm btn-outline-danger rounded-pill btn-icon">
-                            <i class="fa fa-trash mt-n1 align-middle"></i>
-                          </button>
-
-                          <div class="modal fade" id="delete-{{item._id}}" tabindex="-1" style="display: none;" aria-hidden="true">
-                            <div class="modal-dialog modal-dialog-centered" role="document">
-                              <div class="modal-content">
-                                <div class="modal-header">
-                                  <h4 class="modal-title">Confirmar eliminación</h4>
-                                  <button class="close" type="button" data-dismiss="modal" aria-label="Close">x</button>
-                                </div>
-                                <div class="modal-body">
-                                  <p class="fs-sm">Desea eliminar el producto <b>[{{item.codigo}}] - {{item.titulo}}</b>?</p>
-                                </div>
-                                <div class="modal-footer">
-                                  <button class="btn btn-secondary btn-sm" type="button" data-dismiss="modal">Cancelar</button>
-                                  <button class="btn btn-danger btn-sm" (click)="baja(item._id)"  type="button">Sí, eliminar</button>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-
-                        </td>
-                      </tr>
-                    </tbody>
-                  </ng-container>
-                </table>
-                <ng-container *ngIf="!has_data">
-                    <h3 class="text-center shadow-text">No hay productos registrados</h3>
-                </ng-container>
-            </div>
-        </div>
-        <div class="card-footer" *ngIf="has_data">
-            <ngb-pagination
-              [(page)]="page"
-              [pageSize] = "pageSize"
-              [collectionSize]="productos.length"
-            ></ngb-pagination>
-        </div>
+<div class="card box-shadow-sm">
+  <div class="card-header">
+    <h5 style="margin-bottom: 0px;">Filtro de productos</h5>
   </div>
-  <div class="modal fade" id="modalVariedad" tabindex="-1" style="display: none;" aria-hidden="true">
-    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <img style="width: 50px; height: 50px; margin-right: 25px;" [src]="url+'obtener_portada/'+producto.portada" class="img-thumbnail" alt="Rounded image">
-          <h4 class="modal-title">{{producto.titulo}}</h4>
-          <button class="close" type="button" data-dismiss="modal" aria-label="Close">x</button>
+  <div class="card-header">
+    <form #filtroForm="ngForm" (ngSubmit)="filtrar()">
+      <div class="row">
+        <div class="col-lg-3 form-group">
+          <label class="sr-only" for="inline-form-input-name">Título</label>
+          <input class="form-control" id="filtro_titulo" name="filtro_titulo" [(ngModel)]="filtro.titulo" type="text"
+            placeholder="Título">
         </div>
-          <div class="modal-body">
-            <div style="max-width: 100rem;">
-              <div class="row" >
-                <div class="col-md-12">
-                  <div class="card">
-                    <div class="card-body">
-                      <div class="form-group row align-items-center">
-                        <label class="col-md-3 col-form-label font-weight-medium" for="text-input">Titulo de la variedad</label>
-                        <div class="col-md-9">
-                          <input class="form-control" type="text" id="text-input" placeholder="Título" name="titulo_variedad"
-                            [(ngModel)]="producto.titulo_variedad">
-                        </div>
+        <div class="col-lg-3 form-group">
+          <label class="sr-only" for="inline-form-input-name">Código</label>
+          <input class="form-control" id="filtro_codigo" name="filtro_codigo" [(ngModel)]="filtro.codigo" type="text"
+            placeholder="Código">
+        </div>
+      </div>
+      <div class="card-footer">
+        <div class="row justify-content-end">
+          <button class="btn btn-outline-primary mr-3" type="submit">Filtrar</button>
+          <a (click)="limpiarFiltro()" class="btn btn-outline-warning">Limpiar filtros</a>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="card-body">
+    <div class="table-responsive">
+      <table class="table table-bordered">
+        <thead class="thead-dark">
+          <tr>
+            <th>#</th>
+            <th>Título</th>
+            <th>Código</th>
+            <th>Stock</th>
+            <th>Precio</th>
+            <th>Categoría</th>
+            <th>Ventas</th>
+            <th>Opciones</th>
+
+          </tr>
+        </thead>
+        <tbody *ngIf="load_data">
+          <tr>
+            <td class="text-center" colspan="8">
+              <div class="spinner-border text-danger m-2" role="status">
+                <span class="visually-hidden"></span>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+        <ng-container *ngIf="!load_data && has_data">
+          <tbody
+            *ngFor="let item of productos | slice:(page - 1) * pageSize:(page-1)* pageSize+ pageSize; let indice = index">
+            <tr>
+              <td>{{indice + 1}}</td>
+              <td>
+                <h6 style="padding-bottom: 0; margin-bottom: 0;">
+                  <img style="width: 50px; height: 50px;" [src]="url+'obtener_portada/'+item.portada"
+                    class="img-thumbnail" alt="Rounded image">
+                  {{item.titulo}}
+                </h6>
+              </td>
+              <td>{{item.codigo}}</td>
+              <td>
+                <div *ngIf="item.stock <= item.alerta_stock" class="badge badge-warning" style="color:black;">
+                  {{item.stock}}
+                </div>
+                <div *ngIf="item.stock > item.alerta_stock" class="badge badge-success" style="color:black;">
+                  {{item.stock}}
+                </div>
+              </td>
+              <td>${{item.precio}}</td>
+              <td>{{item.categoria}}</td>
+              <td>{{item.nventas}}</td>
+              <td>
+                <a type="button" class="btn btn-sm btn-outline-info rounded-pill btn-icon mr-2" data-tooltip="Editar"
+                  data-tooltip-location="top" [routerLink]="['/panel/productos',item._id]">
+                  <i class="fa fa-pencil mt-n1 align-middle"></i>
+                </a>
+                <a type="button" class="btn btn-sm btn-outline-info rounded-pill btn-icon mr-2"
+                  data-tooltip="Inventario" data-tooltip-location="top"
+                  [routerLink]="['/panel/productos/inventario',item._id]">
+                  <i class="fa fa-th-list mt-n1 align-middle" title="Inventario"></i>
+                </a>
+                <a type="button" class="btn btn-sm btn-outline-info rounded-pill btn-icon mr-2"
+                  data-tooltip="Variedades" data-tooltip-location="top" data-toggle="modal"
+                  (click)="abirPopup(item._id)">
+                  <i class="fa fa-list-ol mt-n1 align-middle" title="Variedades"></i>
+                </a>
+                <a type="button" class="btn btn-sm btn-outline-info rounded-pill btn-icon mr-2" data-tooltip="Galeria"
+                  data-tooltip-location="top" data-toggle="modal" (click)="abirPopupGaleria(item._id)">
+                  <i class="fa fa-picture-o" aria-hidden="true"></i>
+                </a>
+                <button style="cursor: pointer;" data-toggle="modal" [attr.data-target]="'#delete-'+item._id"
+                  data-tooltip="Eliminar" data-tooltip-location="top" type="button"
+                  class="btn btn-sm btn-outline-danger rounded-pill btn-icon">
+                  <i class="fa fa-trash mt-n1 align-middle"></i>
+                </button>
+
+                <div class="modal fade" id="delete-{{item._id}}" tabindex="-1" style="display: none;"
+                  aria-hidden="true">
+                  <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h4 class="modal-title">Confirmar eliminación</h4>
+                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">x</button>
                       </div>
-                      <div class="form-group row align-items-center">
-                        <label class="col-md-3 col-form-label font-weight-medium" for="text-input">Variedades</label>
-                        <div class="col-md-9">
-                          <div class="input-group">
-                            <input class="form-control" type="text" placeholder="Nueva variedad" id="nueva_variedad"
-                              name="nueva_varidad" [(ngModel)]="nueva_varidad" />
-                            <div class="input-group-append">
-                              <button class="btn btn-outline-primary" type="button" (click)="agregar_variedad()">Agregar</button>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="col-md-3">
-                        </div>
-                        <div class="col-md-9">
-                          <div class="table-responsive mt-3">
-                            <table class="table table-sm" *ngIf="producto.variedades">
-                              <thead class="thead-dark">
-                                <tr>
-
-                                  <th>Título</th>
-                                  <th></th>
-
-                                </tr>
-                              </thead>
-                              <ng-container *ngIf="producto.variedades.length == 0">
-                                <tbody>
-                                  <tr>
-                                    <td class="text-center" colspan="2">
-                                      <span class="text-muted">No hay variedades disponibles</span>
-                                    </td>
-                                  </tr>
-                                </tbody>
-                              </ng-container>
-                              <ng-container *ngIf="producto.variedades.length > 0">
-                                <tbody *ngFor="let item of producto.variedades; let indice = index">
-                                  <tr>
-                                    <td>{{item.titulo}}</td>
-                                    <td>
-                                      <a class="text-danger" style="cursor:pointer" (click)="eliminar_variedad(indice)"><i
-                                          class="fa fa-times" aria-hidden="true"></i></a>
-                                    </td>
-                                  </tr>
-                                </tbody>
-                              </ng-container>
-                            </table>
-                          </div>
-                        </div>
+                      <div class="modal-body">
+                        <p class="fs-sm">Desea eliminar el producto <b>[{{item.codigo}}] - {{item.titulo}}</b>?</p>
+                      </div>
+                      <div class="modal-footer">
+                        <button class="btn btn-secondary btn-sm" type="button" data-dismiss="modal">Cancelar</button>
+                        <button class="btn btn-danger btn-sm" (click)="baja(item._id)" type="button">Sí,
+                          eliminar</button>
                       </div>
                     </div>
                   </div>
-
                 </div>
-                <!--<div class="col-md-3">
+
+              </td>
+            </tr>
+          </tbody>
+        </ng-container>
+      </table>
+      <ng-container *ngIf="!has_data">
+        <h3 class="text-center shadow-text">No hay productos registrados</h3>
+      </ng-container>
+    </div>
+  </div>
+  <div class="card-footer" *ngIf="has_data">
+    <ngb-pagination [(page)]="page" [pageSize]="pageSize" [collectionSize]="productos.length"></ngb-pagination>
+  </div>
+</div>
+<div class="modal fade" id="modalVariedad" tabindex="-1" style="display: none;" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <img style="width: 50px; height: 50px; margin-right: 25px;" [src]="url+'obtener_portada/'+producto.portada"
+          class="img-thumbnail" alt="Rounded image">
+        <h4 class="modal-title">{{producto.titulo}}</h4>
+        <button class="close" type="button" data-dismiss="modal" aria-label="Close">x</button>
+      </div>
+      <div class="modal-body">
+        <div style="max-width: 100rem;">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="card">
+                <div class="card-body">
+                  <div class="form-group row align-items-center">
+                    <label class="col-md-3 col-form-label font-weight-medium" for="text-input">Titulo de la
+                      variedad</label>
+                    <div class="col-md-9">
+                      <input class="form-control" type="text" id="text-input" placeholder="Título"
+                        name="titulo_variedad" [(ngModel)]="producto.titulo_variedad">
+                    </div>
+                  </div>
+                  <div class="form-group row align-items-center">
+                    <label class="col-md-3 col-form-label font-weight-medium" for="text-input">Variedades</label>
+                    <div class="col-md-9">
+                      <div class="input-group">
+                        <input class="form-control" type="text" placeholder="Nueva variedad" id="nueva_variedad"
+                          name="nueva_varidad" [(ngModel)]="nueva_varidad" />
+                        <div class="input-group-append">
+                          <button class="btn btn-outline-primary" type="button"
+                            (click)="agregar_variedad()">Agregar</button>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-3">
+                    </div>
+                    <div class="col-md-9">
+                      <div class="table-responsive mt-3">
+                        <table class="table table-sm" *ngIf="producto.variedades">
+                          <thead class="thead-dark">
+                            <tr>
+
+                              <th>Título</th>
+                              <th></th>
+
+                            </tr>
+                          </thead>
+                          <ng-container *ngIf="producto.variedades.length == 0">
+                            <tbody>
+                              <tr>
+                                <td class="text-center" colspan="2">
+                                  <span class="text-muted">No hay variedades disponibles</span>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </ng-container>
+                          <ng-container *ngIf="producto.variedades.length > 0">
+                            <tbody *ngFor="let item of producto.variedades; let indice = index">
+                              <tr>
+                                <td>{{item.titulo}}</td>
+                                <td>
+                                  <a class="text-danger" style="cursor:pointer" (click)="eliminar_variedad(indice)"><i
+                                      class="fa fa-times" aria-hidden="true"></i></a>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </ng-container>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+            <!--<div class="col-md-3">
                   <img [src]="url+'obtener_portada/'+producto.portada" class="img-thumbnail rounded-0" alt="Square image">
                 </div>
               </div>-->
-            </div>
           </div>
-          <div class="modal-footer">
-            <button *ngIf="!load_btn" class="btn btn-primary mr-3" type="button" (click)="actualizar_variedad()">Guardar cambios</button>
-            <button *ngIf="load_btn" type="button" class="btn btn-secondary" disabled>
-              <span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
-              Actualizando...
-            </button>
-            <button class="btn btn-secondary" type="button" data-dismiss="modal">Cerrar</button>
-          </div>
+        </div>
+        <div class="modal-footer">
+          <button *ngIf="!load_btn" class="btn btn-primary mr-3" type="button" (click)="actualizar_variedad()">Guardar
+            cambios</button>
+          <button *ngIf="load_btn" type="button" class="btn btn-secondary" disabled>
+            <span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+            Actualizando...
+          </button>
+          <button class="btn btn-secondary" type="button" data-dismiss="modal">Cerrar</button>
+        </div>
       </div>
     </div>
   </div>
+</div>
+<div class="modal fade" id="modalGaleria" tabindex="-1" style="display: none;" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Galeria - {{producto.titulo}}</h4>
+        <button class="close" type="button" data-dismiss="modal" aria-label="Close">x</button>
+      </div>
+      <div class="modal-body">
+        <div style="max-width: 100rem;">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="card">
+                <div class="card-body">
+                  <div class="form-group row align-items-center">
+                    <label class="col-md-3 col-form-label font-weight-medium" for="text-input">Nueva imagen</label>
+                    <div class="col-md-9">
+                      <div class="input-group">
+                        <input class="form-control" (change)="fileChangeEvent($event)" type="file" id="input-img" />
+                        <div class="input-group-append">
+                          <ng-container *ngIf="file != undefined">
+                            <button class="btn btn-outline-primary" type="button"
+                              (click)="subir_imagen()">Subir</button>
+                            <button *ngIf="load_btn" type="button" class="btn btn-primary" disabled>
+                              <span class="spinner-border spinner-border-sm me-2" role="status"
+                                aria-hidden="true"></span>
+                              Subiendo...
+                            </button>
+                          </ng-container>
+                          <ng-container *ngIf="file == undefined">
+                            <button class="btn btn-outline-primary" type="button"
+                            disabled>Subir</button>
+                          </ng-container>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-3">
+                    </div>
+                    <div class="col-md-9">
+                      <div class="table-responsive mt-3">
+                        <table class="table table-sm table-bordered" *ngIf="producto.galeria">
+                          <thead class="thead-dark">
+                            <tr>
+
+                              <th>Título</th>
+                              <th></th>
+
+                            </tr>
+                          </thead>
+                          <ng-container *ngIf="producto.galeria.length == 0">
+                            <tbody>
+                              <tr>
+                                <td class="text-center" colspan="2">
+                                  <span class="text-muted">No hay imagenes disponibles</span>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </ng-container>
+                          <ng-container *ngIf="producto.galeria.length > 0">
+                            <tbody *ngFor="let item of producto.galeria; let indice = index">
+                              <tr>
+                                <td style="padding-top: 30px;">
+                                  <p>
+                                    <img style="width: 50px; height: 50px;" [src]="url+'obtener_portada/'+item.imagen"
+                                    class="img-thumbnail" alt="Rounded image">
+                                    {{item.imagen}}
+                                  </p>
+                                </td>
+                                <td style="padding-top: 30px;" align="center">
+                                  <a class="text-danger" style="cursor:pointer" (click)="eliminar_imagen(indice)"><i
+                                      class="fa fa-times" aria-hidden="true"></i></a>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </ng-container>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

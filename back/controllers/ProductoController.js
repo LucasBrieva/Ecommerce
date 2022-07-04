@@ -55,7 +55,7 @@ const obtener_portada = async function(req,res){
             let path_img = './uploads/productos/' + img;
             res.status(200).sendFile(path.resolve(path_img));
         }else{
-            let path_img = './uploads/default-product';
+            let path_img = './uploads/default-product.png';
             res.status(200).sendFile(path.resolve(path_img));
         }
     });
@@ -212,6 +212,35 @@ const actualizar_producto_variedades_admin = async function(req, res){
     }
 }
 
+const agregar_imagen_galeria_admin = async function(req, res){
+    if(req.user){
+        if(req.user.role == "Gerente general"){
+            let id = req.params['id']; 
+            let data = req.body;
+
+            var img_path = req.files.imagen.path;
+            var img_name = img_path.split("\\");
+            var imagen_name = img_name[2];
+
+            let reg1 = await Producto.findByIdAndUpdate({_id:id}, {
+                $push:{galeria:{
+                    imagen: imagen_name,
+                    _id: data._id
+                }}
+            });
+            let reg = await Producto.findById({_id:id});
+            console.log(reg);
+            
+            res.status(200).send({data:reg});
+            
+        }else{
+            res.status(500).send({message:'NoAccess'})
+        }
+    }else{
+        res.status(500).send({message:'NoAccess'})
+    }
+}
+
 module.exports = {
     registro_producto_admin,
     listar_productos_filtro_admin,
@@ -221,5 +250,6 @@ module.exports = {
     baja_producto_admin, 
     listar_inventario_producto_admin,
     registro_inventario_producto_admin,
-    actualizar_producto_variedades_admin
+    actualizar_producto_variedades_admin,
+    agregar_imagen_galeria_admin
 }

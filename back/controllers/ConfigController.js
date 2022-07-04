@@ -75,7 +75,7 @@ const obtener_logo = async function(req,res){
             let path_img = './uploads/configuraciones/' + img;
             res.status(200).sendFile(path.resolve(path_img));
         }else{
-            let path_img = './uploads/default-product';
+            let path_img = './uploads/default-product.png';
             res.status(200).sendFile(path.resolve(path_img));
         }
     });

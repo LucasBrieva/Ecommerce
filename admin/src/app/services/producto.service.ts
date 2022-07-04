@@ -81,8 +81,18 @@ export class ProductoService {
 
   /*VARIEDADES */
   actualizar_producto_variedades_admin(data:any, id:any, token:any):Observable<any>{
-
     let headers = new HttpHeaders({'Content-Type':'application/json','Authorization': token});
     return this._http.put(this.url+'actualizar_producto_variedades_admin/' + id, data, {headers:headers});
+  }
+
+  agregar_imagen_galeria_admin(id:any, data:any, token:any):Observable<any>{
+    let headers = new HttpHeaders({'Authorization': token});
+
+    //Se lo envío así ya que tengo la imagen y necesito mandarla con un nuevo obj
+    const fd = new FormData();
+    fd.append('_id',data._id);
+    fd.append('imagen',data.imagen);
+
+    return this._http.put(this.url+'agregar_imagen_galeria_admin/' + id, fd, {headers:headers});
   }
 }
