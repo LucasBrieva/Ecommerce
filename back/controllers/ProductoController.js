@@ -222,12 +222,33 @@ const agregar_imagen_galeria_admin = async function(req, res){
             var img_name = img_path.split("\\");
             var imagen_name = img_name[2];
 
-            let reg1 = await Producto.findByIdAndUpdate({_id:id}, {
+            await Producto.findByIdAndUpdate({_id:id}, {
                 $push:{galeria:{
                     imagen: imagen_name,
+                    nombre: data.nombre == ""? imagen_name : data.nombre,
                     _id: data._id
                 }}
             });
+            let reg = await Producto.findById({_id:id});
+            console.log(reg);
+            
+            res.status(200).send({data:reg});
+            
+        }else{
+            res.status(500).send({message:'NoAccess'})
+        }
+    }else{
+        res.status(500).send({message:'NoAccess'})
+    }
+}
+
+const eliminar_imagen_galeria_admin = async function(req, res){
+    if(req.user){
+        if(req.user.role == "Gerente general"){
+            let id = req.params['id']; 
+            let data = req.body;
+
+            await Producto.findByIdAndUpdate({_id:id},{$pull:{galeria:{_id:data._id}}});
             let reg = await Producto.findById({_id:id});
             console.log(reg);
             
@@ -251,5 +272,6 @@ module.exports = {
     listar_inventario_producto_admin,
     registro_inventario_producto_admin,
     actualizar_producto_variedades_admin,
-    agregar_imagen_galeria_admin
+    agregar_imagen_galeria_admin,
+    eliminar_imagen_galeria_admin
 }

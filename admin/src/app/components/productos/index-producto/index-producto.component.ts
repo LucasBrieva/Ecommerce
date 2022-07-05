@@ -24,6 +24,7 @@ export class IndexProductoComponent implements OnInit {
   public load_btn = false;
 
   public file: any = undefined;
+  public fileNombre ="";
 
   public load_data = true;
   public has_data = true;
@@ -214,6 +215,7 @@ export class IndexProductoComponent implements OnInit {
         if (response.data == undefined) {
           this.producto = undefined;
         } else {
+          console.log(response.data);
           this.producto = response.data;
           this.id = this.producto._id;
           $('#input-img').val('');
@@ -226,18 +228,19 @@ export class IndexProductoComponent implements OnInit {
       }
     );
   }
-
   subir_imagen() {
     if (this.file != undefined) {
       let data = {
         imagen: this.file,
+        nombre: this.fileNombre,
         _id: uuidv4(),
       };
+      debugger;
       this._productoService.agregar_imagen_galeria_admin(this.id, data, this.token).subscribe(
         response => {
           this.producto = response.data;
-          $('#input-img').val('');
           this.file = undefined;
+          this.fileNombre = "";
         },
         error => {
 
@@ -255,7 +258,6 @@ export class IndexProductoComponent implements OnInit {
       })
     }
   }
-
   fileChangeEvent(event: any): void {
     var file: any;
 
@@ -279,7 +281,7 @@ export class IndexProductoComponent implements OnInit {
       //
       if (file.type == 'image/png' || file.type == 'image/webp' || file.type == 'image/jpg' || file.type == 'image/gif' || file.type == 'image/jpeg') {
         this.file = file;
-
+        debugger;
       } else {
         iziToast.show({
           title: 'ERROR',
@@ -290,7 +292,6 @@ export class IndexProductoComponent implements OnInit {
           message: 'El arcivho debe ser una imagen',
           messageColor: '#F4EDED'
         });
-        $('#input-img').val('');
         this.file = undefined;
       }
     } else {
@@ -303,14 +304,42 @@ export class IndexProductoComponent implements OnInit {
         message: 'La imagén no puede superar los 4MB',
         messageColor: '#F4EDED'
       });
-      $('#input-img').val('');
       this.file = undefined;
     }
 
   }
-
   eliminar_imagen(idx: any) {
-
+    debugger;
+    this._productoService.eliminar_imagen_galeria_admin(this.id, {_id:idx}, this.token).subscribe(
+      response => {
+        iziToast.show({
+          title: 'Imagen eliminada',
+          titleColor: '#FFF',
+          backgroundColor: '#83DF4E',
+          class: 'text-danger',
+          position: 'topRight',
+          message: 'La imagen fue eliminada correctamente',
+          messageColor: '#FFF'
+        });
+        $('#deleteimg-' + idx).modal('hide');
+        this.producto = response.data;
+      },
+      error => {
+        iziToast.show({
+          title: 'ERROR',
+          titleColor: '#F4EDED',
+          backgroundColor: '#F54646',
+          class: 'text-danger',
+          position: 'topRight',
+          message: 'No se pudo dar de baja la imagen',
+          messageColor: '#F4EDED'
+        });
+        $('#deleteimg-' + idx).modal('hide');
+      }
+    )
+  }
+  cancelar_eliminar_imagen(idx:any){
+    $('#deleteimg-' + idx).modal('hide');
   }
   //#endregion
 }

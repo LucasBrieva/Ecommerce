@@ -1,5 +1,5 @@
-.shadow-text{
-    text-shadow: 2px 2px 2px gray;
+.shadow-text {
+  text-shadow: 2px 2px 2px gray;
 }
 
 [data-tooltip] {
@@ -14,7 +14,8 @@
   visibility: hidden;
   opacity: 0;
   left: 50%;
-  bottom: calc(100% + 5px); /* 5px is the size of the arrow */
+  bottom: calc(100% + 5px);
+  /* 5px is the size of the arrow */
   pointer-events: none;
   transition: 0.2s;
   will-change: transform;
@@ -32,9 +33,9 @@
   font-size: 14px;
   background-color: rgba(59, 72, 80, 0.9);
   background-image: linear-gradient(30deg,
-    rgba(59, 72, 80, 0.44),
-    rgba(59, 68, 75, 0.44),
-    rgba(60, 82, 88, 0.44));
+      rgba(59, 72, 80, 0.44),
+      rgba(59, 68, 75, 0.44),
+      rgba(60, 82, 88, 0.44));
   box-shadow: 0px 0px 24px rgba(0, 0, 0, 0.2);
   color: #fff;
   text-align: center;
@@ -46,12 +47,15 @@
 [data-tooltip]:after {
   content: '';
   border-style: solid;
-  border-width: 5px 5px 0px 5px; /* CSS triangle */
+  border-width: 5px 5px 0px 5px;
+  /* CSS triangle */
   border-color: rgba(55, 64, 70, 0.9) transparent transparent transparent;
-  transition-duration: 0s; /* If the mouse leaves the element,
+  transition-duration: 0s;
+  /* If the mouse leaves the element,
                               the transition effects for the
                               tooltip arrow are "turned off" */
-  transform-origin: top;   /* Orientation setting for the
+  transform-origin: top;
+  /* Orientation setting for the
                               slide-down effect */
   transform: translateX(-50%) scaleY(0);
 }
@@ -62,19 +66,23 @@
   visibility: visible;
   opacity: 1;
 }
+
 /* Scales from 0.5 to 1 -> grow effect */
 [data-tooltip]:hover:before {
   transition-delay: 0.3s;
   transform: translate(-50%, -5px) scale(1);
 }
+
 /*
   Arrow slide down effect only on mouseenter (NOT on mouseleave)
 */
 [data-tooltip]:hover:after {
-  transition-delay: 0.5s; /* Starting after the grow effect */
+  transition-delay: 0.5s;
+  /* Starting after the grow effect */
   transition-duration: 0.2s;
   transform: translateX(-50%) scaleY(1);
 }
+
 /*
   That's it for the basic tooltip.
 
@@ -95,6 +103,7 @@
 [data-tooltip-location="left"]:before {
   transform: translate(-5px, 50%) scale(0.5);
 }
+
 [data-tooltip-location="left"]:hover:before {
   transform: translate(-5px, 50%) scale(1);
 }
@@ -106,6 +115,7 @@
   transform-origin: left;
   transform: translateY(50%) scaleX(0);
 }
+
 [data-tooltip-location="left"]:hover:after {
   transform: translateY(50%) scaleX(1);
 }
@@ -122,6 +132,7 @@
 [data-tooltip-location="right"]:before {
   transform: translate(5px, 50%) scale(0.5);
 }
+
 [data-tooltip-location="right"]:hover:before {
   transform: translate(5px, 50%) scale(1);
 }
@@ -132,6 +143,7 @@
   transform-origin: right;
   transform: translateY(50%) scaleX(0);
 }
+
 [data-tooltip-location="right"]:hover:after {
   transform: translateY(50%) scaleX(1);
 }
@@ -148,6 +160,7 @@
 [data-tooltip-location="bottom"]:before {
   transform: translate(-50%, 5px) scale(0.5);
 }
+
 [data-tooltip-location="bottom"]:hover:before {
   transform: translate(-50%, 5px) scale(1);
 }
@@ -182,16 +195,23 @@ html {
   background-size: 120% 120%;
   animation: moveFocus 5s ease infinite alternate;
 }
+
 @keyframes moveFocus {
-  0%   { background-position: 0% 100% }
-  100% { background-position: 100% 0% }
+  0% {
+    background-position: 0% 100%
+  }
+
+  100% {
+    background-position: 100% 0%
+  }
 }
 
 body {
-  background: none;    display: flex;
-    flex-direction: column;
-    height: 100%;
-    margin: 0;
+  background: none;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  margin: 0;
 }
 
 main {
@@ -219,6 +239,7 @@ main {
   margin-bottom: 5%;
   color: #fff;
 }
+
 .example-elements p:hover {
   border-left: 1px solid lightgrey;
   border-right: 1px solid lightgrey;
@@ -232,6 +253,7 @@ main {
   color: #76daff;
   text-decoration: none;
 }
+
 .example-elements a:hover {
   margin-bottom: calc(5% + 9px);
   border-bottom: 1px solid #76daff;
@@ -254,6 +276,7 @@ main {
 .info-wrapper p {
   color: rgba(255, 255, 255, 0.69);
 }
+
 .info-wrapper p {
   max-width: 600px;
   text-align: justify;
@@ -286,37 +309,46 @@ main {
     animation-duration: 0.6s;
     font-size: 1em;
   }
+
   body {
     display: flex;
     background: none;
     height: 100%;
     margin: 0px;
   }
+
   main {
     font-size: 1.1em;
     padding: 6%;
   }
+
   .info-wrapper p:before,
   .info-wrapper p:after {
     display: none;
   }
+
   .example-elements {
     max-width: 150px;
     font-size: 22px;
   }
-  .example-elements a, button {
+
+  .example-elements a,
+  button {
     display: none;
   }
+
   .example-elements p:before,
   .example-elements p:after {
     visibility: visible;
     opacity: 1;
   }
+
   .example-elements p:before {
     content: "Tooltip";
     font-size: 20px;
     transform: translate(-50%, -5px) scale(1);
   }
+
   .example-elements p:after {
     transform: translate(-50%, -1px) scaleY(1);
   }
@@ -325,7 +357,24 @@ main {
   [data-tooltip]:after {
     bottom: calc(100% + 3px);
   }
+
   [data-tooltip]:after {
     border-width: 7px 7px 0px 7px;
   }
 }
+
+.custom-file-upload {
+  border: 1px solid #ccc;
+  text-align-last: center;
+  display: inline-block;
+  padding: 9px 12px;
+  color: #a59f9f;
+  cursor: pointer;
+}
+
+.short-text {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+

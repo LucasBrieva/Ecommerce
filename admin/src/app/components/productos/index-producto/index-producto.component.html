@@ -146,6 +146,7 @@
     <ngb-pagination [(page)]="page" [pageSize]="pageSize" [collectionSize]="productos.length"></ngb-pagination>
   </div>
 </div>
+<!--POPUP VARIEDAD-->
 <div class="modal fade" id="modalVariedad" tabindex="-1" style="display: none;" aria-hidden="true">
   <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
     <div class="modal-content">
@@ -241,6 +242,7 @@
     </div>
   </div>
 </div>
+<!--POPUP GALERIA-->
 <div class="modal fade" id="modalGaleria" tabindex="-1" style="display: none;" aria-hidden="true">
   <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
     <div class="modal-content">
@@ -249,44 +251,59 @@
         <button class="close" type="button" data-dismiss="modal" aria-label="Close">x</button>
       </div>
       <div class="modal-body">
-        <div style="max-width: 100rem;">
+        <div style="max-width: 100rem; max-height: 40rem;">
           <div class="row">
             <div class="col-md-12">
               <div class="card">
-                <div class="card-body">
+                <div class="card-body" style="max-height: 40rem;">
                   <div class="form-group row align-items-center">
                     <label class="col-md-3 col-form-label font-weight-medium" for="text-input">Nueva imagen</label>
                     <div class="col-md-9">
-                      <div class="input-group">
-                        <input class="form-control" (change)="fileChangeEvent($event)" type="file" id="input-img" />
-                        <div class="input-group-append">
-                          <ng-container *ngIf="file != undefined">
-                            <button class="btn btn-outline-primary" type="button"
-                              (click)="subir_imagen()">Subir</button>
-                            <button *ngIf="load_btn" type="button" class="btn btn-primary" disabled>
-                              <span class="spinner-border spinner-border-sm me-2" role="status"
-                                aria-hidden="true"></span>
-                              Subiendo...
-                            </button>
-                          </ng-container>
-                          <ng-container *ngIf="file == undefined">
-                            <button class="btn btn-outline-primary" type="button"
-                            disabled>Subir</button>
-                          </ng-container>
+                      <div class="row">
+                        <div class="col-md-4">
+                          <label class="sr-only" for="inline-form-input-name">Nombre</label>
+                          <input class="form-control" name="fileNombre" type="text" placeholder="Nombre imagen"
+                            [(ngModel)]="fileNombre">
+                        </div>
+                        <div class="col-md-8">
+                          <div class="input-group">
+                            <label class="form-control custom-file-upload">
+                              <input type="file" class="form-control" style="display: none;" id="input-img"
+                                (change)="fileChangeEvent($event)" />
+                              <div *ngIf="file == undefined" class="short-text">Seleccionar archivo</div>
+                              <div *ngIf="file != undefined" class="short-text">{{file.name}}</div>
+                            </label>
+                            <div class="input-group-append">
+                              <ng-container *ngIf="file != undefined">
+                                <button class="btn btn-outline-primary" type="button"
+                                  (click)="subir_imagen()">Subir</button>
+                                <button *ngIf="load_btn" type="button" class="btn btn-primary" disabled>
+                                  <span class="spinner-border spinner-border-sm me-2" role="status"
+                                    aria-hidden="true"></span>
+                                  Subiendo...
+                                </button>
+                              </ng-container>
+                              <ng-container *ngIf="file == undefined">
+                                <button class="btn btn-outline-primary" type="button" disabled>Subir</button>
+                              </ng-container>
+                            </div>
+                          </div>
                         </div>
                       </div>
+
                     </div>
                     <div class="col-md-3">
+                      <div id="VisualizarImg">
+                        <!--<img [src]="url+'obtener_portada/'+item.imagen">-->
+                      </div>
                     </div>
                     <div class="col-md-9">
-                      <div class="table-responsive mt-3">
+                      <div class="table-responsive mt-3" style="max-height: 30rem;">
                         <table class="table table-sm table-bordered" *ngIf="producto.galeria">
                           <thead class="thead-dark">
                             <tr>
-
                               <th>Título</th>
                               <th></th>
-
                             </tr>
                           </thead>
                           <ng-container *ngIf="producto.galeria.length == 0">
@@ -304,15 +321,39 @@
                                 <td style="padding-top: 30px;">
                                   <p>
                                     <img style="width: 50px; height: 50px;" [src]="url+'obtener_portada/'+item.imagen"
-                                    class="img-thumbnail" alt="Rounded image">
-                                    {{item.imagen}}
+                                      class="img-thumbnail" alt="Rounded image">
+                                    <label style="cursor: pointer;" [attr.data-target]="'#deleteimg-'+item._id">
+                                      {{item.nombre}}</label>
                                   </p>
                                 </td>
-                                <td style="padding-top: 30px;" align="center">
-                                  <a class="text-danger" style="cursor:pointer" (click)="eliminar_imagen(indice)"><i
+                                <td style="padding-top: 45px;" align="center">
+                                  <a class="text-danger" data-toggle="modal"
+                                    [attr.data-target]="'#deleteimg-'+item._id"><i style="cursor:pointer ;"
                                       class="fa fa-times" aria-hidden="true"></i></a>
                                 </td>
                               </tr>
+                              <div class="modal" id="deleteimg-{{item._id}}" tabindex="-1" style="display: none;"
+                                aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                  <div class="modal-content">
+                                    <div class="modal-header">
+                                      <h4 class="modal-title">Confirmar eliminación</h4>
+                                      <button class="close" type="button" (click)="cancelar_eliminar_imagen(item._id)"
+                                        aria-label="Close">x</button>
+                                    </div>
+                                    <div class="modal-body">
+                                      <p class="fs-sm">Desea eliminar la imagen?</p>
+                                    </div>
+                                    <div class="modal-footer">
+                                      <button class="btn btn-secondary btn-sm" type="button"
+                                        (click)="cancelar_eliminar_imagen(item._id)">Cancelar</button>
+                                      <button class="btn btn-danger btn-sm" (click)="eliminar_imagen(item._id)"
+                                        type="button">Sí,
+                                        eliminar</button>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
                             </tbody>
                           </ng-container>
                         </table>

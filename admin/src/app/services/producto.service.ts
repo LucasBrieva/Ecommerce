@@ -92,7 +92,13 @@ export class ProductoService {
     const fd = new FormData();
     fd.append('_id',data._id);
     fd.append('imagen',data.imagen);
+    fd.append('nombre',data.nombre);
 
     return this._http.put(this.url+'agregar_imagen_galeria_admin/' + id, fd, {headers:headers});
+  }
+
+  eliminar_imagen_galeria_admin(id:any, data:any, token:any):Observable<any>{
+    let headers = new HttpHeaders({'Content-Type':'application/json','Authorization': token});
+    return this._http.put(this.url+'eliminar_imagen_galeria_admin/' + id, data, {headers:headers});
   }
 }
