@@ -23,6 +23,7 @@ export class IndexProductoComponent implements OnInit {
   public nueva_varidad = "";
   public load_btn = false;
 
+  public nombreImagen: any = undefined;
   public file: any = undefined;
   public fileNombre ="";
 
@@ -46,11 +47,9 @@ export class IndexProductoComponent implements OnInit {
     this.token = this._adminService.getToken();
     this.url = GLOBAL.url;
   }
-
   ngOnInit(): void {
     this.metFiltro();
   }
-
   filtrar() {
     this.metFiltro();
   }
@@ -72,7 +71,6 @@ export class IndexProductoComponent implements OnInit {
       }
     )
   }
-
   obtenerProducto(id: any) {
     this._productoService.obtener_producto_admin(id, this.token).subscribe(
       response => {
@@ -87,7 +85,6 @@ export class IndexProductoComponent implements OnInit {
       }
     )
   }
-
   baja(id: any) {
     this._productoService.baja_producto_admin(id, this.token).subscribe(
       response => {
@@ -219,6 +216,7 @@ export class IndexProductoComponent implements OnInit {
           this.producto = response.data;
           this.id = this.producto._id;
           $('#input-img').val('');
+          this.nombreImagen = undefined;
           this.file = undefined;
           $('#modalGaleria').modal('show');
           $('.modal-backdrop').addClass('show');
@@ -309,7 +307,6 @@ export class IndexProductoComponent implements OnInit {
 
   }
   eliminar_imagen(idx: any) {
-    debugger;
     this._productoService.eliminar_imagen_galeria_admin(this.id, {_id:idx}, this.token).subscribe(
       response => {
         iziToast.show({
@@ -323,6 +320,7 @@ export class IndexProductoComponent implements OnInit {
         });
         $('#deleteimg-' + idx).modal('hide');
         this.producto = response.data;
+        this.nombreImagen = undefined;
       },
       error => {
         iziToast.show({
@@ -340,6 +338,9 @@ export class IndexProductoComponent implements OnInit {
   }
   cancelar_eliminar_imagen(idx:any){
     $('#deleteimg-' + idx).modal('hide');
+  }
+  showImagen(imagen:any){
+    this.nombreImagen = imagen;
   }
   //#endregion
 }

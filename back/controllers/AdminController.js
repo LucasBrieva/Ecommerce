@@ -5,15 +5,12 @@ var bcrypt = require('bcrypt-nodejs');
 var jwt = require('../helpers/jwt');
 
 const registro_admin = async function(req, res){
-    //
     var data = req.body;
     var admin_arr = [];
 
     admin_arr = await Admin.find({email:data.email});
 
     if(admin_arr.length == 0){
-        //
-        console.log(data);
         if(data.password){
             bcrypt.hash(data.password, null, null, async function(err, hash){
                  if(hash){

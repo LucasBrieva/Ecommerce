@@ -293,9 +293,11 @@
 
                     </div>
                     <div class="col-md-3">
-                      <div id="VisualizarImg">
-                        <!--<img [src]="url+'obtener_portada/'+item.imagen">-->
-                      </div>
+                      <ng-container *ngIf="nombreImagen != undefined">
+                        <div>
+                          <img [src]="url+'obtener_portada/'+nombreImagen">
+                        </div>
+                      </ng-container>
                     </div>
                     <div class="col-md-9">
                       <div class="table-responsive mt-3" style="max-height: 30rem;">
@@ -320,9 +322,9 @@
                               <tr>
                                 <td style="padding-top: 30px;">
                                   <p>
-                                    <img style="width: 50px; height: 50px;" [src]="url+'obtener_portada/'+item.imagen"
-                                      class="img-thumbnail" alt="Rounded image">
-                                    <label style="cursor: pointer;" [attr.data-target]="'#deleteimg-'+item._id">
+                                    <img style="width: 50px; height: 50px; cursor: pointer;" [src]="url+'obtener_portada/'+item.imagen"
+                                      class="img-thumbnail" alt="Rounded image" (click)="showImagen(item.imagen)">
+                                    <label>
                                       {{item.nombre}}</label>
                                   </p>
                                 </td>
