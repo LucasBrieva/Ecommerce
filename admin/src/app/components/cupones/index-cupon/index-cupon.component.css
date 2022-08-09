@@ -212,8 +212,6 @@ html, body {
     transform: translateY(50%) scaleX(1);
   }
 
-
-
   /* BOTTOM */
   [data-tooltip-location="bottom"]:before,
   [data-tooltip-location="bottom"]:after {
@@ -233,20 +231,6 @@ html, body {
     border-color: transparent transparent rgba(55, 64, 70, 0.9) transparent;
     transform-origin: bottom;
   }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   /* Settings that make the pen look nicer */
   html {
     width: 100%;
@@ -405,3 +389,8 @@ html, body {
       border-width: 7px 7px 0px 7px;
     }
   }
+
+
+.btn-icon{
+  padding: 0.5rem 0.6rem !important;
+}

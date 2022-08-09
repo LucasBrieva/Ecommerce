@@ -378,3 +378,6 @@ main {
   overflow: hidden;
 }
 
+.btn-icon{
+  padding: 0.5rem 0.6rem !important;
+}

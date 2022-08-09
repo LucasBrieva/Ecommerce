@@ -4,6 +4,9 @@ import { AdminService } from 'src/app/services/admin.service';
 import { GLOBAL } from 'src/app/services/GLOBAL';
 import { ProductoService } from 'src/app/services/producto.service';
 import { v4 as uuidv4 } from 'uuid';
+import {Workbook} from 'exceljs';
+import * as fs from 'file-saver';
+import { format } from 'fecha';
 
 declare var iziToast: any;
 declare var jquery: any;
@@ -17,8 +20,8 @@ declare var $: any;
 export class IndexProductoComponent implements OnInit {
 
   public productos: Array<any> = [];
-  //public filtro_categoria = '';
   public producto: any = {};
+  public arrExcel: Array<any> = [];
 
   public nueva_varidad = "";
   public load_btn = false;
@@ -46,6 +49,7 @@ export class IndexProductoComponent implements OnInit {
   ) {
     this.token = this._adminService.getToken();
     this.url = GLOBAL.url;
+
   }
   ngOnInit(): void {
     this.metFiltro();
@@ -63,6 +67,17 @@ export class IndexProductoComponent implements OnInit {
     this._productoService.listar_productos_filtro_admin(this.filtro, this.token).subscribe(
       response => {
         this.productos = response.data;
+        //Acá hago el array para el excel
+        this.productos.forEach(element=>{
+          this.arrExcel.push({
+            codigo:element.codigo,
+            titulo:element.titulo,
+            stock:element.stock,
+            precio:element.precio,
+            nventas:element.nventas,
+            categoria:element.categoria
+          })
+        })
         this.has_data = this.productos.length > 0;
         this.load_data = false;
       },
@@ -343,4 +358,37 @@ export class IndexProductoComponent implements OnInit {
     this.nombreImagen = imagen;
   }
   //#endregion
+
+  descargarExcel(){
+    let workbook = new Workbook();
+    let worksheet = workbook.addWorksheet("Reporte de productos");
+
+    worksheet.addRow(undefined);
+
+    for(let x1 of this.arrExcel){
+      let x2 = Object.keys(x1);
+
+      let temp = [];
+      for (let y of x2){
+        temp.push(x1[y]);
+      }
+      worksheet.addRow(temp);
+    }
+
+    let fname = "PRODUCTOS - ";
+
+    worksheet.columns=[
+      {header:'Código', key:'col1', width:15},
+      {header:'Producto', key:'col2', width:30},
+      {header:'Stock', key:'col3', width:15},
+      {header:'Precio', key:'col4', width:15},
+      {header:'N° Ventas', key:'col5', width:15},
+      {header:'Categoría', key:'col6', width:20},
+    ] as any;
+
+    workbook.xlsx.writeBuffer().then((data)=>{
+      let blob = new Blob([data], {type:'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'});
+      fs.saveAs(blob, fname + format( new Date(), 'DD/MM/YYYY') + '.xlsx');
+    })
+  }
 }

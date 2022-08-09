@@ -1,0 +1,2 @@
+Mejoras a nivel código:
+	- Haría que la parte del excel sea más generico para poder reutilizarlo en todas las pantallas de manera más sencilla. 
