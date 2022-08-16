@@ -5,6 +5,7 @@ import { ProductoService } from 'src/app/services/producto.service';
 import { Workbook } from 'exceljs';
 import * as fs from 'file-saver';
 import { format } from 'fecha';
+import { ExcelService } from 'src/app/services/excel.service';
 
 declare var iziToast: any;
 declare var jquery: any;
@@ -32,6 +33,7 @@ export class InventarioProductoComponent implements OnInit {
     private _productoService: ProductoService,
     private _adminService: AdminService,
     private _router: Router,
+    private _excelService: ExcelService,
   ) {
     this.token = this._adminService.getToken();
   }
@@ -51,11 +53,12 @@ export class InventarioProductoComponent implements OnInit {
               this._productoService.listar_inventario_producto_admin(this.id, this.token).subscribe(
                 response => {
                   this.inventarios = response.data;
+                  this.arrExcel = [];
                   this.inventarios.forEach(element => {
                     this.arrExcel.push({
-                      admin: element.admin.nombres + " " + element.admin.apellidos,
+                      user: element.admin.nombres + " " + element.admin.apellidos,
                       cantidad: element.cantidad,
-                      proveedor: element.proveedor,
+                      descripcion: element.proveedor,
                       tipo: element.tipo ? "Ingreso" : "Egreso",
                     })
                   })
@@ -146,33 +149,6 @@ export class InventarioProductoComponent implements OnInit {
   }
 
   descargarExcel() {
-    let workbook = new Workbook();
-    let worksheet = workbook.addWorksheet("Inventario de " + this.producto.titulo);
-
-    worksheet.addRow(undefined);
-
-    for (let x1 of this.arrExcel) {
-      let x2 = Object.keys(x1);
-
-      let temp = [];
-      for (let y of x2) {
-        temp.push(x1[y]);
-      }
-      worksheet.addRow(temp);
-    }
-
-    let fname = this.producto.titulo + " - ";
-
-    worksheet.columns = [
-      { header: 'Usuario', key: 'col1', width: 30 },
-      { header: 'Cantidad', key: 'col2', width: 15 },
-      { header: 'Descripción', key: 'col3', width: 30 },
-      { header: 'T. movimiento', key: 'col4', width: 15 },
-    ] as any;
-
-    workbook.xlsx.writeBuffer().then((data) => {
-      let blob = new Blob([data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
-      fs.saveAs(blob, fname + format(new Date(), 'DD/MM/YYYY') + '.xlsx');
-    })
+    this._excelService.descargar_excel(this.arrExcel, "Reporte de inventario", "INVENTARIO");
   }
 }

@@ -28,7 +28,6 @@ export class AdminService {
    }
 
    public isAuthenticated(allowRoles : string[]):boolean{
-    debugger;
     const token:any = localStorage.getItem('token');
 
 

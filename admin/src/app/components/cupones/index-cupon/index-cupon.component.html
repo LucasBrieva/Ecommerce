@@ -6,7 +6,9 @@
     <div class="d-flex flex-wrap flex-md-nowrap justify-content-between">
       <p class="text-muted">Este módulo lista todos los cupones de la tienda.</p>
       <p class="font-size-sm font-weight-medium pl-md-4">
-        <button class="btn btn-outline-primary mb-2 me-1" [routerLink]="['/panel/cupones/registro']" type="button">Nuevo</button>
+        <button class="btn btn-primary mb-2 me-1" [routerLink]="['/panel/cupones/registro']" type="button">Nuevo</button>
+        <button class="btn btn-success mb-2 me-1 ml-3" (click)="descargarExcel()"
+        type="button">Exportar</button>
       </p>
     </div>
   </div>

@@ -45,7 +45,7 @@ import { VariedadProductoComponent } from './components/productos/variedad-produ
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule, 
+    AppRoutingModule,
     FormsModule,
     HttpClientModule,
     routing,

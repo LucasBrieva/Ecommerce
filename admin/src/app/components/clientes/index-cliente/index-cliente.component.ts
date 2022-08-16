@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AdminService } from 'src/app/services/admin.service';
 import { ClienteService } from 'src/app/services/cliente.service';
+import { ExcelService } from 'src/app/services/excel.service';
 
 declare var iziToast: any;
 declare var jquery:any;
@@ -26,9 +27,12 @@ export class IndexClienteComponent implements OnInit {
     apellido: "",
     correo: "",
   };
+  public arrExcel: Array<any> = [];
+
   constructor(
     private _clienteService : ClienteService,
-    private _adminService : AdminService
+    private _adminService : AdminService,
+    private _excelService : ExcelService
   ) {
     this.token = this._adminService.getToken();
    }
@@ -40,17 +44,32 @@ export class IndexClienteComponent implements OnInit {
   filtrar(){
     this.metFiltro();
   }
+
   limpiarFiltro(){
     this.filtro.nombre = '';
     this.filtro.apellido = '';
     this.filtro.correo = '';
     this.metFiltro();
   }
+
   metFiltro(){
     this.load_data = true;
     this._clienteService.listar_clientes_filtro_admin(this.filtro, this.token).subscribe(
       response => {
         this.clientes = response.data;
+        this.arrExcel = [];
+
+        this.clientes.forEach(element=>{
+          this.arrExcel.push({
+            nombreCompleto:element.nombres + " " + element.apellidos,
+            email:element.email,
+            pais:element.pais,
+            telefono:element.telefono,
+            genero:element.genero,
+            fechaNacimiento:element.f_nacimiento,
+            dni:element.dni,
+          })
+        })
         this.has_data = this.clientes.length > 0;
         this.load_data = false;
       },
@@ -106,5 +125,9 @@ export class IndexClienteComponent implements OnInit {
         $('.modal-backdrop').removeClass('show');
       }
     )
+  }
+
+  descargarExcel(){
+    this._excelService.descargar_excel(this.arrExcel, "Reporte de clientes", "CLIENTES");
   }
 }

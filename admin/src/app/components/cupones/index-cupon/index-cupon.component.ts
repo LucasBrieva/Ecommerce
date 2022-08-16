@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { AdminService } from 'src/app/services/admin.service';
 import { CuponService } from 'src/app/services/cupon.service';
+import { ExcelService } from 'src/app/services/excel.service';
 import { GLOBAL } from 'src/app/services/GLOBAL';
-
+import { format } from 'fecha';
 declare var iziToast: any;
 declare var jquery:any;
 declare var $:any;
@@ -25,9 +26,12 @@ export class IndexCuponComponent implements OnInit {
     codigo: "",
     tipo: ""
   };
+  public arrExcel: Array<any> = [];
+
   constructor(
     private _cuponService : CuponService,
     private _adminService : AdminService,
+    private _excelService : ExcelService,
   ) {
     this.token = this._adminService.getToken();
     this.url = GLOBAL.url;
@@ -40,6 +44,17 @@ export class IndexCuponComponent implements OnInit {
     this._cuponService.listar_cupones_filtro_admin(this.filtro, this.token).subscribe(
       response => {
         this.cupones = response.data;
+        this.arrExcel = [];
+
+        this.cupones.forEach(element=>{
+          this.arrExcel.push({
+            codigo:element.codigo,
+            valor:element.valor,
+            limite:element.limite,
+            vencimiento: format(new Date(element.vencimiento), 'DD/MM/YYYY'),
+            tipo:element.tipo? "Porcentaje" : "Precio fijo",
+          })
+        })
         this.has_data = this.cupones.length > 0;
         this.load_data = false;
       },
@@ -86,5 +101,9 @@ export class IndexCuponComponent implements OnInit {
         $('.modal-backdrop').removeClass('show');
       }
     )
+  }
+
+  descargarExcel(){
+    this._excelService.descargar_excel(this.arrExcel, "Reporte de cupones", "CUPONES");
   }
 }

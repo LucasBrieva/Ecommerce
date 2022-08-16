@@ -5,8 +5,8 @@ import { GLOBAL } from 'src/app/services/GLOBAL';
 import { ProductoService } from 'src/app/services/producto.service';
 import { v4 as uuidv4 } from 'uuid';
 import {Workbook} from 'exceljs';
-import * as fs from 'file-saver';
-import { format } from 'fecha';
+
+import { ExcelService } from 'src/app/services/excel.service';
 
 declare var iziToast: any;
 declare var jquery: any;
@@ -37,6 +37,7 @@ export class IndexProductoComponent implements OnInit {
   public page = 1;
   public pageSize = 10;
   public url: any;
+
   public filtro: any = {
     titulo: "",
     codigo: ""
@@ -45,6 +46,7 @@ export class IndexProductoComponent implements OnInit {
   constructor(
     private _productoService: ProductoService,
     private _adminService: AdminService,
+    private _excelService: ExcelService,
     private _router: Router
   ) {
     this.token = this._adminService.getToken();
@@ -68,6 +70,7 @@ export class IndexProductoComponent implements OnInit {
       response => {
         this.productos = response.data;
         //Acá hago el array para el excel
+        this.arrExcel = [];
         this.productos.forEach(element=>{
           this.arrExcel.push({
             codigo:element.codigo,
@@ -131,7 +134,9 @@ export class IndexProductoComponent implements OnInit {
       }
     )
   }
-
+  descargarExcel(){
+    this._excelService.descargar_excel(this.arrExcel, "Reporte de inventario", "INVENTARIO");
+  }
   //#region Variedad
   abirPopup(idx: any) {
     this._productoService.obtener_producto_admin(idx, this.token).subscribe(
@@ -169,7 +174,6 @@ export class IndexProductoComponent implements OnInit {
     this.producto.variedades.splice(idx, 1);
   }
   actualizar_variedad() {
-    debugger;
     if (this.producto.titulo_variedad) {
       if (this.producto.variedades.length > 0) {
         this.load_btn = true;
@@ -248,7 +252,6 @@ export class IndexProductoComponent implements OnInit {
         nombre: this.fileNombre,
         _id: uuidv4(),
       };
-      debugger;
       this._productoService.agregar_imagen_galeria_admin(this.id, data, this.token).subscribe(
         response => {
           this.producto = response.data;
@@ -294,7 +297,6 @@ export class IndexProductoComponent implements OnInit {
       //
       if (file.type == 'image/png' || file.type == 'image/webp' || file.type == 'image/jpg' || file.type == 'image/gif' || file.type == 'image/jpeg') {
         this.file = file;
-        debugger;
       } else {
         iziToast.show({
           title: 'ERROR',
@@ -358,37 +360,4 @@ export class IndexProductoComponent implements OnInit {
     this.nombreImagen = imagen;
   }
   //#endregion
-
-  descargarExcel(){
-    let workbook = new Workbook();
-    let worksheet = workbook.addWorksheet("Reporte de productos");
-
-    worksheet.addRow(undefined);
-
-    for(let x1 of this.arrExcel){
-      let x2 = Object.keys(x1);
-
-      let temp = [];
-      for (let y of x2){
-        temp.push(x1[y]);
-      }
-      worksheet.addRow(temp);
-    }
-
-    let fname = "PRODUCTOS - ";
-
-    worksheet.columns=[
-      {header:'Código', key:'col1', width:15},
-      {header:'Producto', key:'col2', width:30},
-      {header:'Stock', key:'col3', width:15},
-      {header:'Precio', key:'col4', width:15},
-      {header:'N° Ventas', key:'col5', width:15},
-      {header:'Categoría', key:'col6', width:20},
-    ] as any;
-
-    workbook.xlsx.writeBuffer().then((data)=>{
-      let blob = new Blob([data], {type:'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'});
-      fs.saveAs(blob, fname + format( new Date(), 'DD/MM/YYYY') + '.xlsx');
-    })
-  }
 }
