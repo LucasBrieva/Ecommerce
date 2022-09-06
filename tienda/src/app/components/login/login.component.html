@@ -1,0 +1,102 @@
+<app-nav></app-nav>
+<main class="cs-page-wrapper">
+  <nav class="bg-secondary mb-3" aria-label="breadcrumb">
+    <div class="container">
+      <ol class="breadcrumb breadcrumb-alt mb-0">
+        <li class="breadcrumb-item">
+          <a href="index.html"><i class="cxi-home"></i></a>
+        </li>
+        <li class="breadcrumb-item active" aria-current="page">Checkout</li>
+      </ol>
+    </div>
+  </nav>
+
+  <section class="container pt-3 pt-md-4 pb-3 pb-sm-4 pb-lg-5 mb-4">
+    <div class="row">
+      <div class="col-lg-6">
+        <div class="px-md-5">
+          <h3 class="modal-title mt-4 mb-0 text-center">Iniciar Sesión</h3>
+          <p class="font-size-sm text-muted text-center">Inicie sesión en su cuenta utilizando el correo electrónico y
+            la contraseña proporcionados durante el registro.
+          </p>
+          <form #loginForm="ngForm" (ngSubmit)="login(loginForm)">
+            <div class="form-group">
+              <label for="signin-email">Correo electrónico</label>
+              <input type="email" class="form-control" placeholder="Correo electrónico" required="" name="email"
+                [(ngModel)]="user.email">
+            </div>
+            <div class="form-group">
+              <label for="signin-password" class="form-label">Contraseña</label>
+              <div class="cs-password-toggle input-group-overlay">
+                <input type="password" class="form-control appended-form-control" id="signin-password"
+                  placeholder="Contraseña" required="" name="password" [(ngModel)]="user.password">
+                <div class="input-group-append-overlay icon-wrapper" >
+                  <label class="btn cs-password-toggle-btn input-group-text">
+                    <input type="checkbox" class="custom-control-input">
+                    <i class="cxi-eye cs-password-toggle-indicator"></i>
+                    <span class="sr-only toggle-password">Mostrar contraseña</span>
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div class="d-flex justify-content-between align-items-center form-group">
+              <a href="#" class="font-size-sm text-decoration-none">Olvido su contraseña?</a>
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">Iniciar sesión</button>
+          </form>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div class="px-md-5">
+          <h3 class="modal-title mt-4 mb-0 text-center">Registro rápido</h3>
+          <p class="font-size-sm text-muted text-center">Ingresé los siguientes datos para hacerse cliente!</p>
+          <form #signUpForm = "ngForm" (ngSubmit)="signUp(signUpForm)">
+            <div class="form-group">
+              <div class="row">
+                <div class="col-lg-6">
+                  <label for="signin-email">Nombre completo</label>
+                  <input type="text" class="form-control" placeholder="Nombre completo" required="" name="nombres"
+                  [(ngModel)]="newUser.nombres">
+                </div>
+                <div class="col-lg-6">
+                  <label for="signin-email">Apellido</label>
+                  <input type="text" class="form-control" placeholder="Apellido" required="" name="apellidos"
+                  [(ngModel)]="newUser.apellidos">
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="signin-email">Correo electrónico</label>
+              <input type="email" class="form-control" placeholder="Correo electrónico" required="" name="email"
+              [(ngModel)]="newUser.email">
+            </div>
+            <div class="form-group">
+              <label for="signin-password" class="form-label">Contraseña</label>
+              <div class="cs-password-toggle input-group-overlay">
+                <input type="password" class="form-control appended-form-control" id="signin-password"
+                  placeholder="Contraseña" required="" name="password" [(ngModel)]="newUser.password">
+                <div class="input-group-append-overlay">
+                  <label class="btn cs-password-toggle-btn input-group-text">
+                    <input type="checkbox" class="custom-control-input">
+                    <i class="cxi-eye cs-password-toggle-indicator"></i>
+                    <span class="sr-only">Show password</span>
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div class="d-flex justify-content-between align-items-center form-group">
+              <div class="custom-control custom-checkbox">
+                <input type="checkbox" class="custom-control-input" id="remember-me" checked="">
+                <label for="remember-me" class="custom-control-label">Remember me</label>
+              </div>
+              <a href="#" class="font-size-sm text-decoration-none">Forgot password?</a>
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">Sign in</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+<app-footer></app-footer>

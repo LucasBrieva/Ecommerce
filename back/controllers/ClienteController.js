@@ -5,31 +5,30 @@ var bcrypt = require('bcrypt-nodejs');
 var jwt = require('../helpers/jwt');
 
 const registro_cliente = async function(req, res){
-    //
     var data = req.body;
     var clientes_arr = [];
 
     clientes_arr = await Cliente.find({email:data.email});
-
     if(clientes_arr.length == 0){
-        //
         if(data.password){
             bcrypt.hash(data.password, null, null, async function(err, hash){
                  if(hash){
                      data.password = hash;
                     var reg = await Cliente.create(data);
-                    res.status(200).send({data: reg});
+                    console.log(reg);
+                    res.status(200).send({data: reg,
+                        token: jwt.createToken(reg)});
                  }
                  else{
                     res.status(403).send({message: 'ErrorServer',data: undefined});
                  }
             });
         }else{
-            res.status(403).send({message: 'No hay una contraseña',data: undefined});
+            res.status(400).send({message: 'No hay una contraseña',data: undefined});
         }
     }
     else{
-        res.status(200).send({message: 'El correo ya existe en la base de datos',data: undefined});
+        res.status(400).send({message: 'El correo ya existe en la base de datos',data: undefined});
     }
     
 }
@@ -53,7 +52,6 @@ const login_cliente = async function(req, res){
     var cliente_arr = [];
 
     cliente_arr = await Cliente.find({email: data.email});
-
     if(cliente_arr.length == 0){
         res.status(400).send({message: "No se encontró el correo", data: undefined});
 
@@ -62,10 +60,15 @@ const login_cliente = async function(req, res){
 
         bcrypt.compare(data.password, user.password, async function(error, check){
             if(check){
-                res.status(200).send({
-                    data: user,
-                    token: jwt.createToken(user)
-                });
+                if(user.dadoBaja == "false"){
+                    res.status(200).send({
+                        data: user,
+                        token: jwt.createToken(user)
+                    });
+                }
+                else{
+                    res.status(400).send({message: "El usuario está dado de baja", data: undefined});
+                }
             }
             else{
                 res.status(400).send({message: "La contraseña no coincide", data: undefined});
@@ -104,7 +107,7 @@ const obtener_cliente_admin = async function (req, res){
                 var reg = await Cliente.findById({_id:id});
                 res.status(200).send({data:reg});
             }catch (error){
-                res.status(200).send({data:undefined});
+                res.status(500).send({message: 'Hubo un error en el servidor', data:undefined});
             }
         }else{
             res.status(500).send({message: 'Hubo un error en el servidor',data: undefined});
@@ -153,6 +156,20 @@ const baja_cliente_admin = async function(req, res){
     }
 }
 
+const obtener_cliente_guest = async function (req, res){
+    if(req.user){
+        var id = req.params['id'];
+        try{
+            var reg = await Cliente.findById({_id:id});
+            res.status(200).send({data:reg});
+        }catch (error){
+            res.status(500).send({message: 'Hubo un error en el servidor', data:undefined});
+        }
+    }else{
+        res.status(500).send({message: 'Hubo un error en el servidor',data: undefined});
+    }
+}
+
 module.exports = {
     registro_cliente,
     login_cliente,
@@ -160,5 +177,6 @@ module.exports = {
     registro_cliente_admin,
     obtener_cliente_admin,
     actualizar_cliente_admin,
-    baja_cliente_admin
+    baja_cliente_admin,
+    obtener_cliente_guest
 }

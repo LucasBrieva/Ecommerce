@@ -39,7 +39,7 @@ const login_admin = async function(req, res){
     admin_arr = await Admin.find({email: data.email});
 
     if(admin_arr.length == 0){
-        res.status(200).send({message: "No se encontró el correo", data: undefined});
+        res.status(400).send({message: "No se encontró el correo", data: undefined});
 
     }else{
         let user = admin_arr[0];
@@ -52,7 +52,7 @@ const login_admin = async function(req, res){
                 });
             }
             else{
-                res.status(200).send({message: "La contraseña no coincide", data: undefined});
+                res.status(400).send({message: "La contraseña no coincide", data: undefined});
             }
         });
         
