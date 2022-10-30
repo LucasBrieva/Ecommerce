@@ -25,16 +25,25 @@
               </a>
             </ng-container>
             <ng-container *ngIf="user_lc">
-              <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" data-toggle="dropdown">
-                  <i class="cxi-profile nav-tool-icon"></i>
-                  <span class="nav-tool-label">{{user_lc.nombres}} {{user_lc.apellidos}}</span>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" data-toggle="dropdown" style="cursor: pointer;">
+              <i class="cxi-profile nav-tool-icon"></i>
+              <span class="nav-tool-label">{{user_lc.nombres}} {{user_lc.apellidos}}</span>
+            </a>
+            <ul class="dropdown-menu">
+              <li>
+                <a [routerLink]="['/cuenta/perfil']" routerLinkActive="active"  class="dropdown-item" style="cursor: pointer;">
+                  <i class="cxi-profile mr-2"></i>
+                  Ver perfil
                 </a>
-                <ul class="dropdown-menu">
-                  <li><a class="dropdown-item">Ver perfil</a></li>
-                  <li><a (click)="logOut()" style="cursor: pointer;" class="dropdown-item">Cerrar sesión</a></li>
-                </ul>
               </li>
+              <li><a (click)="logOut()" style="cursor: pointer;" class="dropdown-item">
+                  <i class="cxi-logout mr-2"></i>
+                  Cerrar sesión
+                </a>
+              </li>
+            </ul>
+          </li>
           </ng-container>
           </li>
           <li class="divider-vertical mb-0 d-lg-block d-none"></li>

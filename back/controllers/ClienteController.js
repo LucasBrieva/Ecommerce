@@ -3,7 +3,7 @@
 var Cliente = require('../models/cliente');
 var bcrypt = require('bcrypt-nodejs');
 var jwt = require('../helpers/jwt');
-
+var fsHelper = require('../helpers/fsHelper');
 const registro_cliente = async function(req, res){
     var data = req.body;
     var clientes_arr = [];
@@ -169,6 +169,46 @@ const obtener_cliente_guest = async function (req, res){
         res.status(500).send({message: 'Hubo un error en el servidor',data: undefined});
     }
 }
+const actualizar_perfil_cliente_guest = async function (req, res){
+    if(req.user){
+        var id = req.params['id'];
+        var data = req.body;
+        if(data.newPassword){
+            console.log("Por aca no se actualizo la pass")
+            bcrypt.hash(data.newPassword, null, null, async function(err, hash){
+                var reg = await Cliente.findByIdAndUpdate({_id:id},{
+                    nombres: data.nombres,
+                    apellidos: data.apellidos,
+                    email: data.email,
+                    telefono: data.telefono,
+                    f_nacimiento: data.f_nacimiento,
+                    dni: data.dni,
+                    genero: data.genero,
+                    pais: data.pais,
+                    password: hash,
+                });
+            res.status(200).send({data:reg});
+            });
+        }else{
+            console.log("Por aca SÍ actualizo la pass")
+            var reg = await Cliente.findByIdAndUpdate({_id:id},{
+                nombres: data.nombres,
+                apellidos: data.apellidos,
+                email: data.email,
+                telefono: data.telefono,
+                f_nacimiento: data.f_nacimiento,
+                dni: data.dni,
+                genero: data.genero,
+                pais: data.pais,
+            });
+            res.status(200).send({data:reg});
+        }
+        fsHelper.add_log("Test");
+    }else{
+        res.status(500).send({message: 'Hubo un error en el servidor',data: undefined});
+    }
+}
+
 
 module.exports = {
     registro_cliente,
@@ -178,5 +218,6 @@ module.exports = {
     obtener_cliente_admin,
     actualizar_cliente_admin,
     baja_cliente_admin,
-    obtener_cliente_guest
+    obtener_cliente_guest,
+    actualizar_perfil_cliente_guest
 }

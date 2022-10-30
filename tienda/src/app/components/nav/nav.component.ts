@@ -19,7 +19,6 @@ export class NavComponent implements OnInit {
   ) {
     this.token = localStorage.getItem('token');
     this.idUser = localStorage.getItem('_id');
-    debugger;
     if(this.idUser != null && this.token != null){
       if(localStorage.getItem('user_data')){
         var user_data :any = localStorage.getItem('user_data');
@@ -32,6 +31,7 @@ export class NavComponent implements OnInit {
             localStorage.setItem('user_data', JSON.stringify(this.user));
           },
           err=>{
+            debugger;
             this.user = undefined;
           }
         )

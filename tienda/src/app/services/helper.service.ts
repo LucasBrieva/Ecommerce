@@ -1,4 +1,7 @@
 import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders} from "@angular/common/http";
+import { GLOBAL } from "./GLOBAL"
+
 declare var iziToast: any;
 
 @Injectable({
@@ -6,9 +9,12 @@ declare var iziToast: any;
 })
 export class HelperService {
 
-  constructor(
-  ) {
+  public url:any;
 
+  constructor(
+    private _http: HttpClient,
+  ) {
+    this.url = GLOBAL.url;
   }
 
   iziToast(mensaje: string, titulo: string, isSuccess: boolean) {
@@ -22,4 +28,5 @@ export class HelperService {
       messageColor: isSuccess ? '#FFF' : '#F4EDED'
     })
   }
+
 }

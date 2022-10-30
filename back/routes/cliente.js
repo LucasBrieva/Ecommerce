@@ -15,6 +15,7 @@ api.get('/obtener_cliente_admin/:id', auth.auth, clienteController.obtener_clien
 api.get('/obtener_cliente_guest/:id', auth.auth, clienteController.obtener_cliente_guest);
 
 api.put('/actualizar_cliente_admin/:id', auth.auth, clienteController.actualizar_cliente_admin);
+api.put('/actualizar_perfil_cliente_guest/:id', auth.auth, clienteController.actualizar_perfil_cliente_guest);
 api.put('/baja_cliente_admin/:id', auth.auth, clienteController.baja_cliente_admin);
 
 

@@ -12,35 +12,35 @@
         <div class="card-body">
             <div class="row">
                 <div class="col-md-4 form-group">
-                    <label for="validationCustom01" class="form-label">Nombres</label>
+                    <label class="form-label">Nombres</label>
                     <input class="form-control" type="text" placeholder="Nombres" name="nombres" [(ngModel)]="cliente.nombres" required>
                 </div>
                 <div class="col-md-4 form-group">
-                    <label for="validationCustom01" class="form-label">Apellidos</label>
+                    <label class="form-label">Apellidos</label>
                     <input class="form-control" type="text" placeholder="Apellidos" name="apellidos" [(ngModel)]="cliente.apellidos" required>
                 </div>
                 <div class="col-md-4 form-group">
-                    <label for="validationCustom01" class="form-label">Correo electrónico</label>
+                    <label class="form-label">Correo electrónico</label>
                     <input class="form-control" type="email" placeholder="Correo electrónico" name="email" [(ngModel)]="cliente.email" required>
                 </div>
                 <div class="col-md-3 form-group">
-                    <label for="validationCustom01" class="form-label">DNI</label>
+                    <label class="form-label">DNI</label>
                     <input class="form-control" type="text" placeholder="Documento" name="dni" [(ngModel)]="cliente.dni" required>
                 </div>
                 <div class="col-md-3 form-group">
-                    <label for="validationCustom01" class="form-label">Telefono</label>
+                    <label class="form-label">Telefono</label>
                     <input class="form-control" type="text" placeholder="Telefono" name="telefono" [(ngModel)]="cliente.telefono" required>
                 </div>
                 <div class="col-md-3 form-group">
-                    <label for="validationCustom01" class="form-label">Fecha nacimiento</label>
+                    <label class="form-label">Fecha nacimiento</label>
                     <input class="form-control" type="date" name="f_nacimiento" [(ngModel)]="cliente.f_nacimiento" required>
                 </div>
                 <div class="col-md-3">
-                    <label for="validationCustom01" class="form-label">Genero</label>
+                    <label class="form-label">Genero</label>
                     <select class="form-control custom-select" name="genero" required [(ngModel)]="cliente.genero">
                         <option value="" disabled selected>-- Seleccionar --</option>
-                        <option value="Masculino">Masculino</option>
-                        <option value="Femenino">Femenino</option>
+                        <option value="masculino">Masculino</option>
+                        <option value="femenino">Femenino</option>
                     </select>
                 </div>
             </div>

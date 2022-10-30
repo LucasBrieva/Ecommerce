@@ -69,10 +69,8 @@ export class LoginComponent implements OnInit {
       this._clienteService.registro_cliente(this.newUser).subscribe(
         response => {
           if (response.data == undefined) {
-            debugger;
             this._helperService.iziToast(response.message, 'ERROR', false);
           } else {
-            debugger;
             this._helperService.iziToast('Hola ' + response.data.nombres.toUpperCase() + ', bienvenido/a', 'BIENVENIDO', true);
 
             this.usuario = response.data;
@@ -85,6 +83,7 @@ export class LoginComponent implements OnInit {
         },
         e => {
           this._helperService.iziToast(e.error.message, 'ERROR', false);
+          this.user.email = this.newUser.email;
           this.newUser = {};
         }
       )
