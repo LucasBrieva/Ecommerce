@@ -42,14 +42,20 @@ export class PerfilComponent implements OnInit {
 
   actualizar(actualizarForm: any) {
     if (actualizarForm.valid) {
-      this._clienteService.actualizar_perfil_cliente_guest(this.id, this.cliente, this.token).subscribe(
-        res => {
-          this._helperService.iziToast("El perfil se ha actualizado correctamente", "Actualizado", true);
-        },
-        err => {
-          this._helperService.iziToast('Los datos del formulario no son válidos', 'ERROR', false);
-        }
-      )
+      if(this.cliente.newPassword == this.cliente.confirmPassword){
+        this._clienteService.actualizar_perfil_cliente_guest(this.id, this.cliente, this.token).subscribe(
+          res => {
+            this.cliente = res.data;
+            this._helperService.iziToast("El perfil se ha actualizado correctamente", "Actualizado", true);
+          },
+          err => {
+            this._helperService.iziToast('Los datos del formulario no son válidos', 'ERROR', false);
+          }
+        )
+      }
+      else{
+        this._helperService.iziToast('Las contraseñas no coinciden', 'ERROR', false);
+      }
     } else {
       this._helperService.iziToast('Los datos del formulario no son válidos', 'ERROR', false);
     }
