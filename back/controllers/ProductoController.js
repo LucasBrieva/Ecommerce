@@ -4,6 +4,7 @@ var Producto = require('../models/producto');
 var Inventario = require('../models/inventario');
 var fs = require('fs');
 var path = require('path');
+var fsHelper = require('../helpers/fsHelper');
 
 const registro_producto_admin = async function(req, res){
     if(req.user){
@@ -26,9 +27,11 @@ const registro_producto_admin = async function(req, res){
 
             res.status(200).send({data: reg, inventario:inventario});
         }else{
+            fsHelper.add_log("ProductoController.js", "Hubo un error en ProductoController.registro_producto_admin, no tiene permiso por rol");
             res.status(500).send({message:'NoAccess'})
         }
     }else{
+        fsHelper.add_log("ProductoController.js", "Hubo un error en ProductoController.registro_producto_admin, no llego el usuario");
         res.status(500).send({message:'NoAccess'})
     }
 }
@@ -41,9 +44,11 @@ const listar_productos_filtro_admin = async function(req, res){
             res.status(200).send({data:reg});
             
         }else{
+            fsHelper.add_log("ProductoController.js", "Hubo un error en ProductoController.listar_productos_filtro_admin, no tiene permiso por rol");
             res.status(500).send({message:'NoAccess'})
         }
     }else{
+        fsHelper.add_log("ProductoController.js", "Hubo un error en ProductoController.listar_productos_filtro_admin, no llego el usuario");
         res.status(500).send({message:'NoAccess'})
     }
 }
@@ -72,9 +77,11 @@ const obtener_producto_admin = async function (req, res){
                 res.status(200).send({data:undefined});
             }
         }else{
+            fsHelper.add_log("ProductoController.js", "Hubo un error en ProductoController.obtener_producto_admin, no tiene permiso por rol");
             res.status(500).send({message: 'Hubo un error en el servidor',data: undefined});
         }
     }else{
+        fsHelper.add_log("ProductoController.js", "Hubo un error en ProductoController.obtener_producto_admin, no llego el usuario");
         res.status(500).send({message: 'Hubo un error en el servidor',data: undefined});
     }
 }
@@ -131,9 +138,11 @@ const actualizar_producto_admin = async function(req, res){
             
             
         }else{
+            fsHelper.add_log("ProductoController.js", "Hubo un error en ProductoController.actualizar_producto_admin, no tiene permiso por rol");
             res.status(500).send({message:'NoAccess'})
         }
     }else{
+        fsHelper.add_log("ProductoController.js", "Hubo un error en ProductoController.actualizar_producto_admin, no llego el usuario");
         res.status(500).send({message:'NoAccess'})
     }
 }
@@ -147,9 +156,11 @@ const baja_producto_admin = async function(req, res){
             });
             res.status(200).send({data:reg});
         }else{
+            fsHelper.add_log("ProductoController.js", "Hubo un error en ProductoController.baja_producto_admin, no tiene permiso por rol");
             res.status(500).send({message: 'Hubo un error en el servidor',data: undefined});
         }
     }else{
+        fsHelper.add_log("ProductoController.js", "Hubo un error en ProductoController.baja_producto_admin, no llego el usuario");
         res.status(500).send({message: 'Hubo un error en el servidor',data: undefined});
     }
 }
@@ -162,9 +173,11 @@ const listar_inventario_producto_admin = async function(req, res){
             var reg = await Inventario.find({producto: id}).populate('admin');
             res.status(200).send({data:reg});
         }else{
+            fsHelper.add_log("ProductoController.js", "Hubo un error en ProductoController.listar_inventario_producto_admin, no tiene permiso por rol");
             res.status(500).send({message: 'Hubo un error en el servidor',data: undefined});
         }
     }else{
+        fsHelper.add_log("ProductoController.js", "Hubo un error en ProductoController.listar_inventario_producto_admin, no llego el usuario");
         res.status(500).send({message: 'Hubo un error en el servidor',data: undefined});
     }
 }
@@ -185,9 +198,11 @@ const registro_inventario_producto_admin = async function(req, res){
             });
             res.status(200).send({data: reg, producto:producto});
         }else{
+            fsHelper.add_log("ProductoController.js", "Hubo un error en ProductoController.registro_inventario_producto_admin, no tiene permiso por rol");
             res.status(500).send({message:'NoAccess'})
         }
     }else{
+        fsHelper.add_log("ProductoController.js", "Hubo un error en ProductoController.registro_inventario_producto_admin, no llego el usuario");
         res.status(500).send({message:'NoAccess'})
     }
 }
@@ -205,9 +220,11 @@ const actualizar_producto_variedades_admin = async function(req, res){
             res.status(200).send({data:reg});
             
         }else{
+            fsHelper.add_log("ProductoController.js", "Hubo un error en ProductoController.actualizar_producto_variedades_admin, no tiene permiso por rol");
             res.status(500).send({message:'NoAccess'})
         }
     }else{
+        fsHelper.add_log("ProductoController.js", "Hubo un error en ProductoController.actualizar_producto_variedades_admin, no llego el usuario");
         res.status(500).send({message:'NoAccess'})
     }
 }
@@ -235,9 +252,11 @@ const agregar_imagen_galeria_admin = async function(req, res){
             res.status(200).send({data:reg});
             
         }else{
+            fsHelper.add_log("ProductoController.js", "Hubo un error en ProductoController.agregar_imagen_galeria_admin, no tiene permiso por rol");
             res.status(500).send({message:'NoAccess'})
         }
     }else{
+        fsHelper.add_log("ProductoController.js", "Hubo un error en ProductoController.agregar_imagen_galeria_admin, no llego el usuario");
         res.status(500).send({message:'NoAccess'})
     }
 }
@@ -255,9 +274,11 @@ const eliminar_imagen_galeria_admin = async function(req, res){
             res.status(200).send({data:reg});
             
         }else{
+            fsHelper.add_log("ProductoController.js", "Hubo un error en ProductoController.eliminar_imagen_galeria_admin, no tiene permiso por rol");
             res.status(500).send({message:'NoAccess'})
         }
     }else{
+        fsHelper.add_log("ProductoController.js", "Hubo un error en ProductoController.eliminar_imagen_galeria_admin, no llego el usuario");
         res.status(500).send({message:'NoAccess'})
     }
 }

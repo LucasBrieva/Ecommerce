@@ -1,4 +1,5 @@
 var Cupon = require('../models/cupon');
+var fsHelper = require('../helpers/fsHelper');
 
 const registro_cupon_admin = async function(req, res){
     if(req.user){
@@ -10,9 +11,11 @@ const registro_cupon_admin = async function(req, res){
 
             res.status(200).send({data:reg});
         }else{
+            fsHelper.add_log("CuponController.js", "Hubo un error en CuponController.registro_cupon_admin, no tiene permiso por rol");
             res.status(500).send({message:'NoAccess'})
         }
     }else{
+        fsHelper.add_log("CuponController.js", "Hubo un error en CuponController.registro_cupon_admin, no llego el usuario");
         res.status(500).send({message:'NoAccess'})
     }
 }
@@ -30,13 +33,14 @@ const listar_cupones_filtro_admin = async function(req, res){
             }
             
         }else{
+            fsHelper.add_log("CuponController.js", "Hubo un error en CuponController.listar_cupones_filtro_admin, no tiene permiso por rol");
             res.status(500).send({message:'NoAccess'})
         }
     }else{
+        fsHelper.add_log("CuponController.js", "Hubo un error en CuponController.listar_cupones_filtro_admin, no llego el usuario");
         res.status(500).send({message:'NoAccess'})
     }
 }
-
 const obtener_cupon_admin = async function (req, res){
     if(req.user){
         if(req.user.role == "Gerente general"){
@@ -48,13 +52,14 @@ const obtener_cupon_admin = async function (req, res){
                 res.status(200).send({data:undefined});
             }
         }else{
+            fsHelper.add_log("CuponController.js", "Hubo un error en CuponController.obtener_cupon_admin, no tiene permiso por rol");
             res.status(500).send({message: 'Hubo un error en el servidor',data: undefined});
         }
     }else{
+        fsHelper.add_log("CuponController.js", "Hubo un error en CuponController.obtener_cupon_admin, no llego el usuario");
         res.status(500).send({message: 'Hubo un error en el servidor',data: undefined});
     }
 }
-
 const actualizar_cupon_admin = async function(req,res){
     if(req.user){
         if(req.user.role == "Gerente general"){
@@ -69,10 +74,12 @@ const actualizar_cupon_admin = async function(req,res){
             });
             res.status(200).send({data:reg});
         }else{
-            res.status(500).send({message: 'Hubo un error en el servidor',data: undefined});
+            fsHelper.add_log("CuponController.js", "Hubo un error en CuponController.actualizar_cupon_admin, no tiene permiso por rol");
+            res.status(500).send({message: 'NoAccess',data: undefined});
         }
     }else{
-        res.status(500).send({message: 'Hubo un error en el servidor',data: undefined});
+        fsHelper.add_log("CuponController.js", "Hubo un error en CuponController.actualizar_cupon_admin, no llego el usuario");
+        res.status(500).send({message: 'NoAccess',data: undefined});
     }
 }
 const baja_cupon_admin = async function(req, res){
@@ -84,10 +91,12 @@ const baja_cupon_admin = async function(req, res){
             });
             res.status(200).send({data:reg});
         }else{
-            res.status(500).send({message: 'Hubo un error en el servidor',data: undefined});
+            fsHelper.add_log("CuponController.js", "Hubo un error en CuponController.baja_cupon_admin, no tiene permiso por rol");
+            res.status(500).send({message: 'NoAccess',data: undefined});
         }
     }else{
-        res.status(500).send({message: 'Hubo un error en el servidor',data: undefined});
+        fsHelper.add_log("CuponController.js", "Hubo un error en CuponController.baja_cupon_admin, no llego el usuario");
+        res.status(500).send({message: 'NoAccess',data: undefined});
     }
 }
 module.exports ={
