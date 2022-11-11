@@ -26,13 +26,11 @@ export class PerfilComponent implements OnInit {
     if (this.id) {
       this._clienteService.obtener_cliente_guest(this.id, this.token).subscribe(
         res => {
-          debugger;
           this.cliente = res.data;
           this.cliente.pais = this.cliente.pais != undefined? this.cliente.pais : "";
           this.cliente.genero = this.cliente.genero != undefined? this.cliente.genero : "";
         },
         err => {
-          debugger;
 
         }
       )
@@ -57,4 +55,7 @@ export class PerfilComponent implements OnInit {
     }
   }
 
+  togglePassword(id:string){
+    this._helperService.togglePassword(id);
+  }
 }

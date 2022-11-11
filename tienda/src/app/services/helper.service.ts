@@ -29,4 +29,13 @@ export class HelperService {
     })
   }
 
+  togglePassword(id: string){
+    var input = document.getElementById(id) as HTMLInputElement | null;
+    if(input != null){
+      if(input.type == "password")
+        input.type = "text";
+      else
+        input.type = "password";
+    }
+  }
 }

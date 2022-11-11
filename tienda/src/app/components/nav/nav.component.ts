@@ -31,7 +31,6 @@ export class NavComponent implements OnInit {
             localStorage.setItem('user_data', JSON.stringify(this.user));
           },
           err=>{
-            debugger;
             this.user = undefined;
           }
         )

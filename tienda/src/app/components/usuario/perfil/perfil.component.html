@@ -44,11 +44,11 @@
             <div class="col-sm-6 form-group">
               <label for="ac-password">Nueva contraseña</label>
               <div class="cs-password-toggle input-group-overlay">
-                <input type="password" class="form-control form-control-lg" placeholder="Nueva contraseña" name="newPassword"
+                <input type="password" class="form-control form-control-lg" placeholder="Nueva contraseña" id="newPassword" name="newPassword"
                 [(ngModel)]="cliente.newPassword">
                 <div class="input-group-append-overlay">
                   <label class="btn cs-password-toggle-btn input-group-text">
-                    <input type="checkbox" class="custom-control-input">
+                    <input type="checkbox" class="custom-control-input" (click)="togglePassword('newPassword')">
                     <i class="cxi-eye cs-password-toggle-indicator"></i>
                     <span class="sr-only">Mostrar contraseña</span>
                   </label>
@@ -58,11 +58,11 @@
             <div class="col-sm-6 form-group">
               <label>Confirmar contraseña</label>
               <div class="cs-password-toggle input-group-overlay">
-                <input type="password" class="form-control form-control-lg" placeholder="Confirmar contraseña" name="confirmPassword"
+                <input type="password" class="form-control form-control-lg" placeholder="Confirmar contraseña" id="confirmPassword" name="confirmPassword"
                 [(ngModel)]="cliente.confirmPassword">
                 <div class="input-group-append-overlay">
                   <label class="btn cs-password-toggle-btn input-group-text">
-                    <input type="checkbox" class="custom-control-input">
+                    <input type="checkbox" class="custom-control-input" (click)="togglePassword('confirmPassword')">
                     <i class="cxi-eye cs-password-toggle-indicator"></i>
                     <span class="sr-only">Mostrar contraseña</span>
                   </label>
