@@ -18,12 +18,17 @@ export class SeguridadService {
     try {
       const helper = new JwtHelperService();
       var decodedToken = helper.decodeToken(token);
+
+      if(helper.isTokenExpired(token)){
+        localStorage.clear();
+        return false;
+      }
       if (!decodedToken) {
-        localStorage.removeItem('token');
+        localStorage.clear();
         return false;
       }
     } catch (Exception) {
-      localStorage.removeItem('token');
+      localStorage.clear();
       return false;
     }
 
