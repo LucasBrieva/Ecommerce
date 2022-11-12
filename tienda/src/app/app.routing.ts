@@ -4,12 +4,14 @@ import { InicioComponent } from "./components/inicio/inicio.component";
 import { LoginComponent } from "./components/login/login.component";
 import { SeguridadGuard } from "./guards/seguridad.guard";
 import { PerfilComponent } from "./components/usuario/perfil/perfil.component";
+import { IndexProductoComponent } from "./components/productos/index-producto/index-producto.component";
 
 
 const appRoute : Routes =[
     {path: '', component: InicioComponent},
     {path: 'login', component: LoginComponent},
     {path: 'cuenta/perfil', component: PerfilComponent, canActivate: [SeguridadGuard]},
+    {path: 'productos', component: IndexProductoComponent},
 ]
 
 export const appRoutingProviders : any[] = [];
