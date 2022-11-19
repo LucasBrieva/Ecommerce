@@ -25,6 +25,9 @@ api.put('/baja_producto_admin/:id', auth.auth, productoController.baja_producto_
 api.get('/listar_inventario_producto_admin/:id', auth.auth, productoController.listar_inventario_producto_admin);
 api.post('/registro_inventario_producto_admin', auth.auth, productoController.registro_inventario_producto_admin);
 
+//PÚBLICOS
+
+api.get('/listar_productos_filtro_publico/:filtro?', productoController.listar_productos_filtro_publico);
 
 
 module.exports = api;

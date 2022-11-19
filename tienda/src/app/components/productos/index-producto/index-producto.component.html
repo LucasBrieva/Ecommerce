@@ -101,6 +101,29 @@
           </div>
           <div class="cs-offcanvas-body accordion-alt pb-4">
 
+
+            <!--Busqueda-->
+            <div class="card border-bottom">
+              <div class="card-header py-3" id="filter-panel">
+                <h6 class="accordion-heading">
+                  <a href="#filter" role="button" data-toggle="collapse" aria-expanded="true" aria-controls="filter">
+                    Buscar producto
+                    <span class="accordion-indicator"></span>
+                  </a>
+                </h6>
+              </div>
+              <div class="collapse show" id="filter" aria-labelledby="filter-panel">
+                <div class="cs-widget pl-1 pb-4 mt-n3">
+                  <div class="input-group-overlay d-lg-block d-none order-lg-3 mt-3">
+                    <input class="form-control appended-form-control" type="text" placeholder="Buscar producto" name="filter_producto" [(ngModel)]="filter_producto">
+                    <div class="input-group-append-overlay" style="cursor:pointer; color:white !important; background: #17696a !important;"
+                    (click)="buscar_producto()">
+                      <span class="input-group-text" style="color: white;"><i class="cxi-search lead align-middle"></i></span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
             <!-- Category -->
             <div class="card border-bottom">
               <div class="card-header pt-0 pb-3" id="category-panel">
@@ -168,7 +191,6 @@
               </div>
             </div>
 
-
           </div>
         </div>
       </div>
@@ -176,14 +198,17 @@
 
       <!-- Product grid -->
       <div class="col">
-        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-3" data-filters-columns>
+        <div class="row" *ngIf="load_data">
+          <div class="text-center loader"></div>
+        </div>
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-3" *ngIf="!load_data" data-filters-columns>
 
           <!-- Item -->
-          <div class="col pb-sm-2 mb-grid-gutter">
+          <div class="col pb-sm-2 mb-grid-gutter" *ngFor="let item of productos_filtrado">
             <div class="card card-product mx-auto">
               <div class="card-product-img">
                 <a href="shop-single.html" class="card-img-top">
-                  <img src="https://createx.createx.studio/assets/img/ecommerce/shop/01.jpg" alt="Product image">
+                  <img [src]="url+'obtener_portada/'+item.portada" alt="Product image">
                 </a>
                 <div class="card-product-widgets-top">
                   <div class="star-rating ml-auto">
@@ -200,46 +225,17 @@
               </div>
               <div class="card-body pb-2">
                 <h3 class="card-product-title text-truncate mb-2">
-                  <a href="shop-single.html" class="nav-link">Shirt with insertion lace trims</a>
+                  <a href="shop-single.html" class="nav-link">{{item.titulo}}</a>
                 </h3>
                 <div class="d-flex align-items-center">
-                  <span class="h5 d-inline-block mb-0">$49.95</span>
+                  <span class="h5 d-inline-block mb-0">${{item.precio}}</span>
                 </div>
               </div>
               <div class="card-footer">
                 <div class="d-flex align-items-center mb-2 pb-1">
-                  <div class="mt-n2">
-                    <div class="custom-control cs-custom-size-option cs-custom-size-option-sm custom-control-inline">
-                      <input type="radio" class="custom-control-input" name="size-1" id="l-1">
-                      <label for="l-1" class="cs-custom-option-label">L</label>
-                    </div>
-                    <div class="custom-control cs-custom-size-option cs-custom-size-option-sm custom-control-inline">
-                      <input type="radio" class="custom-control-input" name="size-1" id="m-1" checked>
-                      <label for="m-1" class="cs-custom-option-label">M</label>
-                    </div>
-                    <div class="custom-control cs-custom-size-option cs-custom-size-option-sm custom-control-inline">
-                      <input type="radio" class="custom-control-input" name="size-1" id="s-1">
-                      <label for="s-1" class="cs-custom-option-label">S</label>
-                    </div>
-                  </div>
-                  <div class="ml-auto">
-                    <div class="custom-control cs-custom-color-option cs-custom-color-option-sm custom-control-inline">
-                      <input type="radio" class="custom-control-input" name="color-1" id="blue-1" value="Blue" checked>
-                      <label for="blue-1" class="cs-custom-option-label">
-                        <span class="cs-color-swatch" style="background-color: #6a9bf4;"></span>
-                      </label>
-                    </div>
-                    <div class="custom-control cs-custom-color-option cs-custom-color-option-sm custom-control-inline">
-                      <input type="radio" class="custom-control-input" name="color-1" id="orange-1" value="Orange">
-                      <label for="orange-1" class="cs-custom-option-label">
-                        <span class="cs-color-swatch" style="background-color: #ff9d50;"></span>
-                      </label>
-                    </div>
-                    <div class="custom-control cs-custom-color-option cs-custom-color-option-sm custom-control-inline">
-                      <input type="radio" class="custom-control-input" name="color-1" id="green-1" value="Green">
-                      <label for="green-1" class="cs-custom-option-label">
-                        <span class="cs-color-swatch" style="background-color: #16c995;"></span>
-                      </label>
+                  <div class="row">
+                    <div class="col-12">
+                      <a href="">{{item.categoria}}</a>
                     </div>
                   </div>
                 </div>
