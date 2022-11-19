@@ -83,9 +83,8 @@
           <li class="nav-item dropdown">
             <a [routerLink]="['/productos']" routerLinkActive="active" class="nav-link dropdown-toggle" data-toggle="dropdown">Tienda</a>
             <ul class="dropdown-menu">
-              <li><a href="shop-catalog.html" class="dropdown-item">Catalog with Filters</a></li>
-              <li><a href="shop-single.html" class="dropdown-item">Single Product</a></li>
-              <li><a href="checkout.html" class="dropdown-item">Checkout</a></li>
+              <li *ngFor="let item of config_global.categorias"><a href="shop-catalog.html" class="dropdown-item"><i class="{{item.icono}}"></i> &nbsp; {{item.titulo}}</a></li>
+
             </ul>
           </li>
           <li class="nav-item dropdown mega-dropdown">

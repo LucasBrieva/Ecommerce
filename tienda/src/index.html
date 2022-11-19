@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8">
   <title>Tienda</title>
@@ -14,7 +15,7 @@
   <meta name="theme-color" content="#ffffff">
 
   <!-- Vendor Styles-->
-  <link rel="stylesheet" media="screen" href="assets/vendor/tiny-slider/dist/tiny-slider.css"/>
+  <link rel="stylesheet" media="screen" href="assets/vendor/tiny-slider/dist/tiny-slider.css" />
 
   <!-- Main Theme Styles + Bootstrap-->
   <link rel="stylesheet" media="screen" href="assets/css/demo/ecommerce/theme.min.css">
@@ -22,9 +23,10 @@
   <link rel="stylesheet" href="assets/css/simplebar.min.css">
   <link rel="stylesheet" href="assets/css/nouislider.min.css">
   <style>
-    .pagination{
-    margin-bottom: 0px;
-  }
+    .pagination {
+      margin-bottom: 0px;
+    }
+
     .cs-page-loading {
       position: fixed;
       top: 0;
@@ -40,10 +42,12 @@
       visibility: hidden;
       z-index: 9999;
     }
+
     .cs-page-loading.active {
       opacity: 1;
       visibility: visible;
     }
+
     .cs-page-loading-inner {
       position: absolute;
       top: 50%;
@@ -56,15 +60,18 @@
       transition: opacity .2s ease-in-out;
       opacity: 0;
     }
-    .cs-page-loading.active > .cs-page-loading-inner {
+
+    .cs-page-loading.active>.cs-page-loading-inner {
       opacity: 1;
     }
-    .cs-page-loading-inner > span {
+
+    .cs-page-loading-inner>span {
       display: block;
       font-size: 1rem;
       font-weight: normal;
       color: #787a80;
     }
+
     .cs-page-spinner {
       display: inline-block;
       width: 2.75rem;
@@ -77,22 +84,26 @@
       -webkit-animation: spinner .75s linear infinite;
       animation: spinner .75s linear infinite;
     }
+
     @-webkit-keyframes spinner {
       0% {
         -webkit-transform: scale(0);
         transform: scale(0);
       }
+
       50% {
         opacity: 1;
         -webkit-transform: none;
         transform: none;
       }
     }
+
     @keyframes spinner {
       0% {
         -webkit-transform: scale(0);
         transform: scale(0);
       }
+
       50% {
         opacity: 1;
         -webkit-transform: none;
@@ -121,6 +132,7 @@
       right: 1rem;
       z-index: 100;
     }
+
     .cs-demo-switcher-inner {
       width: 3rem;
       height: 3rem;
@@ -132,11 +144,34 @@
       line-height: 3rem;
       text-align: center;
       text-decoration: none;
-      box-shadow: 0px 10px 15px 0px rgba(30,33,44,0.10);
+      box-shadow: 0px 10px 15px 0px rgba(30, 33, 44, 0.10);
     }
   </style>
 
+  <style>
+    .cs-range-slider-ui .noUi-handle {
+      top: 50% !important;
+      width: .875rem !important;
+      height: .875rem !important;
+      margin-top: -.4375rem !important;
+      border: 2px solid #fff !important;
+      border-radius: 50% !important;
+      box-shadow: none !important;
+      background-color: #17696a !important;
+    }
+
+    .cs-range-slider-ui {
+      height: .125rem !important;
+      margin: 3rem 0 !important;
+      margin-right: 20px !important;
+      margin-left: 20px !important;
+      border: 0 !important;
+      background-color: #dadbdd !important;
+      box-shadow: none !important;
+    }
+  </style>
 </head>
+
 <body>
 
   <div class="cs-page-loading active">
@@ -169,4 +204,5 @@
   <script src="assets/js/iziToast.min.js"></script>
 
 </body>
+
 </html>
