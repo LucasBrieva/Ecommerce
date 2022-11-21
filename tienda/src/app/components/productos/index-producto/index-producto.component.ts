@@ -68,7 +68,7 @@ export class IndexProductoComponent implements OnInit {
 
   }
 
-  buscar_producto(filtro) {
+  buscar_producto() {
     debugger;
     if (this.productos_back_up.length == 0) {
       this.listar_productos();
@@ -130,7 +130,7 @@ export class IndexProductoComponent implements OnInit {
     });
 
     slider.noUiSlider.on('change', () =>{
-      return this.buscar_producto("precio");
+      return this.buscar_producto();
     });
 
     $('.noUi-tooltip').css('font-size', '11px');
