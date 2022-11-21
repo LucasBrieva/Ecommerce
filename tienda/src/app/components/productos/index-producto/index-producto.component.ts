@@ -21,7 +21,7 @@ export class IndexProductoComponent implements OnInit {
     titulo: "",
     minPrice: 0,
     maxPrice: 1000,
-    categoria: ""
+    categorias: Array<string>()
   };
 
   public load_data = true;
@@ -69,7 +69,6 @@ export class IndexProductoComponent implements OnInit {
   }
 
   buscar_producto() {
-    debugger;
     if (this.productos_back_up.length == 0) {
       this.listar_productos();
     }
@@ -88,7 +87,16 @@ export class IndexProductoComponent implements OnInit {
           return false;
         }
       );
-
+      if (this.filter_producto.categorias.length > 0) {
+        this.productos_filtrado = this.productos_filtrado.filter(
+          item => {
+            if (this.filter_producto.categorias.indexOf(item.categoria) != -1) {
+              return true;
+            }
+            return false;
+          }
+        );
+      }
     }
   }
 
@@ -129,7 +137,7 @@ export class IndexProductoComponent implements OnInit {
       $('.cs-range-slider-value-max').val(values[1]);
     });
 
-    slider.noUiSlider.on('change', () =>{
+    slider.noUiSlider.on('change', () => {
       return this.buscar_producto();
     });
 
@@ -156,9 +164,14 @@ export class IndexProductoComponent implements OnInit {
       this.filter_producto.maxPrice = maxPrice
     }
   }
+  set_array_categorias(categoria) {
+    var indiceExiste = this.filter_producto.categorias.indexOf(categoria);
+    if (indiceExiste == -1) {
+      this.filter_producto.categorias.push(categoria);
+    } else {
+      this.filter_producto.categorias.splice(indiceExiste, 1);
+    }
+    this.buscar_producto();
+  }
 
-
-}
-function buscarProducto(test){
-  debugger;
 }

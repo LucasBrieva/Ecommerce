@@ -138,7 +138,7 @@
                 <div class="cs-widget-data-list cs-filter">
                   <div class="input-group-overlay mb-3">
                     <input type="text" class="cs-filter-search form-control form-control-sm appended-form-control" placeholder="Buscar modelo"
-                    name="filter_categoria" [(ngModel)]="filter_categoria" (keyup)="buscar_categoria()">
+                    (keyup)="buscar_categoria()">
                     <div class="input-group-append-overlay">
                       <span class="input-group-text">
                         <i class="cxi-search font-size-sm"></i>
@@ -146,9 +146,10 @@
                     </div>
                   </div>
                   <ul class="cs-filter-list list-unstyled pr-3" style="height: 12rem;" data-simplebar data-simplebar-auto-hide="false">
-                    <li class="cs-filter-item" *ngFor="let item of config_global.categorias; let indice = index">
+                    <li class="cs-filter-item" *ngFor="let item of config_global.categorias; let indice = index;">
                       <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input" id="blazers-{{indice}}">
+                        <input type="checkbox" class="custom-control-input" id="blazers-{{indice}}"
+                        (change)="set_array_categorias(item.titulo)">
                         <label for="blazers-{{indice}}" class="custom-control-label">
                           <span class="cs-filter-item-text">{{item.titulo}}</span>
                         </label>
