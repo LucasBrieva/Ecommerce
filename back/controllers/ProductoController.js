@@ -10,6 +10,7 @@ const registro_producto_admin = async function(req, res){
     if(req.user){
         if(req.user.role == "Gerente general"){
             let data = req.body;
+            console.log(data);
             var img_path = req.files.portada.path;
             var img_name = img_path.split("\\");
             var portada_name = img_name[2];
@@ -107,7 +108,7 @@ const actualizar_producto_admin = async function(req, res){
                     descripcion : data.descripcion,
                     contenido : data.contenido,
                     portada : portada_name,
-                    alerta_stock : alerta_stock,
+                    alerta_stock : data.alerta_stock,
                 });
                 //BORRO LA IMG PARA QUE NO ME ACUMULE INFO BASURA EN LA BD
                 fs.stat('./uploads/productos/' + reg.portada, function(error){
@@ -127,7 +128,7 @@ const actualizar_producto_admin = async function(req, res){
                     titulo : data.titulo,
                     codigo : data.codigo,
                     categoria : data.categoria,
-                    alerta_stock : alerta_stock,
+                    alerta_stock : data.alerta_stock,
                     stock : data.stock,
                     precio : data.precio,
                     descripcion : data.descripcion,

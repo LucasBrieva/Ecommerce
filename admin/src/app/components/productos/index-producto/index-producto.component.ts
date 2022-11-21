@@ -65,6 +65,7 @@ export class IndexProductoComponent implements OnInit {
     this.metFiltro();
   }
   metFiltro() {
+    debugger;
     this.load_data = true;
     this._productoService.listar_productos_filtro_admin(this.filtro, this.token).subscribe(
       response => {

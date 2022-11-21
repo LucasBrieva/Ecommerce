@@ -28,6 +28,7 @@ export class ProductoService {
     fd.append('descripcion',data.descripcion);
     fd.append('contenido',data.contenido);
     fd.append('categoria',data.categoria);
+    fd.append('alerta_stock',data.alerta_stock);
     fd.append('portada',file);
 
     return this._http.post(this.url+'registro_producto_admin/', fd, {headers:headers});
@@ -55,6 +56,7 @@ export class ProductoService {
       fd.append('contenido',data.contenido);
       fd.append('categoria',data.categoria);
       fd.append('portada',data.portada);
+      fd.append('alerta_stock',data.alerta_stock);
 
       return this._http.put(this.url+'actualizar_producto_admin/' + id, fd, {headers:headers});
     }else{
