@@ -129,6 +129,10 @@ export class IndexProductoComponent implements OnInit {
       $('.cs-range-slider-value-max').val(values[1]);
     });
 
+    slider.noUiSlider.on('change', () =>{
+      return this.buscar_producto("precio");
+    });
+
     $('.noUi-tooltip').css('font-size', '11px');
   }
   config_precios() {
@@ -152,8 +156,9 @@ export class IndexProductoComponent implements OnInit {
       this.filter_producto.maxPrice = maxPrice
     }
   }
-  actualizarPrecio(precio){
 
-  }
 
+}
+function buscarProducto(test){
+  debugger;
 }

@@ -172,17 +172,19 @@
               <div class="collapse show" id="price" aria-labelledby="price-panel">
                 <div class="cs-widget pl-1 pr-3 pb-4 mt-n3">
                   <div class="cs-range-slider" data-start-min="250" data-start-max="680" data-min="0" data-max="1000" data-step="1">
-                    <div class="cs-range-slider-ui" id="slider" (click)="buscar_producto('precio')"></div>
+                    <div class="cs-range-slider-ui" id="slider"></div>
+                    <!--<ngx-slider [(value)]="value" [options]="options"></ngx-slider>-->
                     <div class="d-flex align-items-center mt-3">
-                      <div class="w-50">
-                        <div class="form-group position-relative mb-0">
-                          <input type="number" name="minPrice" [(ngModel)]="filter_producto.minPrice" class="form-control form-control-sm cs-range-slider-value-min">
+                      <div hidden>
+                        <div class="w-50">
+                          <div class="form-group position-relative mb-0">
+                            <input type="number" name="minPrice"  [(ngModel)]="filter_producto.minPrice" class="form-control form-control-sm cs-range-slider-value-min">
+                          </div>
                         </div>
-                      </div>
-                      <div class="mx-1 px-2 font-size-xs">—</div>
-                      <div class="w-50">
-                        <div class="form-group position-relative mb-0">
-                          <input type="number" name="maxPrice" [(ngModel)]="filter_producto.maxPrice" (change)="actualizarPrecio('max')" class="form-control form-control-sm cs-range-slider-value-max">
+                        <div class="w-50">
+                          <div class="form-group position-relative mb-0">
+                            <input type="number" name="maxPrice"  [(ngModel)]="filter_producto.maxPrice" class="form-control form-control-sm cs-range-slider-value-max">
+                          </div>
                         </div>
                       </div>
                     </div>
