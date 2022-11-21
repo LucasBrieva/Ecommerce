@@ -16,7 +16,6 @@ export class IndexProductoComponent implements OnInit {
   public filter_categoria = "";
   public productos_back_up: Array<any> = [];
   public productos_filtrado: Array<any> = [];
-  //TODO: RE HACER PARA QUE SEA UN OBJETO O ALGO ASÍ
   public filter_producto = {
     titulo: "",
     minPrice: 0,
@@ -26,9 +25,10 @@ export class IndexProductoComponent implements OnInit {
 
   public load_data = true;
   public url;
+  public route_categoria;
 
   constructor(
-    private _clienteService: ClienteService
+    private _clienteService: ClienteService,
   ) {
     this.url = GLOBAL.url;
     this._clienteService.obtener_config_public().subscribe(
@@ -39,14 +39,13 @@ export class IndexProductoComponent implements OnInit {
 
       }
     );
+
     this.listar_productos();
 
   }
 
   ngOnInit(): void {
-
   }
-
   buscar_categoria() {
 
     if (this.filter_categoria) {
@@ -67,7 +66,6 @@ export class IndexProductoComponent implements OnInit {
     }
 
   }
-
   buscar_producto() {
     if (this.productos_back_up.length == 0) {
       this.listar_productos();
@@ -99,14 +97,13 @@ export class IndexProductoComponent implements OnInit {
       }
     }
   }
-
-  listar_productos() {
+  listar_productos(flag = true) {
     this._clienteService.listar_productos_filtro_publico(this.filter_producto).subscribe(
       response => {
         this.productos_back_up = response.data;
         this.productos_filtrado = response.data;
         this.config_precios();
-        this.config_precios_css();
+        if(flag) this.config_precios_css();
         this.load_data = false;
       },
       error => {
@@ -114,7 +111,6 @@ export class IndexProductoComponent implements OnInit {
       }
     )
   }
-
   config_precios_css() {
     var slider: any = document.getElementById('slider');
     noUiSlider.create(slider, {
