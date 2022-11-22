@@ -102,8 +102,5 @@
       }
     }
   },
-  "defaultProject": "tienda",
-  "cli": {
-    "analytics": "243ecc75-c835-4323-b1d7-38249b4412c7"
-  }
+  "defaultProject": "tienda"
 }
