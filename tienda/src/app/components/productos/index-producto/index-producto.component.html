@@ -207,55 +207,48 @@
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-3" *ngIf="!load_data" data-filters-columns>
 
           <!-- Item -->
-          <ng-container *ngIf="productos_filtrado.length == 0">
-            <div class="col-lg-12 col-md-5">
-              <h3 class="h6 mb-2 text-uppercase" style="text-align: center;">No se encontraron productos</h3>
-          </div>
-          </ng-container>
-          <ng-container *ngIf="productos_filtrado.length >= 1">
-            <div class="col pb-sm-2 mb-grid-gutter" *ngFor="let item of productos_filtrado">
-              <div class="card card-product mx-auto">
-                <div class="card-product-img">
-                  <a href="shop-single.html" class="card-img-top">
-                    <img [src]="url+'obtener_portada/'+item.portada" alt="Product image">
-                  </a>
-                  <div class="card-product-widgets-top">
-                    <div class="star-rating ml-auto">
-                      <i class="sr-star cxi-star-filled active"></i>
-                      <i class="sr-star cxi-star-filled active"></i>
-                      <i class="sr-star cxi-star-filled active"></i>
-                      <i class="sr-star cxi-star-filled active"></i>
-                      <i class="sr-star cxi-star-filled active"></i>
-                    </div>
-                  </div>
-                  <div class="card-product-widgets-bottom">
-                    <a href="#" class="btn-wishlist ml-auto" data-toggle="tooltip" data-placement="left" title="Add to wishlist"></a>
+          <div class="col pb-sm-2 mb-grid-gutter" *ngFor="let item of productos_filtrado">
+            <div class="card card-product mx-auto">
+              <div class="card-product-img">
+                <a href="shop-single.html" class="card-img-top">
+                  <img [src]="url+'obtener_portada/'+item.portada" alt="Product image">
+                </a>
+                <div class="card-product-widgets-top">
+                  <div class="star-rating ml-auto">
+                    <i class="sr-star cxi-star-filled active"></i>
+                    <i class="sr-star cxi-star-filled active"></i>
+                    <i class="sr-star cxi-star-filled active"></i>
+                    <i class="sr-star cxi-star-filled active"></i>
+                    <i class="sr-star cxi-star-filled active"></i>
                   </div>
                 </div>
-                <div class="card-body pb-2">
-                  <h3 class="card-product-title text-truncate mb-2">
-                    <a href="shop-single.html" class="nav-link">{{item.titulo}}</a>
-                  </h3>
-                  <div class="d-flex align-items-center">
-                    <span class="h5 d-inline-block mb-0">${{item.precio}}</span>
-                  </div>
-                </div>
-                <div class="card-footer">
-                  <div class="d-flex align-items-center mb-2 pb-1">
-                    <div class="row">
-                      <div class="col-12">
-                        <a href="">{{item.categoria}}</a>
-                      </div>
-                    </div>
-                  </div>
-                  <button type="button" class="btn btn-primary btn-block">
-                    <i class="cxi-cart align-middle mt-n1 mr-2"></i>
-                    Add to cart
-                  </button>
+                <div class="card-product-widgets-bottom">
+                  <a href="#" class="btn-wishlist ml-auto" data-toggle="tooltip" data-placement="left" title="Add to wishlist"></a>
                 </div>
               </div>
+              <div class="card-body pb-2">
+                <h3 class="card-product-title text-truncate mb-2">
+                  <a href="shop-single.html" class="nav-link">{{item.titulo}}</a>
+                </h3>
+                <div class="d-flex align-items-center">
+                  <span class="h5 d-inline-block mb-0">${{item.precio}}</span>
+                </div>
+              </div>
+              <div class="card-footer">
+                <div class="d-flex align-items-center mb-2 pb-1">
+                  <div class="row">
+                    <div class="col-12">
+                      <a href="">{{item.categoria}}</a>
+                    </div>
+                  </div>
+                </div>
+                <button type="button" class="btn btn-primary btn-block">
+                  <i class="cxi-cart align-middle mt-n1 mr-2"></i>
+                  Add to cart
+                </button>
+              </div>
             </div>
-          </ng-container>
+          </div>
 
 
         </div>
