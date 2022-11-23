@@ -33,26 +33,23 @@
       <div class="col-md-9">
         <div class="d-flex align-items-center">
           <div class="form-inline flex-nowrap mr-3 mr-xl-5">
-            <label for="sorting-top" class="font-weight-bold text-nowrap mr-2 pr-1 d-none d-lg-block">Sort by</label>
-            <select id="sorting-top" class="custom-select">
-              <option>Popularity</option>
-              <option>Low - Hight Price</option>
-              <option>High - Low Price</option>
-              <option>Average Rating</option>
-              <option>A - Z Order</option>
-              <option>Z - A Order</option>
+            <label for="sorting-top" class="font-weight-bold text-nowrap mr-2 pr-1 d-none d-lg-block">Ordenar por</label>
+            <select id="sorting-bottom" class="custom-select" name="sort_by" [(ngModel)]="sort_by" (change)="ordenar_por()">
+              <option value="az">A - Z</option>
+              <option value="za">Z - A</option>
+              <option value="popularidad">Popularidad</option>
+              <option value="mayorPrecio">Mayor precio</option>
+              <option value="menorPrecio">Menor precio</option>
             </select>
           </div>
           <div class="form-inline flex-nowrap d-none d-sm-flex mr-3 mr-xl-5">
-            <label for="pager-top" class="font-weight-bold text-nowrap mr-2 pr-1 d-none d-lg-block">Show</label>
-            <select id="pager-top" class="custom-select">
-              <option>12</option>
-              <option>24</option>
-              <option>48</option>
-              <option>72</option>
-              <option>96</option>
+            <label for="pager-top" class="font-weight-bold text-nowrap mr-2 pr-1 d-none d-lg-block">Ver</label>
+            <select id="pager-top" class="custom-select" name="pageSize" [(ngModel)]="pageSize">
+              <option value="15">15</option>
+              <option value="30">30</option>
+              <option value="50">50</option>
             </select>
-            <span class="font-size-sm text-muted text-nowrap ml-2 d-none d-lg-block">products per page</span>
+            <span class="font-size-sm text-muted text-nowrap ml-2 d-none d-lg-block">Productos por página</span>
           </div>
           <pagination-controls (pageChange)="page = $event" previousLabel="Anterior"
           nextLabel="Siguiente"></pagination-controls>
@@ -180,7 +177,7 @@
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-3" *ngIf="!load_data" data-filters-columns>
 
           <!-- Item -->
-          <div class="col pb-sm-2 mb-grid-gutter" *ngFor="let item of productos_filtrado | paginate: { itemsPerPage: 3, currentPage: page }">
+          <div class="col pb-sm-2 mb-grid-gutter" *ngFor="let item of productos_filtrado | paginate: { itemsPerPage: pageSize, currentPage: page }">
             <div class="card card-product mx-auto">
               <div class="card-product-img">
                 <a href="shop-single.html" class="card-img-top">
@@ -229,26 +226,23 @@
         <!-- Toolbar + Pagination -->
         <div class="d-flex align-items-center pt-md-4 mt-5">
           <div class="form-inline flex-nowrap mr-3 mr-xl-5 pt-1">
-            <label for="sorting-bottom" class="font-weight-bold text-nowrap mr-2 pr-1 d-none d-md-block">Sort by</label>
-            <select id="sorting-bottom" class="custom-select">
-              <option>Popularity</option>
-              <option>Low - Hight Price</option>
-              <option>High - Low Price</option>
-              <option>Average Rating</option>
-              <option>A - Z Order</option>
-              <option>Z - A Order</option>
+            <label for="sorting-bottom" class="font-weight-bold text-nowrap mr-2 pr-1 d-none d-md-block">Ordenar por</label>
+            <select id="sorting-bottom" class="custom-select" name="sort_by" [(ngModel)]="sort_by" (change)="ordenar_por()">
+              <option value="az">A - Z</option>
+              <option value="za">Z - A</option>
+              <option value="popularidad">Popularidad</option>
+              <option value="mayorPrecio">Mayor precio</option>
+              <option value="menorPrecio">Menor precio</option>
             </select>
           </div>
           <div class="form-inline flex-nowrap d-none d-sm-flex mr-3 mr-xl-5 pt-1">
-            <label for="pager-bottom" class="font-weight-bold text-nowrap mr-2 pr-1 d-none d-md-block">Show</label>
-            <select id="pager-bottom" class="custom-select">
-              <option>12</option>
-              <option>24</option>
-              <option>48</option>
-              <option>72</option>
-              <option>96</option>
+            <label for="pager-bottom" class="font-weight-bold text-nowrap mr-2 pr-1 d-none d-md-block">Ver</label>
+            <select id="pager-bottom" class="custom-select" name="pageSize" [(ngModel)]="pageSize">
+              <option value="15">15</option>
+              <option value="30">30</option>
+              <option value="50">50</option>
             </select>
-            <span class="font-size-sm text-muted text-nowrap ml-2 d-none d-md-block">products per page</span>
+            <span class="font-size-sm text-muted text-nowrap ml-2 d-none d-md-block">Productos por página</span>
           </div>
           <pagination-controls (pageChange)="page = $event" previousLabel="Anterior"
           nextLabel="Siguiente"></pagination-controls>

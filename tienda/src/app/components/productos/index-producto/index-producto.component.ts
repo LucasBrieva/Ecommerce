@@ -28,6 +28,8 @@ export class IndexProductoComponent implements OnInit {
   public load_data = true;
   public url;
 
+  public sort_by = "az";
+  public pageSize = 15;
   constructor(
     private _clienteService: ClienteService
   ) {
@@ -98,7 +100,9 @@ export class IndexProductoComponent implements OnInit {
           }
         );
       }
+      this.ordenar_por();
     }
+
   }
 
   listar_productos() {
@@ -108,6 +112,7 @@ export class IndexProductoComponent implements OnInit {
         this.productos_filtrado = response.data;
         this.config_precios();
         this.config_precios_css();
+        this.ordenar_por();
         this.load_data = false;
       },
       error => {
@@ -174,5 +179,63 @@ export class IndexProductoComponent implements OnInit {
     }
     this.buscar_producto();
   }
-
+  ordenar_por() {
+    switch (this.sort_by) {
+      case "popularidad":
+        this.productos_filtrado.sort(function (a, b) {
+          if (a.nventas < b.nventas) {
+            return 1;
+          }
+          if (a.nventas > b.nventas) {
+            return -1;
+          }
+          return 0;
+        });
+        break;
+      case "mayorPrecio":
+        this.productos_filtrado.sort(function (a, b) {
+          if (a.precio < b.precio) {
+            return 1;
+          }
+          if (a.precio > b.precio) {
+            return -1;
+          }
+          return 0;
+        });
+        break;
+      case "menorPrecio":
+        this.productos_filtrado.sort(function (a, b) {
+          if (a.precio > b.precio) {
+            return 1;
+          }
+          if (a.precio < b.precio) {
+            return -1;
+          }
+          return 0;
+        });
+        break;
+      case "az":
+        this.productos_filtrado.sort(function (a, b) {
+          if (a.titulo > b.titulo) {
+            return 1;
+          }
+          if (a.titulo < b.titulo) {
+            return -1;
+          }
+          return 0;
+        });
+        break;
+      case "za":
+        this.productos_filtrado.sort(function (a, b) {
+          if (a.titulo < b.titulo) {
+            return 1;
+          }
+          if (a.titulo > b.titulo) {
+            return -1;
+          }
+          return 0;
+        });
+        break;
+    }
+  }
 }
