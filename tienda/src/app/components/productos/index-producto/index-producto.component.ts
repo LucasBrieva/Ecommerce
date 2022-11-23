@@ -12,6 +12,7 @@ declare var $: any;
 })
 export class IndexProductoComponent implements OnInit {
 
+  public page!: number;
   public config_global: any = {};
   public filter_categoria = "";
   public productos_back_up: Array<any> = [];

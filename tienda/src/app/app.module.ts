@@ -13,6 +13,7 @@ import { LoginComponent } from './components/login/login.component';
 import { PerfilComponent } from './components/usuario/perfil/perfil.component';
 import { SiderbarComponent } from './components/usuario/siderbar/siderbar.component';
 import { IndexProductoComponent } from './components/productos/index-producto/index-producto.component';
+import {NgxPaginationModule} from 'ngx-pagination';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { IndexProductoComponent } from './components/productos/index-producto/in
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    HttpClientModule, 
+    HttpClientModule,
+    NgxPaginationModule,
     routing
   ],
   providers: [],

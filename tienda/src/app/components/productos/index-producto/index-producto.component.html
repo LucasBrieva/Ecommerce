@@ -54,35 +54,8 @@
             </select>
             <span class="font-size-sm text-muted text-nowrap ml-2 d-none d-lg-block">products per page</span>
           </div>
-          <nav class="ml-auto" aria-label="Pagination">
-            <ul class="pagination mb-0">
-              <li class="page-item d-sm-none">
-                <span class="page-link page-link-static">1 / 5</span>
-              </li>
-              <li class="page-item active d-none d-sm-block" aria-current="page">
-                <span class="page-link">1
-                  <span class="sr-only">(current)</span>
-                </span>
-              </li>
-              <li class="page-item d-none d-sm-block">
-                <a class="page-link" href="#">2</a>
-              </li>
-              <li class="page-item d-none d-sm-block">
-                <a class="page-link" href="#">3</a>
-              </li>
-              <li class="page-item d-none d-sm-block">
-                <a class="page-link" href="#">4</a>
-              </li>
-              <li class="page-item d-none d-sm-block">
-                <a class="page-link" href="#">5</a>
-              </li>
-              <li class="page-item">
-                <a class="page-link" href="#">
-                  <i class="cxi-arrow-right"></i>
-                </a>
-              </li>
-            </ul>
-          </nav>
+          <pagination-controls (pageChange)="page = $event" previousLabel="Anterior"
+          nextLabel="Siguiente"></pagination-controls>
         </div>
       </div>
     </div>
@@ -207,7 +180,7 @@
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-3" *ngIf="!load_data" data-filters-columns>
 
           <!-- Item -->
-          <div class="col pb-sm-2 mb-grid-gutter" *ngFor="let item of productos_filtrado">
+          <div class="col pb-sm-2 mb-grid-gutter" *ngFor="let item of productos_filtrado | paginate: { itemsPerPage: 3, currentPage: page }">
             <div class="card card-product mx-auto">
               <div class="card-product-img">
                 <a href="shop-single.html" class="card-img-top">
@@ -254,7 +227,7 @@
         </div>
 
         <!-- Toolbar + Pagination -->
-        <div class="d-flex align-items-center pt-md-4">
+        <div class="d-flex align-items-center pt-md-4 mt-5">
           <div class="form-inline flex-nowrap mr-3 mr-xl-5 pt-1">
             <label for="sorting-bottom" class="font-weight-bold text-nowrap mr-2 pr-1 d-none d-md-block">Sort by</label>
             <select id="sorting-bottom" class="custom-select">
@@ -277,35 +250,8 @@
             </select>
             <span class="font-size-sm text-muted text-nowrap ml-2 d-none d-md-block">products per page</span>
           </div>
-          <nav class="pt-1 ml-auto" aria-label="Pagination">
-            <ul class="pagination mb-0">
-              <li class="page-item d-sm-none">
-                <span class="page-link page-link-static">1 / 5</span>
-              </li>
-              <li class="page-item active d-none d-sm-block" aria-current="page">
-                <span class="page-link">1
-                  <span class="sr-only">(current)</span>
-                </span>
-              </li>
-              <li class="page-item d-none d-sm-block">
-                <a class="page-link" href="#">2</a>
-              </li>
-              <li class="page-item d-none d-sm-block">
-                <a class="page-link" href="#">3</a>
-              </li>
-              <li class="page-item d-none d-sm-block">
-                <a class="page-link" href="#">4</a>
-              </li>
-              <li class="page-item d-none d-sm-block">
-                <a class="page-link" href="#">5</a>
-              </li>
-              <li class="page-item">
-                <a class="page-link" href="#">
-                  <i class="cxi-arrow-right"></i>
-                </a>
-              </li>
-            </ul>
-          </nav>
+          <pagination-controls (pageChange)="page = $event" previousLabel="Anterior"
+          nextLabel="Siguiente"></pagination-controls>
         </div>
       </div>
     </div>
