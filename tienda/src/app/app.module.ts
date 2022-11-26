@@ -14,6 +14,7 @@ import { PerfilComponent } from './components/usuario/perfil/perfil.component';
 import { SiderbarComponent } from './components/usuario/siderbar/siderbar.component';
 import { IndexProductoComponent } from './components/productos/index-producto/index-producto.component';
 import {NgxPaginationModule} from 'ngx-pagination';
+import { DetailProductoComponent } from './components/productos/detail-producto/detail-producto.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import {NgxPaginationModule} from 'ngx-pagination';
     PerfilComponent,
     SiderbarComponent,
     IndexProductoComponent,
+    DetailProductoComponent,
   ],
   imports: [
     BrowserModule,
