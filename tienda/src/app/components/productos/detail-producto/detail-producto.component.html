@@ -4,21 +4,19 @@
     <div class="container">
       <ol class="breadcrumb breadcrumb-alt mb-0">
         <li class="breadcrumb-item">
-          <a href="index.html"><i class="cxi-home"></i></a>
+          <a [routerLink]="['/']"><i class="cxi-home"></i></a>
         </li>
-        <li class="breadcrumb-item">
-          <a href="shop-catalog.html">Women</a>
+        <li class="breadcrumb-item active">
+          <a>{{producto.categoria}}</a>
         </li>
-        <li class="breadcrumb-item">
-          <a href="shop-catalog.html">Clothes</a>
-        </li>
-        <li class="breadcrumb-item active" aria-current="page">Basic hooded sweatshirt in pink</li>
+        <li class="breadcrumb-item active" aria-current="page">{{producto.titulo}}</li>
       </ol>
     </div>
   </nav>
   <section class="container d-md-flex align-items-center justify-content-between py-3 py-md-4 mb-3">
-    <h1 class="mb-2 mb-md-0">Basic hooded sweatshirt in pink</h1>
-    <span class="text-muted"><strong>Art. No.</strong> 183260098</span>
+    <h1 class="mb-2 mb-md-0">{{producto.titulo}}</h1>
+    <span *ngIf="producto.codigo" class="text-muted"><strong>Cod.</strong> {{producto.codigo.toUpperCase()}}</span>
+    <span *ngIf="!producto.codigo" class="text-muted"><strong>Cod.</strong> - </span>
   </section>
   <section class="container py-md-6 py-5 mb-2">
     <div class="row">
@@ -79,12 +77,13 @@
           </div>
         </div>
       </div>
+      <!--INFO COMPRA-->
       <div class="col-md-6 pl-xl-5">
         <div class="d-sm-flex align-items-center justify-content-between mb-4">
 
           <!-- Price -->
           <div class="d-flex align-items-center mb-sm-0 mb-4">
-            <span class="h3 d-inline-block mb-0 text-danger">$15.50</span>
+            <span class="h3 d-inline-block mb-0 text-danger">${{producto.precio}}</span>
             <del class="d-inline-block ml-2 pl-1 font-size-lg text-muted">$31.00</del>
             <span class="ml-4 p-2 badge badge-danger font-size-base font-weight-bold">- 50%</span>
           </div>
@@ -104,7 +103,7 @@
 
         <!-- Ordering form -->
         <form class="row">
-          <div class="col-12">
+          <!--<div class="col-12">
             <div class="form-group">
               <label for="pink">Color</label>
               <div class="d-flex align-items-middle">
@@ -129,24 +128,24 @@
                 <span class="d-inline-block pl-2 text-muted" id="colorOptionText">Pink</span>
               </div>
             </div>
-          </div>
-          <div class="col-sm-8 order-sm-1 order-2">
-            <div class="form-group">
-              <label for="size">Size</label>
+          </div>-->
+          <div class="col-sm-8 order-sm-1 order-2" >
+            <div class="form-group" *ngIf="producto.titulo_variedad">
+              <label for="size">{{producto.titulo_variedad}}</label>
               <select class="form-control custom-select" id="size">
-                <option>Please select</option>
-                <option>Option item 1</option>
-                <option>Option item 2</option>
-                <option>Option item 3</option>
+                <option value="" selected disabled>Seleccionar</option>
+                <option *ngFor="let item of producto.variedades">{{item.titulo}}</option>
+
               </select>
             </div>
           </div>
-          <div class="col-sm-4 order-sm-2 order-1 text-sm-right">
+          <!--TABLA DE TALLAS-->
+          <!--<div class="col-sm-4 order-sm-2 order-1 text-sm-right">
             <a href="#modal-sizing" data-toggle="modal" class="d-inline-block mt-sm-4 mb-sm-0 mb-4 pt-sm-3 font-weight-bold text-decoration-0 text-dark">
               <i class="cxi-hanger mr-2"></i>
               Size chart
             </a>
-          </div>
+          </div>-->
           <div class="col-lg-2 col-4 order-lg-3 order-3">
             <div class="form-group">
               <select class="form-control custom-select" id="select-input">
@@ -160,13 +159,13 @@
           <div class="col-lg-6 order-lg-4 order-4">
             <button class="btn btn-block btn-primary">
               <i class="cxi-cart mr-2"></i>
-              Add to cart
+              Agregar al carrito
             </button>
           </div>
           <div class="col-lg-4 col-8 order-lg-5 order-2">
             <button class="btn btn-block btn-outline-primary px-lg-4">
               <i class="cxi-heart mr-2"></i>
-              Favourite
+              Favoritos
             </button>
           </div>
         </form>
@@ -179,7 +178,7 @@
           <div class="card border-bottom">
             <div class="card-header" id="delivery-card">
               <h6 class="accordion-heading">
-                <a href="#delivery" class="collapsed" role="button" data-toggle="collapse" aria-expanded="false" aria-controls="delivery">Delivery
+                <a href="#delivery" class="collapsed" role="button" data-toggle="collapse" aria-expanded="false" aria-controls="delivery">Envíos
                   <span class="accordion-indicator"></span>
                 </a>
               </h6>
@@ -187,7 +186,7 @@
             <div class="collapse" id="delivery" aria-labelledby="delivery-card" data-parent="#productTerms">
               <div class="card-body">
                 <p class="font-size-sm">
-                  Free standard shipping on orders <strong>over $35</strong> before tax, plus free returns.
+                  Envío estándar gratuito en pedidos superiores a $35 antes de impuestos, más devolucioes gratuitas
                 </p>
 
                 <!-- Delivery table -->
@@ -227,14 +226,14 @@
           <div class="card border-bottom">
             <div class="card-header" id="return-card">
               <h6 class="accordion-heading">
-                <a class="collapsed" href="#return" role="button" data-toggle="collapse" aria-expanded="false" aria-controls="return">Return
+                <a class="collapsed" href="#return" role="button" data-toggle="collapse" aria-expanded="false" aria-controls="return">Devoluciones
                   <span class="accordion-indicator"></span>
                 </a>
               </h6>
             </div>
             <div class="collapse" id="return" aria-labelledby="return-card" data-parent="#productTerms">
               <p class="font-size-sm">
-                You have <strong>60 days</strong> to return the item(s) using any of the following methods:
+                Tiene 60 días para devolver el (los) artículo (s) utilizando cualquiera de los siguientes métodos:
               </p>
               <ul class="mb-4 pl-3">
                 <li>Free store return</li>
@@ -246,28 +245,28 @@
 
         <!-- Share -->
         <div class="mb-5 text-nowrap">
-          <h6 class="d-inline-block align-middle mr-2 mb-0">Share:</h6>
-          <a href="#" class="social-btn sb-solid align-middle mr-2" data-toggle="tooltip" title="Facebook">
+          <h6 class="d-inline-block align-middle mr-2 mb-0">Compartir:</h6>
+          <a  class="social-btn sb-solid align-middle mr-2" data-toggle="tooltip" title="Facebook">
             <i class="cxi-facebook"></i>
           </a>
-          <a href="#" class="social-btn sb-solid align-middle mr-2" data-toggle="tooltip" title="Twitter">
+          <a  class="social-btn sb-solid align-middle mr-2" data-toggle="tooltip" title="Twitter">
             <i class="cxi-twitter"></i>
           </a>
-          <a href="#" class="social-btn sb-solid align-middle" data-toggle="tooltip" title="Pinterest">
+          <a  class="social-btn sb-solid align-middle" data-toggle="tooltip" title="Pinterest">
             <i class="cxi-pinterest"></i>
           </a>
         </div>
 
         <!-- Payment -->
         <div class="pb-3 text-nowrap" data-simplebar data-simplebar-auto-hide="false">
-          <a href="#" class="d-inline-block mb-3 mr-xl-4 mr-3">
-            <img src="../../assets/img/ecommerce/shop/single/cards/visa.jpg" alt="Visa" class="border rounded">
+          <a  class="d-inline-block mb-3 mr-xl-4 mr-3">
+            <img src="assets/img/visa.jpg" alt="Visa" class="border rounded">
           </a>
-          <a href="#" class="d-inline-block mb-3 mr-xl-4 mr-3">
-            <img src="../../assets/img/ecommerce/shop/single/cards/master-card.jpg" alt="Mastercard" class="border rounded">
+          <a class="d-inline-block mb-3 mr-xl-4 mr-3">
+            <img src="assets/img/master-card.jpg" alt="Mastercard" class="border rounded">
           </a>
-          <a href="#" class="d-inline-block mb-3">
-            <img src="../../assets/img/ecommerce/shop/single/cards/pay-pal.jpg" alt="PayPal" class="border rounded">
+          <a class="d-inline-block mb-3">
+            <img src="assets/img/pay-pal.jpg" alt="PayPal" class="border rounded">
           </a>
         </div>
       </div>
@@ -276,63 +275,17 @@
   <div class="py-5" style="background-color: #e5e8ed;">
     <section  class="container my-lg-2 py-2 py-md-4" >
       <div class="row">
-        <div class="col-lg-7 col-md-8 mb-md-0 mb-4">
-          <h3 class="h5 mb-3">Details</h3>
-          <p>Id habitant tempor aliquam vulputate enim velit tincidunt sed. Urna sed facilisis nulla feugiat amet venenatis. Id suspendisse ut quis tellus aliquam pellentesque neque, semper donec.</p>
-          <ul class="pl-3">
-            <li>Brand: Jordan</li>
-            <li>Color: gray / red / yellow</li>
-            <li>Mid-cut design</li>
-            <li>Lace-up fastening</li>
-            <li>Rubber outsole pods for durability and traction</li>
-            <li>Moulded grooves in forefoot offer added flexibility</li>
-            <li>Padded cuff with inner nodes designed to offer comfort and support around the Achilles tendon</li>
-          </ul>
-          <hr class="my-4">
-          <h3 class="h5 mb-3">Fabric</h3>
-          <ul class="pl-3">
-            <li>Upper: 50% real leather, 50% textile</li>
-            <li>Lining: 100% textile</li>
-            <li>Sole: 100% other materials</li>
-          </ul>
-          <hr class="my-4">
-          <h3 class="h5 mb-3">Care</h3>
-          <ul class="pl-0">
-            <li class="media">
-              <img src="../../assets/img/ecommerce/shop/single/care/hand-wash.svg" alt="Icon" class="d-block mr-3">
-              <div class="media-body pl-1">
-                Hand wash only (30°)
-              </div>
-            </li>
-            <li class="media">
-              <img src="../../assets/img/ecommerce/shop/single/care/no-ironing.svg" alt="Icon" class="d-block mr-3">
-              <div class="media-body pl-1">
-                No ironing
-              </div>
-            </li>
-            <li class="media">
-              <img src="../../assets/img/ecommerce/shop/single/care/no-bleach.svg" alt="Icon" class="d-block mr-3">
-              <div class="media-body pl-1">
-                Do not use any bleach
-              </div>
-            </li>
-            <li class="media">
-              <img src="../../assets/img/ecommerce/shop/single/care/no-tumble-dry.svg" alt="Icon" class="d-block mr-3">
-              <div class="media-body pl-1">
-                Do not tumble dry
-              </div>
-            </li>
-          </ul>
+        <div class="col-lg-7 col-md-8 mb-md-0 mb-4" [innerHTML]="producto.contenido">
         </div>
         <div class="col-md-4 offset-lg-1">
-
           <!-- Product card carousel -->
           <div class="card card-product">
             <div class="card-product-img">
               <div class="cs-carousel cs-controls-onhover">
-                <a class="cs-carousel-inner">
-                  <div><img class="card-img-top" src="https://createx.createx.studio/assets/img/ecommerce/shop/single/01.jpg" alt="Product image"></div>
-
+                <a class="cs-carousel">
+                  <div>
+                    <img class="card-img-top" [src]="url+'obtener_portada/'+producto.portada" alt="Product image">
+                  </div>
                 </a>
               </div>
               <div class="card-product-widgets-top">
@@ -350,13 +303,13 @@
             </div>
             <div class="card-body pb-2" style="background-color: white;">
               <h3 class="card-product-title text-truncate mb-2">
-                <a href="#" class="nav-link">Basic hooded sweatshirt in pink</a>
+                <a href="#" class="nav-link">{{producto.titulo}}</a>
               </h3>
-              <div class="d-flex align-items-center">
-                <span class="h5 d-inline-block text-danger mb-0">$15.50</span>
+              <div class="d-flex align-items-center mb-3">
+                <span class="h5 d-inline-block text-danger mb-0">${{producto.precio}}</span>
                 <del class="d-inline-block ml-2 pl-1 text-muted">$31.00</del>
               </div>
-              <div class="d-flex align-items-center mb-2 pb-1">
+              <!--<div class="d-flex align-items-center mb-2 pb-1">
                 <div class="mt-n2">
                   <div class="custom-control cs-custom-size-option cs-custom-size-option-sm custom-control-inline">
                     <input type="radio" class="custom-control-input" name="size-01" id="l-1" checked>
@@ -391,14 +344,11 @@
                     </label>
                   </div>
                 </div>
-              </div>
-              <button type="button" class="btn btn-primary btn-block">
+              </div>-->
+              <button type="button" class="btn btn-primary btn-block mb-3" >
                 <i class="cxi-cart align-middle mt-n1 mr-2"></i>
-                Add to cart
+                Agregar al carrito
               </button>
-            </div>
-            <div class="card-footer">
-
             </div>
           </div>
         </div>
@@ -664,14 +614,14 @@
         </nav>
       </div>
       <div class="col-md-4 offset-lg-1">
-
         <!-- Product card carousel -->
         <div class="card card-product">
           <div class="card-product-img">
             <div class="cs-carousel cs-controls-onhover">
-              <a class="cs-carousel-inner">
-                <div><img class="card-img-top" src="https://createx.createx.studio/assets/img/ecommerce/shop/single/01.jpg" alt="Product image"></div>
-
+              <a class="cs-carousel">
+                <div>
+                  <img class="card-img-top" [src]="url+'obtener_portada/'+producto.portada" alt="Product image">
+                </div>
               </a>
             </div>
             <div class="card-product-widgets-top">
@@ -689,13 +639,13 @@
           </div>
           <div class="card-body pb-2" style="background-color: white;">
             <h3 class="card-product-title text-truncate mb-2">
-              <a href="#" class="nav-link">Basic hooded sweatshirt in pink</a>
+              <a href="#" class="nav-link">{{producto.titulo}}</a>
             </h3>
-            <div class="d-flex align-items-center">
-              <span class="h5 d-inline-block text-danger mb-0">$15.50</span>
+            <div class="d-flex align-items-center mb-3">
+              <span class="h5 d-inline-block text-danger mb-0">${{producto.precio}}</span>
               <del class="d-inline-block ml-2 pl-1 text-muted">$31.00</del>
             </div>
-            <div class="d-flex align-items-center mb-2 pb-1">
+            <!--<div class="d-flex align-items-center mb-2 pb-1">
               <div class="mt-n2">
                 <div class="custom-control cs-custom-size-option cs-custom-size-option-sm custom-control-inline">
                   <input type="radio" class="custom-control-input" name="size-01" id="l-1" checked>
@@ -730,14 +680,11 @@
                   </label>
                 </div>
               </div>
-            </div>
-            <button type="button" class="btn btn-primary btn-block">
+            </div>-->
+            <button type="button" class="btn btn-primary btn-block mb-3" >
               <i class="cxi-cart align-middle mt-n1 mr-2"></i>
-              Add to cart
+              Agregar al carrito
             </button>
-          </div>
-          <div class="card-footer">
-
           </div>
         </div>
       </div>
