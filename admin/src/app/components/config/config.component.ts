@@ -18,7 +18,6 @@ export class ConfigComponent implements OnInit {
   public config:any = {};
 
   public titulo_cat = "";
-  public icono_cat = "";
   public file:any=undefined;
   public imgSelect : any | ArrayBuffer;
   public url: any;
@@ -42,14 +41,12 @@ export class ConfigComponent implements OnInit {
   }
 
   agregar_cat(){
-    if(this.titulo_cat && this.icono_cat){
+    if(this.titulo_cat){
       this.config.categorias.push({
         titulo:this.titulo_cat,
-        icono: this.icono_cat,
         _id: uuidv4(),
       });
       this.titulo_cat = "";
-      this.icono_cat = "";
     }
     else{
       iziToast.show({

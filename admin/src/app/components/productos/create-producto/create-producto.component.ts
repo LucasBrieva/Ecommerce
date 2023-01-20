@@ -13,7 +13,8 @@ declare var $:any;
 export class CreateProductoComponent implements OnInit {
 
   public producto: any ={
-    categoria:''
+    categoria:'',
+    tipo: 'vehiculo'
   };
   public file:any=undefined;
   public imgSelect : any | ArrayBuffer = 'assets/img/default-product.png';
