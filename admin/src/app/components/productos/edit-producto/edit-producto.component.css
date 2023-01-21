@@ -1,0 +1,145 @@
+.wrapper{
+    display: inline-flex;
+    height: 100px;
+    width: 800px;
+    align-items: center;
+    justify-content: space-evenly;
+    border-radius: 5px;
+    padding: 20px 15px;
+  }
+  .wrapper .option{
+    background: #fff;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    margin: 0 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    padding: 0 10px;
+    border: 2px solid lightgrey;
+    transition: all 0.3s ease;
+  }
+  .wrapper .option .dot{
+    height: 20px;
+    width: 20px;
+    background: #d9d9d9;
+    border-radius: 50%;
+    position: relative;
+  }
+  .wrapper .option .dot::before{
+    position: absolute;
+    content: "";
+    top: 4px;
+    left: 4px;
+    width: 12px;
+    height: 12px;
+    background: #0069d9;
+    border-radius: 50%;
+    opacity: 0;
+    transform: scale(1.5);
+    transition: all 0.3s ease;
+  }
+  input[type="radio"]{
+    display: none;
+  }
+  #option-1:checked:checked ~ .option-1,
+  #option-2:checked:checked ~ .option-2{
+    border-color: #0069d9;
+    background: #0069d9;
+  }
+  #option-1:checked:checked ~ .option-1 .dot,
+  #option-2:checked:checked ~ .option-2 .dot{
+    background: #fff;
+  }
+  #option-1:checked:checked ~ .option-1 .dot::before,
+  #option-2:checked:checked ~ .option-2 .dot::before{
+    opacity: 1;
+    transform: scale(1);
+  }
+  .wrapper .option span{
+    font-size: 20px;
+    color: #808080;
+  }
+  #option-1:checked:checked ~ .option-1 span,
+  #option-2:checked:checked ~ .option-2 span{
+    color: #fff;
+  }
+  
+  html, body {
+    height: 100%;
+    display: grid;
+  }
+  
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif;
+    font-weight: 400;
+    -webkit-font-smoothing: antialiased;
+    color: #222;
+  }
+  
+  .cntr {
+    margin: auto;
+  }
+  
+  .cursor{
+    cursor: pointer;
+  }
+  .btn-radio {
+    display: inline-block;
+    -webkit-user-select: none;
+    user-select: none;
+  }
+  .btn-radio:not(:first-child) {
+    margin-left: 20px;
+  }
+  @media screen and (max-width: 480px) {
+    .btn-radio {
+      display: block;
+      float: none;
+    }
+    .btn-radio:not(:first-child) {
+      margin-left: 0;
+      margin-top: 15px;
+    }
+  }
+  .btn-radio svg {
+    fill: none;
+    vertical-align: middle;
+    margin-right: 5px;
+  }
+  .btn-radio svg circle {
+    stroke-width: 2;
+    stroke: #C8CCD4;
+  }
+  .btn-radio svg path {
+    stroke: #008FFF;
+  }
+  .btn-radio svg path.inner {
+    stroke-width: 6;
+    stroke-dasharray: 19;
+    stroke-dashoffset: 19;
+  }
+  .btn-radio svg path.outer {
+    stroke-width: 2;
+    stroke-dasharray: 57;
+    stroke-dashoffset: 57;
+  }
+  .btn-radio input {
+    display: none;
+  }
+  .btn-radio input:checked + svg path {
+    transition: all 0.4s ease;
+  }
+  .btn-radio input:checked + svg path.inner {
+    stroke-dashoffset: 38;
+    transition-delay: 0.3s;
+  }
+  .btn-radio input:checked + svg path.outer {
+    stroke-dashoffset: 0;
+  }
+  .btn-radio span {
+    display: inline-block;
+    vertical-align: middle;
+  }

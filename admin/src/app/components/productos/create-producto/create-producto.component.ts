@@ -66,7 +66,6 @@ export class CreateProductoComponent implements OnInit {
         this._helperService.iziToast('Debe subir una portada para registrar', 'ERROR', false);
       }
       else {
-        debugger;
         this.load_btn = true;
         this.validation = this._productoService.validar_datos_producto(this.producto);
         if (this.validation.isValid) {
@@ -100,7 +99,7 @@ export class CreateProductoComponent implements OnInit {
             }
           );
         }
-        else{
+        else {
           this._helperService.iziToast(this.validation.mensaje, this.validation.tituloMensaje, this.validation.isValid);
         }
       }
@@ -122,15 +121,7 @@ export class CreateProductoComponent implements OnInit {
     if (event.target.files && event.target.files[0]) {
       file = <File>event.target.files[0];
     } else {
-      iziToast.show({
-        title: 'ERROR',
-        titleColor: '#F4EDED',
-        backgroundColor: '#F54646',
-        class: 'text-danger',
-        position: 'topRight',
-        message: 'No se cargo correctamente la imagén.',
-        messageColor: '#F4EDED'
-      })
+      this._helperService.iziToast('No se cargo correctamente la imagén', 'ERROR', false);
     }
 
     //Verifico que el tamaño de la imagen no sea superior a 4 mb.
@@ -148,30 +139,14 @@ export class CreateProductoComponent implements OnInit {
         this.file = file;
 
       } else {
-        iziToast.show({
-          title: 'ERROR',
-          titleColor: '#F4EDED',
-          backgroundColor: '#F54646',
-          class: 'text-danger',
-          position: 'topRight',
-          message: 'El arcivho debe ser una imagen',
-          messageColor: '#F4EDED'
-        });
+        this._helperService.iziToast('El arcivho debe ser una imagen', 'ERROR', false);
 
         this.imgSelect = 'assets/img/default-product.png'
         $("#portadaText").text('Seleccionar imagen');
         this.file = undefined;
       }
     } else {
-      iziToast.show({
-        title: 'ERROR',
-        titleColor: '#F4EDED',
-        backgroundColor: '#F54646',
-        class: 'text-danger',
-        position: 'topRight',
-        message: 'La imagén no puede superar los 4MB',
-        messageColor: '#F4EDED'
-      });
+      this._helperService.iziToast('La imagén no puede superar los 4MB', 'ERROR', false);
 
       this.imgSelect = 'assets/img/default-product.png';
       $("#portadaText").text('Seleccionar imagen');
