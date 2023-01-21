@@ -94,12 +94,12 @@
                   data-tooltip-location="top" [routerLink]="['/panel/productos',item._id]">
                   <i class="fa fa-pencil mt-n1 align-middle"></i>
                 </a>
-                <a type="button" class="btn btn-sm btn-outline-info rounded-pill btn-icon mr-2"
+                <a *ngIf = "item.tipo == 'producto'" type="button" class="btn btn-sm btn-outline-info rounded-pill btn-icon mr-2"
                   data-tooltip="Inventario" data-tooltip-location="top"
                   [routerLink]="['/panel/productos/inventario',item._id]">
                   <i class="fa fa-th-list mt-n1 align-middle" title="Inventario"></i>
                 </a>
-                <a type="button" class="btn btn-sm btn-outline-info rounded-pill btn-icon mr-2"
+                <a *ngIf = "item.tipo == 'producto'" type="button" class="btn btn-sm btn-outline-info rounded-pill btn-icon mr-2"
                   data-tooltip="Variedades" data-tooltip-location="top" data-toggle="modal"
                   (click)="abirPopup(item._id)">
                   <i class="fa fa-list-ol mt-n1 align-middle" title="Variedades"></i>

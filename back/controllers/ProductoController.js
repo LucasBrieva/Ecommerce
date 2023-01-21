@@ -7,6 +7,7 @@ var path = require('path');
 var fsHelper = require('../helpers/fsHelper');
 
 const registro_producto_admin = async function(req, res){
+    debugger;
     if(req.user){
         if(req.user.role == "Gerente general"){
             let data = req.body;

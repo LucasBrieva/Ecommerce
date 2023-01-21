@@ -2,24 +2,26 @@
 
 <div class="border-bottom pt-5 mt-2 mb-5">
   <div class="mt-2 mt-md-4 mb-3 pt-5">
-  <div class="wrapper">
-    <input type="radio" name="select" id="option-1" value="vehiculo" name="tipo" [(ngModel)]="producto.tipo" checked>
-    <input type="radio" name="select" id="option-2" value="producto" name="tipo" [(ngModel)]="producto.tipo">
+    <div class="wrapper">
+      <input type="radio" name="select" id="option-1" value="vehiculo" name="tipo" [(ngModel)]="producto.tipo"
+        (click)="ngOnInit()" checked>
+      <input type="radio" name="select" id="option-2" value="producto" name="tipo" [(ngModel)]="producto.tipo"
+        (click)="ngOnInit()">
       <label for="option-1" class="option option-1">
         <div class="dot"></div>
-         <span>Registro de vehiculo</span>
-         </label>
+        <span>Registro de vehiculo</span>
+      </label>
       <label for="option-2" class="option option-2">
         <div class="dot"></div>
-         <span>Registro de producto</span>
+        <span>Registro de producto</span>
       </label>
-   </div>
+    </div>
   </div>
 </div>
 
 <form #registroForm="ngForm" (ngSubmit)="registro(registroForm)">
   <div class="card box-shadow-sm">
-    <ng-container>
+    <ng-container *ngIf="producto.tipo == 'producto'">
       <div class="card-body">
         <div class="row">
           <div class="col-lg-8">
@@ -36,7 +38,7 @@
               </div>
               <div class="col-lg-3 form-group">
                 <label for="">Stock</label>
-                <input type="number" class="form-control" placeholder="Cantidad inicial" min="1" required name="stock"
+                <input type="number" class="form-control" placeholder="Cantidad inicial" min="1" name="stock"
                   [(ngModel)]="producto.stock">
               </div>
               <div class="col-lg-3 form-group">
@@ -57,7 +59,7 @@
                   <option value="{{item.titulo}}" *ngFor="let item of config.categorias">{{item.titulo}}</option>
                 </select>
               </div>
-  
+
               <div class="col-lg-12 form-group">
                 <label for="">Descripción corta</label>
                 <textarea class="form-control" placeholder="Titulo de producto" required rows="5" name="descripcion"
@@ -68,7 +70,7 @@
                 <tinymce [config]="config" name="contenido" [(ngModel)]="producto.contenido">
                 </tinymce>
               </div>
-  
+
             </div>
           </div>
           <div class="col-lg-4">
@@ -89,7 +91,180 @@
         </div>
       </div>
     </ng-container>
-    
+    <ng-container *ngIf="producto.tipo == 'vehiculo'">
+      <div class="card-body">
+        <div class="row">
+          <div class="col-lg-8">
+            <div class="row">
+              <div class="col-lg-7 form-group">
+                <label for="">Vehiculo</label>
+                <input type="text" class="form-control" placeholder="Titulo del Vehiculo" required name="titulo"
+                  [(ngModel)]="producto.titulo">
+              </div>
+              <div class="col-lg-3 form-group">
+                <label for="">Patente</label>
+                <input type="text" class="form-control" placeholder="Patente del vehiculo" required name="codigo"
+                  [(ngModel)]="producto.codigo">
+              </div>
+              <div class="col-lg-2 form-group">
+                <label for="">Modelo</label>
+                <input type="number" class="form-control" placeholder="Modelo" min="1" name="ano"
+                  [(ngModel)]="producto.ano">
+              </div>
+              <div class="col-lg-3 form-group">
+                <label for="">Kilometros</label>
+                <input type="number" class="form-control" placeholder="Kilometros" min="1" name="kilometros"
+                  [(ngModel)]="producto.kilometros">
+              </div>
+              <div class="col-lg-3 form-group">
+                <label for="">Precio</label>
+                <input type="number" class="form-control" placeholder="Precio" min="1" required name="precio"
+                  [(ngModel)]="producto.precio">
+              </div>
+              <div class="col-lg-3 form-group">
+                <label for="">Anticipo</label>
+                <input type="number" class="form-control" placeholder="Anticipo" min="1" required name="anticipo"
+                  [(ngModel)]="producto.anticipo">
+              </div>
+              <div class="col-lg-3 form-group">
+                <label for="">Categoría</label>
+                <select class="form-control custom-select" id="select-input" required name="categoria"
+                  [(ngModel)]="producto.categoria">
+                  <option value="" selected disabled>Seleccionar</option>
+                  <option value="{{item.titulo}}" *ngFor="let item of config.categorias">{{item.titulo}}</option>
+                </select>
+              </div>
+              <div class="col-md-3 form-group">
+                <label class="form-label">Vencimiento VTV</label>
+                <input class="form-control" type="date" name="vto_vtv" [(ngModel)]="producto.vto_vtv">
+              </div>
+              <div class="col-lg-3 col-md-6 form-group">
+                <!-- Inline radio buttons -->
+                <label class="form-label">Aire acondicionado</label>
+                <div class="cntr">
+                  <label for="rdo-1" class="btn-radio cursor">
+                    <input type="radio" id="rdo-1" value="Tiene" name="aire" [(ngModel)]="producto.aire">
+                    <svg width="20px" height="20px" viewBox="0 0 20 20">
+                      <circle cx="10" cy="10" r="9"></circle>
+                      <path
+                        d="M10,7 C8.34314575,7 7,8.34314575 7,10 C7,11.6568542 8.34314575,13 10,13 C11.6568542,13 13,11.6568542 13,10 C13,8.34314575 11.6568542,7 10,7 Z"
+                        class="inner"></path>
+                      <path
+                        d="M10,1 L10,1 L10,1 C14.9705627,1 19,5.02943725 19,10 L19,10 L19,10 C19,14.9705627 14.9705627,19 10,19 L10,19 L10,19 C5.02943725,19 1,14.9705627 1,10 L1,10 L1,10 C1,5.02943725 5.02943725,1 10,1 L10,1 Z"
+                        class="outer"></path>
+                    </svg>
+                    <label for="rdo-1" class="cursor">Tiene</label>
+                  </label>
+                  <label for="rdo-2" class="btn-radio cursor">
+                    <input type="radio" id="rdo-2" value="No tiene" name="aire" [(ngModel)]="producto.aire">
+                    <svg width="20px" height="20px" viewBox="0 0 20 20">
+                      <circle cx="10" cy="10" r="9"></circle>
+                      <path
+                        d="M10,7 C8.34314575,7 7,8.34314575 7,10 C7,11.6568542 8.34314575,13 10,13 C11.6568542,13 13,11.6568542 13,10 C13,8.34314575 11.6568542,7 10,7 Z"
+                        class="inner"></path>
+                      <path
+                        d="M10,1 L10,1 L10,1 C14.9705627,1 19,5.02943725 19,10 L19,10 L19,10 C19,14.9705627 14.9705627,19 10,19 L10,19 L10,19 C5.02943725,19 1,14.9705627 1,10 L1,10 L1,10 C1,5.02943725 5.02943725,1 10,1 L10,1 Z"
+                        class="outer"></path>
+                    </svg>
+                    <label for="rdo-2" class="cursor">No tiene</label>
+                  </label>
+                </div>
+              </div>
+              <div class="col-lg-3 col-md-6 form-group">
+                <!-- Inline radio buttons -->
+                <label class="form-label">Dirección</label>
+                <div class="cntr">
+                  <label for="rdo-1" class="btn-radio cursor">
+                    <input type="radio" id="rdo-1" value="Hidraulica" name="direccion" [(ngModel)]="producto.direccion">
+                    <svg width="20px" height="20px" viewBox="0 0 20 20">
+                      <circle cx="10" cy="10" r="9"></circle>
+                      <path
+                        d="M10,7 C8.34314575,7 7,8.34314575 7,10 C7,11.6568542 8.34314575,13 10,13 C11.6568542,13 13,11.6568542 13,10 C13,8.34314575 11.6568542,7 10,7 Z"
+                        class="inner"></path>
+                      <path
+                        d="M10,1 L10,1 L10,1 C14.9705627,1 19,5.02943725 19,10 L19,10 L19,10 C19,14.9705627 14.9705627,19 10,19 L10,19 L10,19 C5.02943725,19 1,14.9705627 1,10 L1,10 L1,10 C1,5.02943725 5.02943725,1 10,1 L10,1 Z"
+                        class="outer"></path>
+                    </svg>
+                    <label for="rdo-1" class="cursor">Hidraulica</label>
+                  </label>
+                  <label for="rdo-2" class="btn-radio cursor">
+                    <input type="radio" id="rdo-2" value="Manual" name="direccion" [(ngModel)]="producto.direccion">
+                    <svg width="20px" height="20px" viewBox="0 0 20 20">
+                      <circle cx="10" cy="10" r="9"></circle>
+                      <path
+                        d="M10,7 C8.34314575,7 7,8.34314575 7,10 C7,11.6568542 8.34314575,13 10,13 C11.6568542,13 13,11.6568542 13,10 C13,8.34314575 11.6568542,7 10,7 Z"
+                        class="inner"></path>
+                      <path
+                        d="M10,1 L10,1 L10,1 C14.9705627,1 19,5.02943725 19,10 L19,10 L19,10 C19,14.9705627 14.9705627,19 10,19 L10,19 L10,19 C5.02943725,19 1,14.9705627 1,10 L1,10 L1,10 C1,5.02943725 5.02943725,1 10,1 L10,1 Z"
+                        class="outer"></path>
+                    </svg>
+                    <label for="rdo-2" class="cursor">Manual</label>
+                  </label>
+                </div>
+              </div>
+              <div class="col-lg-3 col-md-6 form-group">
+                <!-- Inline radio buttons -->
+                <label class="form-label">GNC</label>
+                <div class="cntr">
+                  <label for="rdo-1" class="btn-radio cursor">
+                    <input type="radio" id="rdo-1" value="Tiene" name="gnc" [(ngModel)]="producto.gnc">
+                    <svg width="20px" height="20px" viewBox="0 0 20 20">
+                      <circle cx="10" cy="10" r="9"></circle>
+                      <path
+                        d="M10,7 C8.34314575,7 7,8.34314575 7,10 C7,11.6568542 8.34314575,13 10,13 C11.6568542,13 13,11.6568542 13,10 C13,8.34314575 11.6568542,7 10,7 Z"
+                        class="inner"></path>
+                      <path
+                        d="M10,1 L10,1 L10,1 C14.9705627,1 19,5.02943725 19,10 L19,10 L19,10 C19,14.9705627 14.9705627,19 10,19 L10,19 L10,19 C5.02943725,19 1,14.9705627 1,10 L1,10 L1,10 C1,5.02943725 5.02943725,1 10,1 L10,1 Z"
+                        class="outer"></path>
+                    </svg>
+                    <label for="rdo-1" class="cursor">Tiene</label>
+                  </label>
+                  <label for="rdo-2" class="btn-radio cursor">
+                    <input type="radio" id="rdo-2" value="No tiene" name="gnc" [(ngModel)]="producto.gnc">
+                    <svg width="20px" height="20px" viewBox="0 0 20 20">
+                      <circle cx="10" cy="10" r="9"></circle>
+                      <path
+                        d="M10,7 C8.34314575,7 7,8.34314575 7,10 C7,11.6568542 8.34314575,13 10,13 C11.6568542,13 13,11.6568542 13,10 C13,8.34314575 11.6568542,7 10,7 Z"
+                        class="inner"></path>
+                      <path
+                        d="M10,1 L10,1 L10,1 C14.9705627,1 19,5.02943725 19,10 L19,10 L19,10 C19,14.9705627 14.9705627,19 10,19 L10,19 L10,19 C5.02943725,19 1,14.9705627 1,10 L1,10 L1,10 C1,5.02943725 5.02943725,1 10,1 L10,1 Z"
+                        class="outer"></path>
+                    </svg>
+                    <label for="rdo-2" class="cursor">No tiene</label>
+                  </label>
+                </div>
+              </div>
+              <div class="col-lg-12 form-group">
+                <label for="">Descripción corta</label>
+                <textarea class="form-control" placeholder="Titulo de producto" required rows="5" name="descripcion"
+                  [(ngModel)]="producto.descripcion"></textarea>
+              </div>
+              <div class="col-lg-12 form-group">
+                <label for="">Contenido redes</label>
+                <tinymce [config]="config" name="contenido" [(ngModel)]="producto.contenido">
+                </tinymce>
+              </div>
+
+            </div>
+          </div>
+          <div class="col-lg-4">
+            <div class="row">
+              <div class="col-lg-12 form-group">
+                <label for="">Portada</label>
+                <div class="custom-file">
+                  <input class="custom-file-input" type="file" id="file-input" (change)="fileChangeEvent($event)">
+                  <label class="custom-file-label" id="portadaText" for="file-input"
+                    style="white-space:nowrap; overflow:hidden">Seleccionar imagen</label>
+                </div>
+              </div>
+              <div class="col-lg-12">
+                <img [src]="imgSelect" class="img-thumbnail" alt="Rounded image">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-container>
     <div class="card-footer">
       <button *ngIf="!load_btn" class="btn btn-primary mr-3" type="submit">Crear producto</button>
       <button *ngIf="load_btn" type="button" class="btn btn-secondary" disabled>

@@ -11,35 +11,39 @@
 <form #configForm="ngForm" (ngSubmit)="actualizar(configForm)">
   <div class="card box-shadow-sm">
     <div class="card-header">
-        <h5 style="margin-bottom: 0px;">Configuraciones</h5>
+      <h5 style="margin-bottom: 0px;">Configuraciones</h5>
     </div>
 
     <div class="card-body">
       <div style="max-width: 100rem;">
         <div class="row">
-        <div class="col-lg-8">
-          <div class="form-group row align-items-center">
-            <label class="col-md-3 col-form-label font-weight-medium" for="text-input">Nombre de la tienda</label>
-            <div class="col-md-9">
-              <input class="form-control" required type="text" id="text-input" name="razonSocial" [(ngModel)]="config.razonSocial">
+          <div class="col-lg-8">
+            <div class="form-group row align-items-center">
+              <label class="col-md-3 col-form-label font-weight-medium" for="text-input">Nombre de la tienda</label>
+              <div class="col-md-9">
+                <input class="form-control" required type="text" id="text-input" name="razonSocial"
+                  [(ngModel)]="config.razonSocial">
+              </div>
             </div>
-          </div>
-          <div class="form-group row align-items-center">
-            <label class="col-md-3 col-form-label font-weight-medium" for="text-input">Facturación</label>
-            <div class="col-md-4">
-              <input class="form-control" required type="number" id="text-input" name="nSerie" [(ngModel)]="config.nSerie">
+            <div class="form-group row align-items-center">
+              <label class="col-md-3 col-form-label font-weight-medium" for="text-input">Facturación</label>
+              <div class="col-md-4">
+                <input class="form-control" required type="number" id="text-input" name="nSerie"
+                  [(ngModel)]="config.nSerie">
+              </div>
+              <div class="col-md-5">
+                <input class="form-control" required type="number" id="text-input" name="correlativo"
+                  [(ngModel)]="config.correlativo">
+              </div>
             </div>
-            <div class="col-md-5">
-              <input class="form-control" required type="number" id="text-input" name="correlativo" [(ngModel)]="config.correlativo">
-            </div>
-          </div>
-          <div class="form-group row align-items-center">
-            <label class="col-md-3 col-form-label font-weight-medium" for="text-input">Categorías</label>
-            <div class="col-md-9">
-              <input class="form-control" type="text" id="text-input" placeholder="Marca" name="titulo_cat" [(ngModel)]="titulo_cat">
+            <div class="form-group row align-items-center">
+              <label class="col-md-3 col-form-label font-weight-medium" for="text-input">Categorías</label>
+              <div class="col-md-4">
+                <input class="form-control" type="text" id="text-input" placeholder="Marca" name="titulo_cat"
+                  [(ngModel)]="titulo_cat">
 
-            </div>
-            <!-- <div class="col-md-5">
+              </div>
+              <!-- <div class="col-md-5">
                <div class="custom-file">
                 <input class="custom-file-input" type="file" id="file-input">
                 <label class="custom-file-label" id="portadaText" for="file-input"
@@ -47,74 +51,107 @@
               </div>
               <input class="form-control" type="text" id="text-input" placeholder="Modelo" name="icono_cat" [(ngModel)]="icono_cat">
             </div> -->
-            <div class="col-md-3">
-            </div>
-            <div class="col-md-9">
-              <div class="row justify-content-end col">
-                <button (click)="agregar_cat()" class="btn btn-success mt-2">Agregar</button>
-              </div>
-              <div class="table-responsive mt-3">
-                <table class="table table-sm" *ngIf="config.categorias">
-                  <thead class="thead-dark">
-                    <tr>
-
-                      <th>Marca</th>
-                      <!-- <th>Icono</th> -->
-                      <th></th>
-
-                    </tr>
-                  </thead>
-                  <ng-container *ngIf="config.categorias.length == 0">
-                    <tbody>
-                      <tr>
-                        <td class="text-center" colspan="2">
-                          <span class="text-muted">No hay categorías disponibles</span>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </ng-container>
-
-                  <ng-container *ngIf="config.categorias.length > 0">
-                    <tbody *ngFor="let item of config.categorias; let indice = index">
-                      <tr>
-                        <td>
-                          {{item.titulo}}
-                        </td>
-                        <!-- <td>
-                          {{item.icono}}
-                        </td> -->
-                        <td>
-                          <a class="text-danger" style="cursor:pointer" (click)="eliminar_categoria(indice)"><i class="fa fa-times" aria-hidden="true"></i></a>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </ng-container>
-                </table>
-              </div>
-            </div>
-
-          </div>
-        </div>
-        <div class="col-lg-4">
-          <div class="form-group row align-items-center">
-            <div class="col-md-9">
-              <div class="cs-file-drop-area">
-                <div class="cs-file-drop-preview img-thumbnail rounded">
-                  <img [src]="imgSelect">
+              <div class="col-md-5">
+                <!-- Inline radio buttons -->
+                <div class="cntr">
+                  <label for="rdo-1" class="btn-radio cursor">
+                    <input type="radio" id="rdo-1" value="vehiculo" name="tipo" name="tipo_cat" [(ngModel)]="tipo_cat"
+                      class="form-control">
+                    <svg width="20px" height="20px" viewBox="0 0 20 20">
+                      <circle cx="10" cy="10" r="9"></circle>
+                      <path
+                        d="M10,7 C8.34314575,7 7,8.34314575 7,10 C7,11.6568542 8.34314575,13 10,13 C11.6568542,13 13,11.6568542 13,10 C13,8.34314575 11.6568542,7 10,7 Z"
+                        class="inner"></path>
+                      <path
+                        d="M10,1 L10,1 L10,1 C14.9705627,1 19,5.02943725 19,10 L19,10 L19,10 C19,14.9705627 14.9705627,19 10,19 L10,19 L10,19 C5.02943725,19 1,14.9705627 1,10 L1,10 L1,10 C1,5.02943725 5.02943725,1 10,1 L10,1 Z"
+                        class="outer"></path>
+                    </svg>
+                    <label for="rdo-1" class="cursor">Vehiculo</label>
+                  </label>
+                  <label for="rdo-2" class="btn-radio cursor">
+                    <input type="radio" id="rdo-2" value="producto" name="tipo" name="tipo_cat" [(ngModel)]="tipo_cat">
+                    <svg width="20px" height="20px" viewBox="0 0 20 20">
+                      <circle cx="10" cy="10" r="9"></circle>
+                      <path
+                        d="M10,7 C8.34314575,7 7,8.34314575 7,10 C7,11.6568542 8.34314575,13 10,13 C11.6568542,13 13,11.6568542 13,10 C13,8.34314575 11.6568542,7 10,7 Z"
+                        class="inner"></path>
+                      <path
+                        d="M10,1 L10,1 L10,1 C14.9705627,1 19,5.02943725 19,10 L19,10 L19,10 C19,14.9705627 14.9705627,19 10,19 L10,19 L10,19 C5.02943725,19 1,14.9705627 1,10 L1,10 L1,10 C1,5.02943725 5.02943725,1 10,1 L10,1 Z"
+                        class="outer"></path>
+                    </svg>
+                    <label for="rdo-2" class="cursor">Producto</label>
+                  </label>
                 </div>
-                <span class="cs-file-drop-message">Arrastrar imagen o subir imagen</span>
-                <input type="file" class="cs-file-drop-input" (change)="fileChangeEvent($event)">
               </div>
-            </div>
+              <div class="col-md-3">
+              </div>
+              <div class="col-md-9">
+                <div class="row justify-content-end col">
+                  <button (click)="agregar_cat()" class="btn btn-success mt-2">Agregar</button>
+                </div>
+                <div class="table-responsive mt-3">
+                  <table class="table table-sm" *ngIf="config.categorias">
+                    <thead class="thead-dark">
+                      <tr>
 
+                        <th>Marca</th>
+                        <th>Tipo</th>
+                        <th></th>
+
+                      </tr>
+                    </thead>
+                    <ng-container *ngIf="config.categorias.length == 0">
+                      <tbody>
+                        <tr>
+                          <td class="text-center" colspan="2">
+                            <span class="text-muted">No hay categorías disponibles</span>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </ng-container>
+
+                    <ng-container *ngIf="config.categorias.length > 0">
+                      <tbody *ngFor="let item of config.categorias; let indice = index">
+                        <tr>
+                          <td>
+                            <b>{{item.tipo}}</b>
+                          </td>
+                          <td>
+                            {{item.titulo}}
+                          </td>
+                          <td>
+                            <a class="text-danger" style="cursor:pointer" (click)="eliminar_categoria(indice)"><i
+                                class="fa fa-times" aria-hidden="true"></i></a>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </ng-container>
+                  </table>
+                </div>
+              </div>
+
+            </div>
+          </div>
+          <div class="col-lg-4">
+            <div class="form-group row align-items-center">
+              <div class="col-md-9">
+                <div class="cs-file-drop-area">
+                  <div class="cs-file-drop-preview img-thumbnail rounded">
+                    <img [src]="imgSelect">
+                  </div>
+                  <span class="cs-file-drop-message">Arrastrar imagen o subir imagen</span>
+                  <input type="file" class="cs-file-drop-input" (change)="fileChangeEvent($event)">
+                </div>
+              </div>
+
+            </div>
           </div>
         </div>
       </div>
-    </div>
 
     </div>
     <div class="card-footer">
       <button class="btn btn-primary mr-3" type="submit">Guardar cambios</button>
     </div>
-</div>
+  </div>
 </form>
