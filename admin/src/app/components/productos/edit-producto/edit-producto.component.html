@@ -1,7 +1,7 @@
 <app-sidebar></app-sidebar>
 
 <div class="border-bottom pt-5 mt-2 mb-5">
-  <h1 class="mt-2 mt-md-4 mb-3 pt-5" *ngIf="producto.tipo == 'producto'">Productos</h1>
+  <!-- <h1 class="mt-2 mt-md-4 mb-3 pt-5" *ngIf="producto.tipo == 'producto'">Productos</h1> -->
   <h1 class="mt-2 mt-md-4 mb-3 pt-5" *ngIf="producto.tipo == 'vehiculo'">Vehiculos</h1>
 </div>
 
@@ -16,7 +16,7 @@
 </ng-container>
 <ng-container *ngIf="!load_data">
   <div class="card-body" *ngIf="producto">
-    <ng-container *ngIf="producto.tipo == 'producto'">
+    <!-- <ng-container *ngIf="producto.tipo == 'producto'">
       <form #actualizarForm="ngForm" (ngSubmit)="actualizar(actualizarForm)">
         <div class="card box-shadow-sm">
           <div class="card-header">
@@ -101,7 +101,7 @@
         </div>
 
       </form>
-    </ng-container>
+    </ng-container> -->
     <ng-container *ngIf="producto.tipo == 'vehiculo'">
       <form #actualizarForm="ngForm" (ngSubmit)="actualizar(actualizarForm)">
         <div class="card box-shadow-sm">

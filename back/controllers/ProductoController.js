@@ -303,7 +303,7 @@ const eliminar_imagen_galeria_admin = async function (req, res) {
 /* --- MÉTODOS PÚBLICOS ---*/
 const listar_productos_filtro_publico = async function (req, res) {
     let filtro = req.params['filtro'];
-    let reg = await Producto.find({ titulo: new RegExp(filtro, 'i') });
+    let reg = await Producto.find({ titulo: new RegExp(filtro, 'i'), dadoBaja: false });
     res.status(200).send({ data: reg });
 }
 const obtener_producto_slug_publico = async function (req, res) {

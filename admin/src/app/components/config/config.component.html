@@ -38,7 +38,7 @@
             </div>
             <div class="form-group row align-items-center">
               <label class="col-md-3 col-form-label font-weight-medium" for="text-input">Categorías</label>
-              <div class="col-md-4">
+              <div class="col-md-9">
                 <input class="form-control" type="text" id="text-input" placeholder="Marca" name="titulo_cat"
                   [(ngModel)]="titulo_cat">
 
@@ -51,8 +51,8 @@
               </div>
               <input class="form-control" type="text" id="text-input" placeholder="Modelo" name="icono_cat" [(ngModel)]="icono_cat">
             </div> -->
-              <div class="col-md-5">
-                <!-- Inline radio buttons -->
+              <!-- <div class="col-md-5">
+                Inline radio buttons 
                 <div class="cntr">
                   <label for="rdo-1" class="btn-radio cursor">
                     <input type="radio" id="rdo-1" value="vehiculo" name="tipo" name="tipo_cat" [(ngModel)]="tipo_cat"
@@ -82,7 +82,7 @@
                     <label for="rdo-2" class="cursor">Producto</label>
                   </label>
                 </div>
-              </div>
+              </div> -->
               <div class="col-md-3">
               </div>
               <div class="col-md-9">
@@ -95,7 +95,7 @@
                       <tr>
 
                         <th>Marca</th>
-                        <th>Tipo</th>
+                        <!-- <th>Tipo</th> -->
                         <th></th>
 
                       </tr>
@@ -114,10 +114,7 @@
                       <tbody *ngFor="let item of config.categorias; let indice = index">
                         <tr>
                           <td>
-                            <b>{{item.tipo}}</b>
-                          </td>
-                          <td>
-                            {{item.titulo}}
+                            <b>{{item.titulo}}</b>
                           </td>
                           <td>
                             <a class="text-danger" style="cursor:pointer" (click)="eliminar_categoria(indice)"><i

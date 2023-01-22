@@ -1,7 +1,7 @@
 <app-sidebar></app-sidebar>
 
 <div class="border-bottom pt-5 mt-2 mb-5">
-  <div class="mt-2 mt-md-4 mb-3 pt-5">
+  <!-- <div class="mt-2 mt-md-4 mb-3 pt-5">
     <div class="wrapper">
       <input type="radio" name="select" id="option-1" value="vehiculo" name="tipo" [(ngModel)]="producto.tipo"
         (click)="ngOnInit()" checked>
@@ -16,12 +16,13 @@
         <span>Registro de producto</span>
       </label>
     </div>
-  </div>
+  </div> -->
+  <h1 class="mt-2 mt-md-4 mb-3 pt-5">Crear vehiculo</h1>
 </div>
 
 <form #registroForm="ngForm" (ngSubmit)="registro(registroForm)">
   <div class="card box-shadow-sm">
-    <ng-container *ngIf="producto.tipo == 'producto'">
+    <!-- <ng-container *ngIf="producto.tipo == 'producto'">
       <div class="card-body">
         <div class="row">
           <div class="col-lg-8">
@@ -90,8 +91,7 @@
           </div>
         </div>
       </div>
-    </ng-container>
-    <ng-container *ngIf="producto.tipo == 'vehiculo'">
+    </ng-container> -->
       <div class="card-body">
         <div class="row">
           <div class="col-lg-8">
@@ -264,7 +264,6 @@
           </div>
         </div>
       </div>
-    </ng-container>
     <div class="card-footer">
       <button *ngIf="!load_btn" class="btn btn-primary mr-3" type="submit">Crear producto</button>
       <button *ngIf="load_btn" type="button" class="btn btn-secondary" disabled>
