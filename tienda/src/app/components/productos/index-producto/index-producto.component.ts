@@ -74,25 +74,29 @@ export class IndexProductoComponent implements OnInit {
   }
 
   buscar_producto() {
+    // Comprobar si la lista de productos de respaldo está vacía. Si es así, ejecutar la función listar_productos()
     if (this.productos_back_up.length == 0) {
       this.listar_productos();
     }
     else {
-      let min = Math.floor(parseFloat($('.cs-range-slider-value-min').val().replace("$","")));
-      let max =  Math.floor(parseFloat($('.cs-range-slider-value-max').val().replace("$","")));
+      // Obtener los valores mínimo y máximo del rango de búsqueda de precios y formatearlos como moneda
+      let min = Math.floor(parseFloat($('.cs-range-slider-value-min').val().replace("$", "")));
+      let max = Math.floor(parseFloat($('.cs-range-slider-value-max').val().replace("$", "")));
       $('.cs-range-slider-value-min').val(min.toLocaleString('en-US', { style: 'currency', currency: 'USD' }));
       $('.cs-range-slider-value-max').val(max.toLocaleString('en-US', { style: 'currency', currency: 'USD' }));
+      // Utilizar el objeto RegExp para buscar productos con un título específico
       var search = new RegExp(this.filter_producto.titulo, 'i');
       this.productos_filtrado = this.productos_back_up.filter(
         item => search.test(item.titulo)
       );
-
+      // Filtrar los productos que estén dentro del rango de precios especificado
       this.productos_filtrado = this.productos_filtrado.filter(
         item => {
           if (item.precio >= min && item.precio <= max) return true;
           return false;
         }
       );
+      // Filtrar los productos por categoría si se ha seleccionado alguna
       if (this.filter_producto.categorias.length > 0) {
         this.productos_filtrado = this.productos_filtrado.filter(
           item => {
@@ -103,6 +107,7 @@ export class IndexProductoComponent implements OnInit {
           }
         );
       }
+      // Ejecutar la función ordenar_por() para ordenar los productos filtrados
       this.ordenar_por();
     }
 
@@ -124,51 +129,57 @@ export class IndexProductoComponent implements OnInit {
     )
   }
 
+  // Esta función configura un control deslizante para seleccionar un rango de precios utilizando la biblioteca noUiSlider
+  // El elemento HTML con ID "slider" es utilizado como contenedor para el control deslizante
   config_precios_css() {
+    // Se obtiene el elemento HTML con ID "slider"
     var slider: any = document.getElementById('slider');
+    // Se crea el control deslizante utilizando noUiSlider
     noUiSlider.create(slider, {
+      // Se establece el rango de precios inicial utilizando las propiedades minPrice y maxPrice del objeto filter_producto
       start: [this.filter_producto.minPrice == this.filter_producto.maxPrice ? 0 : this.filter_producto.minPrice, this.filter_producto.maxPrice],
+      // Se activa la opción de conectar los extremos del control deslizante
       connect: true,
-      step:1,
+      // Se establece el paso entre los valores del control deslizante en 1
+      step: 1,
+      // Se establece el rango mínimo y máximo del control deslizante utilizando las propiedades minPrice y maxPrice del objeto filter_producto
       range: {
         'min': this.filter_producto.minPrice == this.filter_producto.maxPrice ? 0 : this.filter_producto.minPrice,
         'max': this.filter_producto.maxPrice
       },
+      // Se desactiva la opción de mostrar tooltips al mover el control deslizante
       tooltips: [false, false],
+      // Se establece el modo de los indicadores (pips) en "count" y su cantidad en 2
       pips: {
         mode: 'count',
         values: 2,
       },
-      handle: {
-        height: 10
-      }
-
     })
-
+    // Se agrega un evento de "update" al control deslizante para actualizar los valores de los elementos con clase '.cs-range-slider-value-min' y 
+    //'.cs-range-slider-value-max' con los valores del control deslizante formateados como moneda en dólares
     slider.noUiSlider.on('update', function (values: any) {
       $('.cs-range-slider-value-min').val("$" + values[0].toLocaleString('en-US', { style: 'currency', currency: 'USD' }));
       $('.cs-range-slider-value-max').val("$" + values[1].toLocaleString('en-US', { style: 'currency', currency: 'USD' }));
     });
-
+    // Se agrega un evento de "change" al control deslizante para llamar a la función buscar_producto() cuando el usuario suelta el control deslizante
     slider.noUiSlider.on('change', () => {
       return this.buscar_producto();
     });
 
-    // $('.noUi-base').css('height', '10px');
-    // $('.noUi-horizontal').css('width', '80%')
-    // $('.noUi-horizontal').css('height', '10px !important')
-    // $('.noUi-value').css('font-size', '13px');
-    // $('.noUi-value').css('margin-left', '10px');
   }
+  // Esta función configura los precios mínimo y máximo de los productos filtrados.
   config_precios() {
+    // Verifica si hay productos filtrados disponibles
     if (this.productos_filtrado.length > 0) {
       let minPrice = 0;
       let maxPrice = 0;
       for (let i = 0; i < this.productos_filtrado.length; i++) {
+        // Asigna el primer precio encontrado como el precio mínimo y máximo inicial
         if (i == 0) {
           minPrice = this.productos_filtrado[i].precio;
           maxPrice = this.productos_filtrado[i].precio;
         } else {
+          // Compara el precio actual con el precio mínimo y máximo existente
           if (minPrice > this.productos_filtrado[i].precio) {
             minPrice = this.productos_filtrado[i].precio;
           }
@@ -177,24 +188,32 @@ export class IndexProductoComponent implements OnInit {
           }
         }
       }
+      // Asigna el precio mínimo y máximo al objeto de filtro de productos
       this.filter_producto.minPrice = minPrice == maxPrice ? 0 : minPrice;
       this.filter_producto.minPriceStr = this.filter_producto.minPrice.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
       this.filter_producto.maxPrice = maxPrice;
       this.filter_producto.maxPriceStr = this.filter_producto.maxPrice.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
     }
   }
+  // Función para establecer un arreglo de categorías
   set_array_categorias(categoria) {
+    // Busca si la categoría existe en el arreglo filter_producto.categorias
     var indiceExiste = this.filter_producto.categorias.indexOf(categoria);
+    // Si la categoría no existe en el arreglo, agregar a la lista
     if (indiceExiste == -1) {
       this.filter_producto.categorias.push(categoria);
     } else {
+      // Si la categoría ya existe en el arreglo, eliminar de la lista
       this.filter_producto.categorias.splice(indiceExiste, 1);
     }
+    // Llamar a la función buscar_producto para actualizar los resultados de búsqueda
     this.buscar_producto();
   }
   ordenar_por() {
+    // Selecciona el criterio de ordenamiento según el valor de sort_by
     switch (this.sort_by) {
       case "popularidad":
+        // Ordena por número de ventas (mayor a menor)
         this.productos_filtrado.sort(function (a, b) {
           if (a.nventas < b.nventas) {
             return 1;
@@ -206,6 +225,7 @@ export class IndexProductoComponent implements OnInit {
         });
         break;
       case "mayorPrecio":
+        // Ordena por precio (mayor a menor)
         this.productos_filtrado.sort(function (a, b) {
           if (a.precio < b.precio) {
             return 1;
@@ -217,6 +237,7 @@ export class IndexProductoComponent implements OnInit {
         });
         break;
       case "menorPrecio":
+        // Ordena por precio (menor a mayor)
         this.productos_filtrado.sort(function (a, b) {
           if (a.precio > b.precio) {
             return 1;
@@ -228,6 +249,7 @@ export class IndexProductoComponent implements OnInit {
         });
         break;
       case "az":
+        // Ordena por título (a-z)
         this.productos_filtrado.sort(function (a, b) {
           if (a.titulo > b.titulo) {
             return 1;
@@ -239,6 +261,7 @@ export class IndexProductoComponent implements OnInit {
         });
         break;
       case "za":
+        // Ordena por título (z-a)
         this.productos_filtrado.sort(function (a, b) {
           if (a.titulo < b.titulo) {
             return 1;
