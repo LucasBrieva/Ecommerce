@@ -153,13 +153,22 @@ export class IndexProductoComponent implements OnInit {
       pips: {
         mode: 'count',
         values: 2,
+        format: {
+          to: function(value) {
+              return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(value).replace(/\D00$/,'');
+          },
+          from: function(value) {
+              return value.replace(/[^\d.-]/g, '');
+          }
+      }
+
       },
     })
     // Se agrega un evento de "update" al control deslizante para actualizar los valores de los elementos con clase '.cs-range-slider-value-min' y 
     //'.cs-range-slider-value-max' con los valores del control deslizante formateados como moneda en dólares
     slider.noUiSlider.on('update', function (values: any) {
-      $('.cs-range-slider-value-min').val("$" + values[0].toLocaleString('en-US', { style: 'currency', currency: 'USD' }));
-      $('.cs-range-slider-value-max').val("$" + values[1].toLocaleString('en-US', { style: 'currency', currency: 'USD' }));
+      $('.cs-range-slider-value-min').val("$" + values[0].toLocaleString('en-US', { style: 'currency', currency: 'USD' }).replace(/\D00$/,''));
+      $('.cs-range-slider-value-max').val("$" + values[1].toLocaleString('en-US', { style: 'currency', currency: 'USD' }).replace(/\D00$/,''));
     });
     // Se agrega un evento de "change" al control deslizante para llamar a la función buscar_producto() cuando el usuario suelta el control deslizante
     slider.noUiSlider.on('change', () => {
