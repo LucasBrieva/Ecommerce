@@ -22,6 +22,8 @@ export class IndexProductoComponent implements OnInit {
     titulo: "",
     minPrice: 0,
     maxPrice: 1000,
+    minPriceStr: '0',
+    maxPriceStr: '1000',
     categorias: Array<string>()
   };
 
@@ -76,9 +78,10 @@ export class IndexProductoComponent implements OnInit {
       this.listar_productos();
     }
     else {
-      let min = parseFloat($('.cs-range-slider-value-min').val());
-      let max = parseFloat($('.cs-range-slider-value-max').val());
-
+      let min = Math.floor(parseFloat($('.cs-range-slider-value-min').val().replace("$","")));
+      let max =  Math.floor(parseFloat($('.cs-range-slider-value-max').val().replace("$","")));
+      $('.cs-range-slider-value-min').val(min.toLocaleString('en-US', { style: 'currency', currency: 'USD' }));
+      $('.cs-range-slider-value-max').val(max.toLocaleString('en-US', { style: 'currency', currency: 'USD' }));
       var search = new RegExp(this.filter_producto.titulo, 'i');
       this.productos_filtrado = this.productos_back_up.filter(
         item => search.test(item.titulo)
@@ -134,20 +137,28 @@ export class IndexProductoComponent implements OnInit {
       tooltips: [false, false],
       pips: {
         mode: 'count',
-        values: 3,
+        values: 2,
+      },
+      handle: {
+        height: 10
       }
+
     })
 
     slider.noUiSlider.on('update', function (values: any) {
-      $('.cs-range-slider-value-min').val(Number(values[0]));
-      $('.cs-range-slider-value-max').val(Number(values[1]));
+      $('.cs-range-slider-value-min').val("$" + values[0].toLocaleString('en-US', { style: 'currency', currency: 'USD' }));
+      $('.cs-range-slider-value-max').val("$" + values[1].toLocaleString('en-US', { style: 'currency', currency: 'USD' }));
     });
 
     slider.noUiSlider.on('change', () => {
       return this.buscar_producto();
     });
 
-    $('.noUi-tooltip').css('font-size', '11px');
+    // $('.noUi-base').css('height', '10px');
+    // $('.noUi-horizontal').css('width', '80%')
+    // $('.noUi-horizontal').css('height', '10px !important')
+    // $('.noUi-value').css('font-size', '13px');
+    // $('.noUi-value').css('margin-left', '10px');
   }
   config_precios() {
     if (this.productos_filtrado.length > 0) {
@@ -167,7 +178,9 @@ export class IndexProductoComponent implements OnInit {
         }
       }
       this.filter_producto.minPrice = minPrice == maxPrice ? 0 : minPrice;
-      this.filter_producto.maxPrice = maxPrice
+      this.filter_producto.minPriceStr = this.filter_producto.minPrice.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+      this.filter_producto.maxPrice = maxPrice;
+      this.filter_producto.maxPriceStr = this.filter_producto.maxPrice.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
     }
   }
   set_array_categorias(categoria) {
