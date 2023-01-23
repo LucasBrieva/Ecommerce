@@ -132,10 +132,10 @@ export class IndexProductoComponent implements OnInit {
         'max': this.filter_producto.maxPrice
       },
       tooltips: [true, true],
-      pips: {
-        mode: 'count',
-        values: 5,
-      }
+      // pips: {
+      //   mode: 'count',
+      //   values: 5,
+      // }
     })
 
     slider.noUiSlider.on('update', function (values: any) {

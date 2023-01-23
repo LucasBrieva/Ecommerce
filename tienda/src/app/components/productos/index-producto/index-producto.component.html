@@ -75,7 +75,7 @@
               <div class="card-header py-3" id="filter-panel">
                 <h6 class="accordion-heading">
                   <a href="#filter" role="button" data-toggle="collapse" aria-expanded="true" aria-controls="filter">
-                    Buscar producto
+                    Buscar vehiculo
                     <span class="accordion-indicator"></span>
                   </a>
                 </h6>
@@ -83,7 +83,7 @@
               <div class="collapse show" id="filter" aria-labelledby="filter-panel">
                 <div class="cs-widget pl-1 pb-4 mt-n3">
                   <div class="input-group-overlay d-lg-block d-none order-lg-3 mt-3">
-                    <input class="form-control appended-form-control" type="text" placeholder="Buscar producto" name="filter_producto" [(ngModel)]="filter_producto.titulo">
+                    <input class="form-control appended-form-control" type="text" placeholder="Buscar vehiculo" name="filter_producto" [(ngModel)]="filter_producto.titulo">
                     <div class="input-group-append-overlay" style="cursor:pointer; color:white !important; background: #17696a !important;"
                     (click)="buscar_producto()">
                       <span class="input-group-text" style="color: white;"><i class="cxi-search lead align-middle"></i></span>
@@ -92,19 +92,20 @@
                 </div>
               </div>
             </div>
+            <hr>
             <!-- Category -->
             <div class="card border-bottom">
               <div class="card-header pt-0 pb-3" id="category-panel">
                 <h6 class="accordion-heading">
                   <a href="#category" role="button" data-toggle="collapse" aria-expanded="true" aria-controls="category">
-                    Categorías
+                    Marca
                     <span class="accordion-indicator"></span>
                   </a>
                 </h6>
               </div>
               <div class="collapse show" id="category" aria-labelledby="category-panel">
                 <div class="cs-widget-data-list cs-filter">
-                  <div class="input-group-overlay mb-3">
+                  <!-- <div class="input-group-overlay mb-3">
                     <input type="text" class="cs-filter-search form-control form-control-sm appended-form-control" placeholder="Buscar modelo"
                     (keyup)="buscar_categoria()">
                     <div class="input-group-append-overlay">
@@ -112,7 +113,7 @@
                         <i class="cxi-search font-size-sm"></i>
                       </span>
                     </div>
-                  </div>
+                  </div> -->
                   <ul class="cs-filter-list list-unstyled pr-3" style="height: 12rem;" data-simplebar data-simplebar-auto-hide="false">
                     <li class="cs-filter-item" *ngFor="let item of config_global.categorias; let indice = index;">
                       <div class="custom-control custom-checkbox">
@@ -127,6 +128,7 @@
                 </div>
               </div>
             </div>
+            <hr style="color: black;">
 
             <!-- Price -->
             <div class="card border-bottom">

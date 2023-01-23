@@ -50,6 +50,10 @@ const login_admin = async function(req, res){
     }else{
         let user = admin_arr[0];
 
+        // res.status(200).send({
+        //     data: user,
+        //     token: jwt.createToken(user)
+        // });
         bcrypt.compare(data.password, user.password, async function(error, check){
             if(check){
                 res.status(200).send({
