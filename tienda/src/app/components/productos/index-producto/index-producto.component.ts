@@ -126,21 +126,21 @@ export class IndexProductoComponent implements OnInit {
     noUiSlider.create(slider, {
       start: [this.filter_producto.minPrice == this.filter_producto.maxPrice ? 0 : this.filter_producto.minPrice, this.filter_producto.maxPrice],
       connect: true,
-      decimals: false,
+      step:1,
       range: {
         'min': this.filter_producto.minPrice == this.filter_producto.maxPrice ? 0 : this.filter_producto.minPrice,
         'max': this.filter_producto.maxPrice
       },
-      tooltips: [true, true],
-      // pips: {
-      //   mode: 'count',
-      //   values: 5,
-      // }
+      tooltips: [false, false],
+      pips: {
+        mode: 'count',
+        values: 3,
+      }
     })
 
     slider.noUiSlider.on('update', function (values: any) {
-      $('.cs-range-slider-value-min').val(values[0]);
-      $('.cs-range-slider-value-max').val(values[1]);
+      $('.cs-range-slider-value-min').val(Number(values[0]));
+      $('.cs-range-slider-value-max').val(Number(values[1]));
     });
 
     slider.noUiSlider.on('change', () => {

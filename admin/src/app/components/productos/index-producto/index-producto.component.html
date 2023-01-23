@@ -2,9 +2,9 @@
 
 <!-- Page title-->
 <div class="border-bottom mt-2 mb-5">
-  <h1 class="mt-2 mt-md-4 mb-3 pt-5">Productos</h1>
+  <h1 class="mt-2 mt-md-4 mb-3 pt-5">Vehiculos</h1>
   <div class="d-flex flex-wrap flex-md-nowrap justify-content-between">
-    <p class="text-muted">Este módulo lista todos los productos de la tienda.</p>
+    <p class="text-muted">Este módulo lista todos los vehiculos de la tienda.</p>
     <p class="font-size-sm font-weight-medium pl-md-4">
       <button class="btn btn-primary mb-2 me-1" [routerLink]="['/panel/productos/registro']"
         type="button">Nuevo</button>
@@ -16,7 +16,7 @@
 
 <div class="card box-shadow-sm">
   <div class="card-header">
-    <h5 style="margin-bottom: 0px;">Filtro de productos</h5>
+    <h5 style="margin-bottom: 0px;">Filtro de vehiculos</h5>
   </div>
   <div class="card-header">
     <form #filtroForm="ngForm" (ngSubmit)="filtrar()">

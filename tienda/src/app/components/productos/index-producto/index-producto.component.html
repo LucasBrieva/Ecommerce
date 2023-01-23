@@ -5,7 +5,7 @@
     <div class="container">
       <ol class="breadcrumb breadcrumb-alt mb-0">
         <li class="breadcrumb-item">
-          <a [routerLink]="['/']" ><i class="cxi-home"></i></a>
+          <a [routerLink]="['/']"><i class="cxi-home"></i></a>
         </li>
         <li class="breadcrumb-item active" aria-current="page">Todos los productos</li>
       </ol>
@@ -22,7 +22,8 @@
         </div>
 
         <!-- Show / hide filters (off-canvas) on Mobile -->
-        <button type="button" class="btn btn-primary btn-block mt-0 d-lg-none" data-toggle="offcanvas" data-target="filtersOffcanvas">
+        <button type="button" class="btn btn-primary btn-block mt-0 d-lg-none" data-toggle="offcanvas"
+          data-target="filtersOffcanvas">
           <i class="cxi-filter-2 mr-1"></i>
           Show filters
         </button>
@@ -31,8 +32,10 @@
       <div class="col-md-9">
         <div class="d-flex align-items-center">
           <div class="form-inline flex-nowrap mr-3 mr-xl-5">
-            <label for="sorting-top" class="font-weight-bold text-nowrap mr-2 pr-1 d-none d-lg-block">Ordenar por</label>
-            <select id="sorting-bottom" class="custom-select" name="sort_by" [(ngModel)]="sort_by" (change)="ordenar_por()">
+            <label for="sorting-top" class="font-weight-bold text-nowrap mr-2 pr-1 d-none d-lg-block">Ordenar
+              por</label>
+            <select id="sorting-bottom" class="custom-select" name="sort_by" [(ngModel)]="sort_by"
+              (change)="ordenar_por()">
               <option value="az">A - Z</option>
               <option value="za">Z - A</option>
               <option value="popularidad">Popularidad</option>
@@ -50,14 +53,14 @@
             <span class="font-size-sm text-muted text-nowrap ml-2 d-none d-lg-block">Productos por página</span>
           </div>
           <pagination-controls (pageChange)="page = $event" previousLabel="Anterior"
-          nextLabel="Siguiente"></pagination-controls>
+            nextLabel="Siguiente"></pagination-controls>
         </div>
       </div>
     </div>
 
     <div class="row flex-lg-nowrap">
 
-
+      <!--Esto ver de pasarlo a otro component-->
       <!-- Filters (sidebar) -->
       <div id="filtersSidebar" class="col-lg-3 pr-lg-4">
         <div id="filtersOffcanvas" class="cs-offcanvas cs-offcanvas-collapse">
@@ -74,36 +77,39 @@
             <div class="card border-bottom">
               <div class="card-header py-3" id="filter-panel">
                 <h6 class="accordion-heading">
-                  <a href="#filter" role="button" data-toggle="collapse" aria-expanded="true" aria-controls="filter">
+                  <a href="#filter" role="button" data-toggle="collapse" aria-expanded="false" class="collapsed" aria-controls="filter">
                     Buscar vehiculo
                     <span class="accordion-indicator"></span>
                   </a>
                 </h6>
               </div>
-              <div class="collapse show" id="filter" aria-labelledby="filter-panel">
+              <div class="collapse " id="filter" aria-labelledby="filter-panel">
                 <div class="cs-widget pl-1 pb-4 mt-n3">
                   <div class="input-group-overlay d-lg-block d-none order-lg-3 mt-3">
-                    <input class="form-control appended-form-control" type="text" placeholder="Buscar vehiculo" name="filter_producto" [(ngModel)]="filter_producto.titulo">
-                    <div class="input-group-append-overlay" style="cursor:pointer; color:white !important; background: #17696a !important;"
-                    (click)="buscar_producto()">
-                      <span class="input-group-text" style="color: white;"><i class="cxi-search lead align-middle"></i></span>
+                    <input class="form-control appended-form-control" type="text" placeholder="Buscar vehiculo"
+                      name="filter_producto" [(ngModel)]="filter_producto.titulo">
+                    <div class="input-group-append-overlay"
+                      style="cursor:pointer; color:white !important; background: #17696a !important;"
+                      (click)="buscar_producto()">
+                      <span class="input-group-text" style="color: white;"><i
+                          class="cxi-search lead align-middle"></i></span>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-            <hr>
             <!-- Category -->
             <div class="card border-bottom">
               <div class="card-header pt-0 pb-3" id="category-panel">
                 <h6 class="accordion-heading">
-                  <a href="#category" role="button" data-toggle="collapse" aria-expanded="true" aria-controls="category">
+                  <a href="#category" role="button" data-toggle="collapse" aria-expanded="false" class="collapsed"
+                    aria-controls="category">
                     Marca
                     <span class="accordion-indicator"></span>
                   </a>
                 </h6>
               </div>
-              <div class="collapse show" id="category" aria-labelledby="category-panel">
+              <div class="collapse " id="category" aria-labelledby="category-panel">
                 <div class="cs-widget-data-list cs-filter">
                   <!-- <div class="input-group-overlay mb-3">
                     <input type="text" class="cs-filter-search form-control form-control-sm appended-form-control" placeholder="Buscar modelo"
@@ -114,11 +120,12 @@
                       </span>
                     </div>
                   </div> -->
-                  <ul class="cs-filter-list list-unstyled pr-3" style="height: 12rem;" data-simplebar data-simplebar-auto-hide="false">
+                  <ul class="cs-filter-list list-unstyled pr-3" style="height: 12rem;" data-simplebar
+                    data-simplebar-auto-hide="false">
                     <li class="cs-filter-item" *ngFor="let item of config_global.categorias; let indice = index;">
                       <div class="custom-control custom-checkbox">
                         <input type="checkbox" class="custom-control-input" id="blazers-{{indice}}"
-                        (change)="set_array_categorias(item.titulo)">
+                          (change)="set_array_categorias(item.titulo)">
                         <label for="blazers-{{indice}}" class="custom-control-label">
                           <span class="cs-filter-item-text">{{item.titulo}}</span>
                         </label>
@@ -128,37 +135,40 @@
                 </div>
               </div>
             </div>
-            <hr style="color: black;">
 
             <!-- Price -->
             <div class="card border-bottom">
               <div class="card-header py-3" id="price-panel">
                 <h6 class="accordion-heading">
-                  <a href="#price" role="button" data-toggle="collapse" aria-expanded="true" aria-controls="price">
+                  <a href="#price" role="button" data-toggle="collapse" aria-expanded="false" class="collapsed" aria-controls="price">
                     Precios
                     <span class="accordion-indicator"></span>
                   </a>
                 </h6>
               </div>
-              <div class="collapse show" id="price" aria-labelledby="price-panel">
+              <div class="collapse " id="price" aria-labelledby="price-panel">
                 <div class="cs-widget pl-1 pr-3 pb-4 mt-n3">
-                  <div class="cs-range-slider" data-start-min="250" data-start-max="680" data-min="0" data-max="1000" data-step="1">
-                    <div class="cs-range-slider-ui" id="slider"></div>
+                  <div class="cs-range-slider" data-step="1">
                     <!--<ngx-slider [(value)]="value" [options]="options"></ngx-slider>-->
                     <div class="d-flex align-items-center mt-3">
-                      <div hidden>
-                        <div class="w-50">
-                          <div class="form-group position-relative mb-0">
-                            <input type="number" name="minPrice"  [(ngModel)]="filter_producto.minPrice" class="form-control form-control-sm cs-range-slider-value-min">
-                          </div>
+                      <div class="w-50">
+                        <div class="form-group position-relative mb-0 mr-1">
+                          <input type="number" name="minPrice"
+                            style="font-weight:bold; text-align: center; font-size: 15px;" disabled 
+                            [(ngModel)]="filter_producto.minPrice"
+                            class="form-control form-control-sm cs-range-slider-value-min">
                         </div>
-                        <div class="w-50">
-                          <div class="form-group position-relative mb-0">
-                            <input type="number" name="maxPrice"  [(ngModel)]="filter_producto.maxPrice" class="form-control form-control-sm cs-range-slider-value-max">
-                          </div>
+                      </div>
+                      <div class="w-50">
+                        <div class="form-group position-relative mb-0 ml-1">
+                          <input type="number" name="maxPrice"
+                            style="font-weight:bold;text-align: center; font-size: 15px;" disabled 
+                            [(ngModel)]="filter_producto.maxPrice"
+                            class="form-control form-control-sm cs-range-slider-value-max">
                         </div>
                       </div>
                     </div>
+                    <div class="cs-range-slider-ui" id="slider"></div>
                   </div>
                 </div>
               </div>
@@ -177,10 +187,11 @@
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-3" *ngIf="!load_data" data-filters-columns>
 
           <!-- Item -->
-          <div class="col pb-sm-2 mb-grid-gutter" *ngFor="let item of productos_filtrado | paginate: { itemsPerPage: pageSize, currentPage: page }">
+          <div class="col pb-sm-2 mb-grid-gutter"
+            *ngFor="let item of productos_filtrado | paginate: { itemsPerPage: pageSize, currentPage: page }">
             <div class="card card-product mx-auto">
               <div class="card-product-img">
-                <a [routerLink]="['/productos/', item.slug]" routerLinkActive="router-link-active"  class="card-img-top">
+                <a [routerLink]="['/productos/', item.slug]" routerLinkActive="router-link-active" class="card-img-top">
                   <img [src]="url+'obtener_portada/'+item.portada" alt="Product image">
                 </a>
                 <div class="card-product-widgets-top">
@@ -193,7 +204,8 @@
                   </div>
                 </div>
                 <div class="card-product-widgets-bottom">
-                  <a href="#" class="btn-wishlist ml-auto" data-toggle="tooltip" data-placement="left" title="Add to wishlist"></a>
+                  <a href="#" class="btn-wishlist ml-auto" data-toggle="tooltip" data-placement="left"
+                    title="Add to wishlist"></a>
                 </div>
               </div>
               <div class="card-body pb-2">
@@ -201,7 +213,7 @@
                   <a [routerLink]="['/productos/', item.slug]" class="nav-link">{{item.titulo}}</a>
                 </h3>
                 <div class="d-flex align-items-center">
-                  <span class="h5 d-inline-block mb-0">${{item.precio}}</span>
+                  <span class="h5 d-inline-block mb-0">{{item.precio | currency:'$':true}}</span>
                 </div>
               </div>
               <div class="card-footer">
@@ -226,8 +238,10 @@
         <!-- Toolbar + Pagination -->
         <div class="d-flex align-items-center pt-md-4 mt-5">
           <div class="form-inline flex-nowrap mr-3 mr-xl-5 pt-1">
-            <label for="sorting-bottom" class="font-weight-bold text-nowrap mr-2 pr-1 d-none d-md-block">Ordenar por</label>
-            <select id="sorting-bottom" class="custom-select" name="sort_by" [(ngModel)]="sort_by" (change)="ordenar_por()">
+            <label for="sorting-bottom" class="font-weight-bold text-nowrap mr-2 pr-1 d-none d-md-block">Ordenar
+              por</label>
+            <select id="sorting-bottom" class="custom-select" name="sort_by" [(ngModel)]="sort_by"
+              (change)="ordenar_por()">
               <option value="az">A - Z</option>
               <option value="za">Z - A</option>
               <option value="popularidad">Popularidad</option>
@@ -245,7 +259,7 @@
             <span class="font-size-sm text-muted text-nowrap ml-2 d-none d-md-block">Productos por página</span>
           </div>
           <pagination-controls (pageChange)="page = $event" previousLabel="Anterior"
-          nextLabel="Siguiente"></pagination-controls>
+            nextLabel="Siguiente"></pagination-controls>
         </div>
       </div>
     </div>

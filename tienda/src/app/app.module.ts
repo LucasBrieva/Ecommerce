@@ -13,8 +13,9 @@ import { LoginComponent } from './components/login/login.component';
 import { PerfilComponent } from './components/usuario/perfil/perfil.component';
 import { SiderbarComponent } from './components/usuario/siderbar/siderbar.component';
 import { IndexProductoComponent } from './components/productos/index-producto/index-producto.component';
-import {NgxPaginationModule} from 'ngx-pagination';
+import { NgxPaginationModule } from 'ngx-pagination';
 import { DetailProductoComponent } from './components/productos/detail-producto/detail-producto.component';
+import { CommonModule } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import { DetailProductoComponent } from './components/productos/detail-producto/
     FormsModule,
     HttpClientModule,
     NgxPaginationModule,
+    CommonModule,
     routing
   ],
   providers: [],
