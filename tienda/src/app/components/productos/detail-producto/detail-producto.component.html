@@ -21,61 +21,8 @@
   <section class="container py-md-6 py-5 mb-2">
     <div class="row">
       <div class="col-md-6 mb-md-0 mb-4">
+        <ngx-gallery [options]="galleryOptions" [images]="galleryImages"></ngx-gallery>
 
-        <!-- Product gallery -->
-        <div class="cs-carousel cs-gallery cs-product-gallery mx-auto" style="max-width: 570px;">
-          <div class="cs-carousel-inner" data-carousel-options=''>
-
-            <!-- Product gallery item -->
-            <a class="cs-gallery-item" href="https://createx.createx.studio/assets/img/ecommerce/shop/single/01.jpg" data-sub-html='<h6 class="text-light">Gallery image caption #1</h6>'>
-              <img class="rounded" src="https://createx.createx.studio/assets/img/ecommerce/shop/single/01.jpg" alt="Carousel image">
-              <span class="cs-gallery-caption">Gallery image caption #1</span>
-            </a>
-
-            <!-- Product gallery item -->
-            <a class="cs-gallery-item" href="https://createx.createx.studio/assets/img/ecommerce/shop/single/01.jpg" data-sub-html='<h6 class="text-light">Gallery image caption #2</h6>'>
-              <img class="rounded" src="https://createx.createx.studio/assets/img/ecommerce/shop/single/01.jpg" alt="Carousel image">
-              <span class="cs-gallery-caption">Gallery image caption #2</span>
-            </a>
-
-            <!-- Product gallery item -->
-            <a class="cs-gallery-item" href="https://createx.createx.studio/assets/img/ecommerce/shop/single/01.jpg" data-sub-html='<h6 class="text-light">Gallery image caption #3</h6>'>
-              <img class="rounded" src="https://createx.createx.studio/assets/img/ecommerce/shop/single/01.jpg" alt="Carousel image">
-              <span class="cs-gallery-caption">Gallery image caption #3</span>
-            </a>
-
-            <!-- Product gallery item -->
-            <a class="cs-gallery-item" href="https://createx.createx.studio/assets/img/ecommerce/shop/single/01.jpg" data-sub-html='<h6 class="text-light">Gallery image caption #4</h6>'>
-              <img class="rounded" src="https://createx.createx.studio/assets/img/ecommerce/shop/single/01.jpg" alt="Carousel image">
-              <span class="cs-gallery-caption">Gallery image caption #4</span>
-            </a>
-
-            <!-- Product gallery video item -->
-            <a class="cs-gallery-item video-item" href="https://www.youtube.com/watch?v=1vrXpMLLK14" data-sub-html='<h6 class="text-light">Gallery image caption #5</h6>'>
-              <img class="rounded" src="https://createx.createx.studio/assets/img/ecommerce/shop/single/01.jpg" alt="Carousel image">
-              <span class="cs-gallery-caption">Gallery image caption #5</span>
-            </a>
-          </div>
-
-          <!-- Product gallery thumbnails -->
-          <div class="cs-thumbnails" id="cs-thumbnails">
-            <button type="button" data-nav="0">
-              <img src="https://createx.createx.studio/assets/img/ecommerce/shop/single/01.jpg" alt="Thumbnail">
-            </button>
-            <button type="button" data-nav="1">
-              <img src="https://createx.createx.studio/assets/img/ecommerce/shop/single/02.jpg" alt="Thumbnail">
-            </button>
-            <button type="button" data-nav="2">
-              <img src="https://createx.createx.studio/assets/img/ecommerce/shop/single/03.jpg" alt="Thumbnail">
-            </button>
-            <button type="button" data-nav="3">
-              <img src="https://createx.createx.studio/assets/img/ecommerce/shop/single/04.jpg" alt="Thumbnail">
-            </button>
-            <button type="button" data-nav="4" class="video-indicator">
-              <img src="https://createx.createx.studio/assets/img/ecommerce/shop/single/05.jpg" alt="Thumbnail">
-            </button>
-          </div>
-        </div>
       </div>
       <!--INFO COMPRA-->
       <div class="col-md-6 pl-xl-5">

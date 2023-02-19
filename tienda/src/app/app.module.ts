@@ -16,6 +16,7 @@ import { IndexProductoComponent } from './components/productos/index-producto/in
 import { NgxPaginationModule } from 'ngx-pagination';
 import { DetailProductoComponent } from './components/productos/detail-producto/detail-producto.component';
 import { CommonModule } from '@angular/common';
+import { NgxGalleryModule } from 'ngx-gallery-9';
 
 @NgModule({
   declarations: [
@@ -36,6 +37,7 @@ import { CommonModule } from '@angular/common';
     HttpClientModule,
     NgxPaginationModule,
     CommonModule,
+    NgxGalleryModule,
     routing
   ],
   providers: [],
