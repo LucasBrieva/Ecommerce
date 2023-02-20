@@ -90,13 +90,6 @@ export class EditProductoComponent implements OnInit {
         data.precio = this.producto.precio;
         data.categoria = this.producto.categoria;
         data.descripcion = this.producto.descripcion;
-        data.ano = this.producto.ano;
-        data.kilometros = this.producto.kilometros;
-        data.anticipo = this.producto.anticipo;
-        data.vto_vtv = this.producto.vto_vtv;
-        data.aire = this.producto.aire;
-        data.direccion = this.producto.direccion;
-        data.gnc = this.producto.gnc;
         this._productoService.actualizar_producto_admin(data, this.id, this.token).subscribe(
           response => {
             this._helperService.iziToast( '[' + this.producto.codigo + '] ' + this.producto.titulo + ', fue actualizado correctamente', 'Producto actualizado', true);

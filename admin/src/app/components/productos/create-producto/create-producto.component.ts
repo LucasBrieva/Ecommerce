@@ -16,10 +16,6 @@ export class CreateProductoComponent implements OnInit {
 
   public producto: any = {
     categoria: '',
-    // tipo: 'vehiculo',
-    aire: 'Tiene',
-    direccion: 'Hidraulica',
-    gnc: 'No tiene'
   };
   public file: any = undefined;
   public imgSelect: any | ArrayBuffer = 'assets/img/default-product.png';
@@ -48,11 +44,11 @@ export class CreateProductoComponent implements OnInit {
     this._adminService.obtener_config_public().subscribe(
       response => {
         this.config = response.data;
-        // var search = new RegExp(this.producto.tipo, 'i');
+        var search = new RegExp(this.producto.tipo, 'i');
 
-        // this.config.categorias = this.config.categorias.filter(
-        //   (item: any) => search.test(item.tipo)
-        // )
+        this.config.categorias = this.config.categorias.filter(
+          (item: any) => search.test(item.tipo)
+        )
       },
       error => {
       }
@@ -81,14 +77,6 @@ export class CreateProductoComponent implements OnInit {
                 categoria: '',
                 descripcion: '',
                 contenido: '',
-                kilometros: '',
-                ano: '',
-                aire: 'Tiene',
-                vto_vtv: '',
-                direccion: 'Hidraulica',
-                gnc: 'No tiene',
-                // tipo: 'vehiculo',
-                anticipo: '',
               };
               this.load_btn = false;
               this._router.navigate(['/panel/productos']);

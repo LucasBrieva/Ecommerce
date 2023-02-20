@@ -64,21 +64,13 @@ export class ProductoService {
       const fd = new FormData();
       fd.append('titulo', data.titulo);
       fd.append('codigo', data.codigo);
-      fd.append('stock', data.stock == undefined ? 1 : data.stock);
+      fd.append('stock', data.stock);
       fd.append('precio', data.precio);
       fd.append('descripcion', data.descripcion);
       fd.append('contenido', data.contenido);
       fd.append('categoria', data.categoria);
       fd.append('portada', data.portada);
       fd.append('alerta_stock', data.alerta_stock == undefined ? 0 : data.alerta_stock);
-      fd.append('kilometros', data.kilometros == undefined ? 0 : data.kilometros);
-      fd.append('ano', data.ano == undefined ? 0 : data.ano);
-      fd.append('aire', data.aire);
-      fd.append('vto_vtv', data.vto_vtv);
-      fd.append('direccion', data.direccion);
-      fd.append('gnc', data.gnc);
-      fd.append('tipo', data.tipo);
-      fd.append('anticipo', data.anticipo == undefined ? 0 : data.anticipo);
 
       return this._http.put(this.url + 'actualizar_producto_admin/' + id, fd, { headers: headers });
     } else {

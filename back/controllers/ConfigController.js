@@ -37,7 +37,7 @@ const actualizar_config_admin = async function(req,res){
                 var logo_name = img_name[2];
 
                 let reg = await Config.findByIdAndUpdate({_id:"62bb9a6476aaee93706e83c1"},{
-                    categorias: JSON.parse(data.categorias),
+                    categorias: JSON.parse(data.categorias),    
                     razonSocial: data.razonSocial,
                     logo: logo_name,
                     nSerie: data.nSerie,

@@ -18,7 +18,6 @@ export class ConfigComponent implements OnInit {
   public config:any = {};
 
   public titulo_cat = "";
-  public tipo_cat = "vehiculo";
   public file:any=undefined;
   public imgSelect : any | ArrayBuffer;
   public url: any;
@@ -45,11 +44,10 @@ export class ConfigComponent implements OnInit {
     if(this.titulo_cat){
       this.config.categorias.push({
         titulo:this.titulo_cat,
-        tipo:this.tipo_cat.toUpperCase(),
         _id: uuidv4(),
       });
       this.titulo_cat = "";
-      this.tipo_cat = "";
+
     }
     else{
       iziToast.show({
@@ -58,7 +56,7 @@ export class ConfigComponent implements OnInit {
         backgroundColor:'#F54646',
         class:'text-danger',
         position: 'topRight',
-        message: 'Debe ingresar un título y un icono para la categoría',
+        message: 'Debe ingresar un título para la categoría',
         messageColor:'#F4EDED'
       })
     }

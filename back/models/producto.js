@@ -20,18 +20,9 @@ var ProductoSchema = Schema({
     dadoBaja: { type: String, required: false, default: false },
     variedades: [{ type: Object, required: false }],
     titulo_variedad: { type: String, required: false },
-    // tipo: {type: String, required: true},
     //Datos exclusivos de productos
-    alerta_stock: { type: Number, required: false, default: null }, //Agregar requerimiento de dato
-    stock: { type: Number, required: false, default: null }, //Agregar requerimiento de dato
-    //Datos exclusivos de vehiculos
-    ano: { type: Number, required: false, default: null },
-    kilometros: { type: Number, required: false, default: null },
-    aire: { type: String, required: false, default: null },
-    vto_vtv: { type: String, required: false, default: null },
-    direccion: { type: String, required: false, default: null },
-    anticipo: { type: Number, required: false, default: null },
-    gnc: { type: String, required: false, default: null }
+    alerta_stock: { type: Number, required: true }, //Agregar requerimiento de dato
+    stock: { type: Number, required: true }, //Agregar requerimiento de dato
 });
 
 module.exports = mongoose.model('producto', ProductoSchema);

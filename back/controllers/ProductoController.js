@@ -109,13 +109,6 @@ const actualizar_producto_admin = async function (req, res) {
                     contenido: data.contenido,
                     portada: portada_name,
                     alerta_stock: data.alerta_stock,
-                    ano: data.ano,
-                    kilometros: data.kilometros,
-                    anticipo: data.anticipo,
-                    vto_vtv: data.vto_vtv,
-                    aire: data.aire,
-                    direccion: data.direccion,
-                    gnc: data.gnc,
                 });
                 //BORRO LA IMG PARA QUE NO ME ACUMULE INFO BASURA EN LA BD
                 fs.stat('./uploads/productos/' + reg.portada, function (error) {
@@ -140,13 +133,6 @@ const actualizar_producto_admin = async function (req, res) {
                     precio: data.precio,
                     descripcion: data.descripcion,
                     contenido: data.contenido,
-                    ano: data.ano,
-                    kilometros: data.kilometros,
-                    anticipo: data.anticipo,
-                    vto_vtv: data.vto_vtv,
-                    aire: data.aire,
-                    direccion: data.direccion,
-                    gnc: data.gnc,
                 });
                 res.status(200).send({ data: reg });
             }

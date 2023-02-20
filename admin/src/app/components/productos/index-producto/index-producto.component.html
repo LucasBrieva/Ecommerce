@@ -2,9 +2,9 @@
 
 <!-- Page title-->
 <div class="border-bottom mt-2 mb-5">
-  <h1 class="mt-2 mt-md-4 mb-3 pt-5">Vehiculos</h1>
+  <h1 class="mt-2 mt-md-4 mb-3 pt-5">Productos</h1>
   <div class="d-flex flex-wrap flex-md-nowrap justify-content-between">
-    <p class="text-muted">Este módulo lista todos los vehiculos de la tienda.</p>
+    <p class="text-muted">Este módulo lista todos los productos de la tienda.</p>
     <p class="font-size-sm font-weight-medium pl-md-4">
       <button class="btn btn-primary mb-2 me-1" [routerLink]="['/panel/productos/registro']"
         type="button">Nuevo</button>
@@ -16,7 +16,7 @@
 
 <div class="card box-shadow-sm">
   <div class="card-header">
-    <h5 style="margin-bottom: 0px;">Filtro de vehiculos</h5>
+    <h5 style="margin-bottom: 0px;">Filtro de productos</h5>
   </div>
   <div class="card-header">
     <form #filtroForm="ngForm" (ngSubmit)="filtrar()">
@@ -94,12 +94,12 @@
                   data-tooltip-location="top" [routerLink]="['/panel/productos',item._id]">
                   <i class="fa fa-pencil mt-n1 align-middle"></i>
                 </a>
-                <a *ngIf = "item.tipo == 'producto'" type="button" class="btn btn-sm btn-outline-info rounded-pill btn-icon mr-2"
+                <a type="button" class="btn btn-sm btn-outline-info rounded-pill btn-icon mr-2"
                   data-tooltip="Inventario" data-tooltip-location="top"
                   [routerLink]="['/panel/productos/inventario',item._id]">
                   <i class="fa fa-th-list mt-n1 align-middle" title="Inventario"></i>
                 </a>
-                <a *ngIf = "item.tipo == 'producto'" type="button" class="btn btn-sm btn-outline-info rounded-pill btn-icon mr-2"
+                <a type="button" class="btn btn-sm btn-outline-info rounded-pill btn-icon mr-2"
                   data-tooltip="Variedades" data-tooltip-location="top" data-toggle="modal"
                   (click)="abirPopup(item._id)">
                   <i class="fa fa-list-ol mt-n1 align-middle" title="Variedades"></i>
@@ -327,8 +327,9 @@
                                     <img style="width: 50px; height: 50px; cursor: pointer;"
                                       [src]="url+'obtener_portada/'+item.imagen" class="img-thumbnail"
                                       alt="Rounded image" (click)="showImagen(item.imagen)">
-                                    <label>
-                                      {{item.nombre}}</label>
+                                    <label class="ml-3">
+                                      {{item.nombre}}
+                                    </label>
                                   </p>
                                 </td>
                                 <td style="padding-top: 45px;" align="center">
