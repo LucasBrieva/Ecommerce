@@ -29,6 +29,7 @@ api.post('/registro_inventario_producto_admin', auth.auth, productoController.re
 
 api.get('/listar_productos_filtro_publico/:filtro?', productoController.listar_productos_filtro_publico);
 api.get('/obtener_producto_slug_publico/:slug?', productoController.obtener_producto_slug_publico);
+api.get('/listar_productos_recomendados_publico/:categoria?', productoController.listar_productos_recomendados_publico);
 
 
 module.exports = api;

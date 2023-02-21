@@ -297,6 +297,13 @@ const obtener_producto_slug_publico = async function (req, res) {
     let reg = await Producto.findOne({ slug: slug });
     res.status(200).send({ data: reg });
 }
+const listar_productos_recomendados_publico = async function (req, res) {
+    //Esto es a consultar con el cliente por el parametro que quiera que se recomiende
+    let categoria = req.params['categoria'];
+    //TODO: Por ahora lo dejo sin categoría, ya que no cuento con muchos productos
+    let reg = await Producto.find({ /* categoria: categoria, */dadoBaja: false }).sort({createdAt:-1}).limit(8);
+    res.status(200).send({ data: reg });
+} 
 module.exports = {
     registro_producto_admin,
     listar_productos_filtro_admin,
@@ -310,5 +317,6 @@ module.exports = {
     agregar_imagen_galeria_admin,
     eliminar_imagen_galeria_admin,
     listar_productos_filtro_publico,
-    obtener_producto_slug_publico
+    obtener_producto_slug_publico,
+    listar_productos_recomendados_publico
 }

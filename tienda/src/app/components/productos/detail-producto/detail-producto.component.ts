@@ -18,6 +18,7 @@ export class DetailProductoComponent implements OnInit {
   public slug;
   public producto: any = {}
   public url
+  public productos_rec : Array<any> = [];
 
   public galleryOptions: NgxGalleryOptions[];
   public galleryImages!: NgxGalleryImage[];
@@ -47,18 +48,22 @@ export class DetailProductoComponent implements OnInit {
                 small: this.url + "obtener_portada/" + e.imagen,
                 medium: this.url + "obtener_portada/" + e.imagen,
                 big: this.url + "obtener_portada/" + e.imagen,
-                description: e.nombre
+                description: e.nombre,
 
               });
             });
+            this._guestService.listar_productos_recomendados_publico(this.producto.categoria).subscribe(
+              response => {
+                this.productos_rec = response.data;
+              })
           }
         )
       }
     );
     this.galleryOptions = [
       {
-        width: '100%',
-        height: '500px',
+        height: "500px",
+        width: "100%",
         thumbnailsColumns: 4,
         imageAutoPlay: false,
         imageInfinityMove: true,
@@ -75,11 +80,46 @@ export class DetailProductoComponent implements OnInit {
       },
     ];
 
+    setTimeout(() => {
+      tns({
+        container: '.cs-carousel-inner-two',
+        controlsText: ['<i class="cxi-arrow-left"></i>', '<i class="cxi-arrow-right"></i>'],
+        navPosition: "top",
+        controlsPosition: "top",
+        mouseDrag: !0,
+        speed: 600,
+        autoplayHoverPause: !0,
+        autoplayButtonOutput: !1,
+        nav: false,
+        controlsContainer: "#custom-controls-related",
+        responsive:{
+          0:{
+            items:1,
+            gutter:20
+          },
+          400:{
+            items:2,
+            gutter:24
+          },
+          700:{
+            items:3,
+            gutter:24
+          },
+          1100:{
+            items:4,
+            gutter:30
+          }
+        }
+      })
+      
+    }, 500);
   }
 
   ngOnInit(): void {
 
+    
 
+    
   }
 
 }
