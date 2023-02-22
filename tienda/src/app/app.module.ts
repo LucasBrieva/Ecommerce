@@ -17,6 +17,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { DetailProductoComponent } from './components/productos/detail-producto/detail-producto.component';
 import { CommonModule } from '@angular/common';
 import { NgxGalleryModule } from 'ngx-gallery-9';
+import { CarritoComponent } from './components/carrito/carrito.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { NgxGalleryModule } from 'ngx-gallery-9';
     SiderbarComponent,
     IndexProductoComponent,
     DetailProductoComponent,
+    CarritoComponent,
   ],
   imports: [
     BrowserModule,

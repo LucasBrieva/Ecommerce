@@ -16,7 +16,7 @@ export class SeguridadGuard implements CanActivate {
   canActivate():any{
     if(!this._seguridadService.isAuthenticated()){
       localStorage.clear();
-      this._router.navigate(['/']);
+      this._router.navigate(['/login']);
       return false;
     }
     return true;

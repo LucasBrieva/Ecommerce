@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ClienteService } from 'src/app/services/cliente.service';
 
+declare var $;
 @Component({
   selector: 'app-nav',
   templateUrl: './nav.component.html',
@@ -14,6 +15,8 @@ export class NavComponent implements OnInit {
   public user:any = undefined;
   public user_lc:any= undefined;
   public config_global:any= [];
+  public op_cart = false;
+
   constructor(
     private _clienteService: ClienteService,
     private _router: Router
@@ -59,5 +62,15 @@ export class NavComponent implements OnInit {
     this.user_lc = undefined;
     this._router.navigate(['/']);
   }
-
+ // TODO: Ver de utilizar esto para el problemita con las imagenes
+  opModalCart(){
+    if(!this.op_cart){
+      this.op_cart = true;
+      $('#cart').addClass('show');
+    }
+    else{
+      this.op_cart = false;
+      $('#cart').removeClass('show');
+    }
+  }
 }
