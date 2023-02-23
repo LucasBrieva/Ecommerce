@@ -2,6 +2,7 @@ import { ThisReceiver } from '@angular/compiler';
 import { Component, DebugElement, OnInit } from '@angular/core';
 import { ClienteService } from 'src/app/services/cliente.service';
 import { GLOBAL } from 'src/app/services/GLOBAL';
+import { HelperService } from 'src/app/services/helper.service';
 declare var noUiSlider: any;
 declare var $: any;
 
@@ -17,6 +18,13 @@ export class IndexProductoComponent implements OnInit {
   public filter_categoria = "";
   public productos_back_up: Array<any> = [];
   public productos_filtrado: Array<any> = [];
+  public carrito_data: any = {
+    variedad: '',
+    cantidad: 1
+  };
+  public btn_cart = false;
+  public token;
+
   //TODO: RE HACER PARA QUE SEA UN OBJETO O ALGO ASÍ
   public filter_producto = {
     titulo: "",
@@ -33,8 +41,10 @@ export class IndexProductoComponent implements OnInit {
   public sort_by = "az";
   public pageSize = 15;
   constructor(
-    private _clienteService: ClienteService
+    private _clienteService: ClienteService,
+    private _helperService: HelperService
   ) {
+    this.token = localStorage.getItem('token');
     this.url = GLOBAL.url;
     this._clienteService.obtener_config_public().subscribe(
       response => {
@@ -282,5 +292,47 @@ export class IndexProductoComponent implements OnInit {
         });
         break;
     }
+  }
+
+  //TODO: Mejorar en algún futuro, por lo pronto queda en desuso. 
+  agregar_producto_carrito(producto) {
+    if (producto.variedades.length > 0) {
+      if (this.carrito_data.variedad) {
+        if (this.carrito_data.cantidad <= producto.stock) {
+          this.agregar_al_carrito(producto);
+        }
+        else {
+          this._helperService.iziToast('No hay suficiente stock para la cantidad que desea', 'ERROR', false);
+        }
+      } else {
+        this._helperService.iziToast('Seleccione una variedad', 'ERROR', false);
+      }
+    } else {
+      if (this.carrito_data.cantidad <= producto.stock) {
+        this.agregar_al_carrito(producto);
+      }
+      else {
+        this._helperService.iziToast('No hay suficiente stock para la cantidad que desea', 'ERROR', false);
+      }
+    }
+  }
+  private agregar_al_carrito(producto) {
+    let data = {
+      producto: producto._id,
+      cliente: localStorage.getItem('_id'),
+      cantidad: this.carrito_data.cantidad,
+      variedad: this.carrito_data.variedad,
+    };
+    this.btn_cart = true;
+    this._clienteService.agregar_carrito_cliente(data, this.token).subscribe(
+      response => {
+        if(response.data  == undefined) this._helperService.iziToast('Ya se encuentra este producto en el carrito', 'ERROR', false);
+        else this._helperService.iziToast('Se agrego el producto al carrito', 'AGREGADO', true);
+        this.btn_cart = false;
+      },
+      error => {
+
+      }
+    );
   }
 }

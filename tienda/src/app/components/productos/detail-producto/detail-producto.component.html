@@ -78,10 +78,9 @@
           <div class="col-sm-8 order-sm-1 order-2">
             <div class="form-group" *ngIf="producto.titulo_variedad">
               <label for="size">{{producto.titulo_variedad}}</label>
-              <select class="form-control custom-select" id="size">
+              <select class="form-control custom-select" id="size" name="variedad" [(ngModel)]="carrito_data.variedad">
                 <option value="" selected disabled>Seleccionar</option>
-                <option *ngFor="let item of producto.variedades">{{item.titulo}}</option>
-
+                <option value="{{item.titulo}}" *ngFor="let item of producto.variedades">{{item.titulo}}</option>
               </select>
             </div>
           </div>
@@ -94,18 +93,23 @@
           </div>-->
           <div class="col-lg-2 col-4 order-lg-3 order-3">
             <div class="form-group">
-              <select class="form-control custom-select" id="select-input">
-                <option>1</option>
-                <option>2</option>
-                <option>5</option>
-                <option>10</option>
+              <!--TODO: ESTE SELECT DEBERÍA SER DINAMICO O INFORMAR DE UNA MANERA DIFERENTE (COMO LA HACE MELI)-->
+              <select class="form-control custom-select" id="select-input" name="cantidad" [(ngModel)]="carrito_data.cantidad">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="5">5</option>
+                <option value="10">10</option>
               </select>
             </div>
           </div>
           <div class="col-lg-6 order-lg-4 order-4">
-            <button class="btn btn-block btn-primary">
+            <button class="btn btn-block btn-primary" *ngIf="!btn_cart" (click)="agregar_producto_carrito()">
               <i class="cxi-cart mr-2"></i>
               Agregar al carrito
+            </button>
+            <button type="button" class="btn btn-primary" *ngIf="btn_cart" disabled>
+              <span class="spinner-grow spinner-grow-sm mr-2" role="status" aria-hidden="true"></span>
+              Agregando...
             </button>
           </div>
           <div class="col-lg-4 col-8 order-lg-5 order-2">

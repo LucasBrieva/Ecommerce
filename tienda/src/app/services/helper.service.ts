@@ -20,12 +20,11 @@ export class HelperService {
   iziToast(mensaje: string, titulo: string, isSuccess: boolean) {
     iziToast.show({
       title: titulo,
-      titleColor: isSuccess ? '#FFF' : '#F4EDED',
-      backgroundColor: isSuccess ? '#83DF4E' : '#F54646',
+      titleColor: isSuccess ? '#1DC74C' : '#FF0000',
+      color: '#FFF',
       class: isSuccess ? 'text-success' : 'text-danger',
       position: 'topRight',
       message: mensaje,
-      messageColor: isSuccess ? '#FFF' : '#F4EDED'
     })
   }
 

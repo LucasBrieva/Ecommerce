@@ -4,6 +4,8 @@ import { subscribeOn } from 'rxjs';
 import { GLOBAL } from 'src/app/services/GLOBAL';
 import { GuestService } from 'src/app/services/guest.service';
 import { NgxGalleryOptions, NgxGalleryImage, NgxGalleryAnimation } from 'ngx-gallery-9';
+import { HelperService } from 'src/app/services/helper.service';
+import { ClienteService } from 'src/app/services/cliente.service';
 
 
 declare var tns;
@@ -18,15 +20,25 @@ export class DetailProductoComponent implements OnInit {
   public slug;
   public producto: any = {}
   public url
-  public productos_rec : Array<any> = [];
+  public productos_rec: Array<any> = [];
+  public token;
+  public carrito_data: any = {
+    variedad: '',
+    cantidad: 1
+  };
+  public btn_cart = false;
 
   public galleryOptions: NgxGalleryOptions[];
   public galleryImages!: NgxGalleryImage[];
 
   constructor(
     private _route: ActivatedRoute,
-    private _guestService: GuestService
+    private _guestService: GuestService,
+    private _helperService: HelperService,
+    private _clienteService: ClienteService
+
   ) {
+    this.token = localStorage.getItem('token');
     this.url = GLOBAL.url;
     this._route.params.subscribe(
       params => {
@@ -73,7 +85,7 @@ export class DetailProductoComponent implements OnInit {
         previewZoom: true,
         previewSwipe: true,
         previewFullscreen: true,
-        imageSwipe: true, 
+        imageSwipe: true,
         imageArrows: true,
         previewAnimation: false,
         imageAnimation: "none",
@@ -92,34 +104,72 @@ export class DetailProductoComponent implements OnInit {
         autoplayButtonOutput: !1,
         nav: false,
         controlsContainer: "#custom-controls-related",
-        responsive:{
-          0:{
-            items:1,
-            gutter:20
+        responsive: {
+          0: {
+            items: 1,
+            gutter: 20
           },
-          400:{
-            items:2,
-            gutter:24
+          400: {
+            items: 2,
+            gutter: 24
           },
-          700:{
-            items:3,
-            gutter:24
+          700: {
+            items: 3,
+            gutter: 24
           },
-          1100:{
-            items:4,
-            gutter:30
+          1100: {
+            items: 4,
+            gutter: 30
           }
         }
       })
-      
+
     }, 500);
   }
 
   ngOnInit(): void {
-
-    
-
-    
   }
 
+
+  agregar_producto_carrito() {
+    //TODO: HACER DIFERENTE LA VALIDACIÓN DEL STOCK, DEBERÍA SOLO MOSTRAR LOS PRODUCTOS QUE SE CUENTA CON STOCK O QUE SOLO MUESTRE LA CANTIDAD MÁXIMA QUE SE PUEDE COMPRAR
+    if (this.producto.variedades.length > 0) {
+      if (this.carrito_data.variedad) {
+        if (this.carrito_data.cantidad <= this.producto.stock) {
+          this.agregar_al_carrito();
+        }
+        else {
+          this._helperService.iziToast('No hay suficiente stock para la cantidad que desea', 'ERROR', false);
+        }
+      } else {
+        this._helperService.iziToast('Seleccione una variedad', 'ERROR', false);
+      }
+    } else {
+      if (this.carrito_data.cantidad <= this.producto.stock) {
+        this.agregar_al_carrito();
+      }
+      else {
+        this._helperService.iziToast('No hay suficiente stock para la cantidad que desea', 'ERROR', false);
+      }
+    }
+  }
+  private agregar_al_carrito() {
+    let data = {
+      producto: this.producto._id,
+      cliente: localStorage.getItem('_id'),
+      cantidad: this.carrito_data.cantidad,
+      variedad: this.carrito_data.variedad,
+    };
+    this.btn_cart = true;
+    this._clienteService.agregar_carrito_cliente(data, this.token).subscribe(
+      response => {
+        if(response.data  == undefined) this._helperService.iziToast('Ya se encuentra este producto en el carrito', 'ERROR', false);
+        else this._helperService.iziToast('Se agrego el producto al carrito', 'AGREGADO', true);
+        this.btn_cart = false;
+      },
+      error => {
+
+      }
+    );
+  }
 }

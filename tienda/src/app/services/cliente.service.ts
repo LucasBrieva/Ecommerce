@@ -46,4 +46,9 @@ export class ClienteService {
     return this._http.get(this.url + 'listar_productos_filtro_publico/' + filtro, { headers: headers });
   }
 
+  agregar_carrito_cliente(data, token):Observable<any>{
+    let headers = new HttpHeaders({'Content-Type':'application/json','Authorization': token});
+    return this._http.post(this.url+'agregar_carrito_cliente/', data, {headers:headers});
+  }
+
 }
