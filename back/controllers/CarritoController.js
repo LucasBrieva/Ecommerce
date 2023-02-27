@@ -16,11 +16,39 @@ const agregar_carrito_cliente = async function (req, res) {
 
 
     } else {
-        fsHelper.add_log("ClienteController.js", "Hubo un error en ClienteController.listar_clientes_filtro_admin");
+        fsHelper.add_log("ClienteController.js", "Hubo un error en ClienteController.agregar_carrito_cliente");
+        res.status(500).send({ message: 'NoAccess' })
+    }
+}
+
+const obtener_carrito_cliente = async function (req, res) {
+    if (req.user) {
+        let id = req.params['id'];
+
+        let carrito_cliente = await Carrito.find({ cliente: id }).populate('producto');
+        res.status(200).send({ data: carrito_cliente });
+
+    } else {
+        fsHelper.add_log("ClienteController.js", "Hubo un error en ClienteController.obtener_carrito_cliente");
+        res.status(500).send({ message: 'NoAccess' })
+    }
+}
+
+const eliminar_carrito_cliente = async function(req, res){
+    if (req.user) {
+        let id = req.params['id'];
+
+        let reg = await Carrito.findByIdAndRemove({_id:id});
+        res.status(200).send({ data: reg });
+
+    } else {
+        fsHelper.add_log("ClienteController.js", "Hubo un error en ClienteController.eliminar_carrito_cliente");
         res.status(500).send({ message: 'NoAccess' })
     }
 }
 
 module.exports = {
-    agregar_carrito_cliente
+    agregar_carrito_cliente,
+    obtener_carrito_cliente,
+    eliminar_carrito_cliente
 }
