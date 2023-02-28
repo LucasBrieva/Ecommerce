@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ClienteService } from 'src/app/services/cliente.service';
 import { GLOBAL } from 'src/app/services/GLOBAL';
-
+import { io } from 'socket.io-client';
 declare var $;
 @Component({
   selector: 'app-nav',
@@ -20,6 +20,8 @@ export class NavComponent implements OnInit {
   public op_cart = false;
   public carrito_arr : Array<any> = [];
   public subtotal = 0;
+  public socket =io('http://localhost:4201/');
+
   constructor(
     private _clienteService: ClienteService,
     private _router: Router
@@ -42,15 +44,7 @@ export class NavComponent implements OnInit {
         var user_data :any = localStorage.getItem('user_data');
         this.user_lc = JSON.parse(user_data);
 
-        this._clienteService.obtener_carrito_cliente(this.user_lc._id, this.token).subscribe(
-          response =>{
-            this.carrito_arr = response.data;
-            this.calcular_carrito();
-          },
-          error=>{
-
-          }
-        );
+        this.obtener_carrito();
       }else{
         this._clienteService.obtener_cliente_guest(this.idUser, this.token).subscribe(
           res=>{
@@ -68,7 +62,21 @@ export class NavComponent implements OnInit {
     }
   }
 
+  obtener_carrito(){
+    this._clienteService.obtener_carrito_cliente(this.user_lc._id, this.token).subscribe(
+      response =>{
+        this.carrito_arr = response.data;
+        this.subtotal = 0;
+        this.calcular_carrito();
+      },
+      error=>{
+
+      }
+    );
+  }
   ngOnInit(): void {
+    this.socket.on('new-carrito', this.obtener_carrito.bind(this));
+    this.socket.on('new-carrito-add', this.obtener_carrito.bind(this));
   }
 
   logOut(){
@@ -91,8 +99,7 @@ export class NavComponent implements OnInit {
   eliminar_item(id){
     this._clienteService.eliminar_carrito_cliente(id, this.token).subscribe(
       response=>{
-        //TODO: Entiendo que acá luego va a hacer dinamica el muestreo del producto
-        console.log(response);
+        this.socket.emit('delete-carrito',{data:response.data});
       },
       error=>{
 

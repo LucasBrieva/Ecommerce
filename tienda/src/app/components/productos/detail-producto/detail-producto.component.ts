@@ -6,7 +6,7 @@ import { GuestService } from 'src/app/services/guest.service';
 import { NgxGalleryOptions, NgxGalleryImage, NgxGalleryAnimation } from 'ngx-gallery-9';
 import { HelperService } from 'src/app/services/helper.service';
 import { ClienteService } from 'src/app/services/cliente.service';
-
+import { io } from 'socket.io-client';
 
 declare var tns;
 declare var lightGallery;
@@ -27,6 +27,8 @@ export class DetailProductoComponent implements OnInit {
     cantidad: 1
   };
   public btn_cart = false;
+
+  public socket = io('http://localhost:4201/');
 
   public galleryOptions: NgxGalleryOptions[];
   public galleryImages!: NgxGalleryImage[];
@@ -164,7 +166,10 @@ export class DetailProductoComponent implements OnInit {
     this._clienteService.agregar_carrito_cliente(data, this.token).subscribe(
       response => {
         if(response.data  == undefined) this._helperService.iziToast('Ya se encuentra este producto en el carrito', 'ERROR', false);
-        else this._helperService.iziToast('Se agrego el producto al carrito', 'AGREGADO', true);
+        else {
+          this._helperService.iziToast('Se agrego el producto al carrito', 'AGREGADO', true);
+          this.socket.emit('add-carrito-add', {data:true});
+        }
         this.btn_cart = false;
       },
       error => {
