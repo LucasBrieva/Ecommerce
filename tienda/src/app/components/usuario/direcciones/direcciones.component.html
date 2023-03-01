@@ -24,10 +24,10 @@
                 <div class="d-flex align-items-center justify-content-between mb-4 pb-1 pb-sm-3">
                     <h1 class="h2 mb-0">Mis direcciones</h1>
                 </div>
-                <form action="">
+                <form #registroForm="ngForm" (ngSubmit)="registrar(registroForm)">
                     <div class="row mb-3">
                         <div class="col-sm-6 form-group">
-                            <label>Nombre</label>
+                            <label>Destinatario</label>
                             <input type="text" required class="form-control form-control-lg" name="destinatario"
                                 [(ngModel)]="direccion.destinatario" placeholder="Nombre del destinatario">
                         </div>
@@ -54,7 +54,7 @@
                         <!--TODO: Acá solo va a quedar provincias y ciudades. Json guardado en favs-->
                         <div class="col-sm-3 form-group">
                             <label>País</label>
-                            <select name="pais" [(ngModel)]="direccion.pais" class="custom-select custom-select-lg" (change)="select_pais()">
+                            <select name="pais" required [(ngModel)]="direccion.pais" class="custom-select custom-select-lg" (change)="select_pais()">
                                 <option value="" selected disabled>
                                     --Seleccionar--
                                 </option>
