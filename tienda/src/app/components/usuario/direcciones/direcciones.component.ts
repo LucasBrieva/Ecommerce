@@ -13,6 +13,7 @@ declare var $: any;
 })
 export class DireccionesComponent implements OnInit {
   public token;
+  public load_data = true;
   public direccion: any = {
     pais: '',
     region: '',
@@ -26,6 +27,8 @@ export class DireccionesComponent implements OnInit {
   public regiones_arr: Array<any> = [];
   public provincias_arr: Array<any> = [];
   public ciudades_arr: Array<any> = [];
+
+  public direcciones: Array<any> = [];
 
   constructor(
     private _guestService: GuestService,
@@ -51,6 +54,7 @@ export class DireccionesComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.obtener_direccion();
   }
 
   select_pais() {
@@ -113,6 +117,7 @@ export class DireccionesComponent implements OnInit {
       }
     )
   }
+
   registrar(registroForm){
     if(registroForm.valid){
       //TODO: Esto lo puedo reemplazar por un find. 
@@ -153,7 +158,8 @@ export class DireccionesComponent implements OnInit {
             ciudad: '',
             principal: false
           };
-          this._helperService.iziToast("La dirección ha sido agregada correctamente", "Actualizado", true);
+          this._helperService.iziToast("La dirección ha sido agregada correctamente", "AGREGADO", true);
+          this.obtener_direccion();
         },
         err=>{
 
@@ -162,5 +168,31 @@ export class DireccionesComponent implements OnInit {
     }else{
       this._helperService.iziToast('Los datos del formulario no son válidos', 'ERROR', false);
     }
+  }
+
+  obtener_direccion(){
+    this._clienteService.obtener_direccion_cliente(localStorage.getItem('_id'), this.token).subscribe(
+      res=>{
+        this.direcciones = res.data;
+        this.load_data = false;
+      },
+      err =>{
+
+      }
+    );
+  }
+
+  establecer_principal(id){
+    debugger;
+    this._clienteService.cambiar_direccion_principal_cliente(id, localStorage.getItem('_id'), this.token).subscribe(
+      res=>{
+        this.obtener_direccion();
+        this._helperService.iziToast("Se actualizo la dirección principal", "ACTUALIZADO", true);
+
+      },
+      err=>{
+
+      }
+    )
   }
 }

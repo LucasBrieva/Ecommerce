@@ -23,5 +23,6 @@ api.put('/baja_cliente_admin/:id', auth.auth, clienteController.baja_cliente_adm
 /*-------------------------------------------------*/
 
 api.post('/registro_direccion_cliente', auth.auth, clienteController.registro_direccion_cliente);
-
+api.get('/obtener_direccion_cliente/:id', auth.auth, clienteController.obtener_direccion_cliente);
+api.put('/cambiar_direccion_principal_cliente/:id/:cliente', auth.auth, clienteController.cambiar_direccion_principal_cliente);
 module.exports = api;

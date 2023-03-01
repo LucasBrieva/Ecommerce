@@ -22,9 +22,9 @@
             <!-- Content -->
             <div class="col-lg-8 ml-auto">
                 <div class="d-flex align-items-center justify-content-between mb-4 pb-1 pb-sm-3">
-                    <h1 class="h2 mb-0">Mis direcciones</h1>
+                    <h1 class="h2 mb-0">Nueva dirección</h1>
                 </div>
-                <form #registroForm="ngForm" (ngSubmit)="registrar(registroForm)">
+                <form class="mb-5" #registroForm="ngForm" (ngSubmit)="registrar(registroForm)">
                     <div class="row mb-3">
                         <div class="col-sm-6 form-group">
                             <label>Destinatario</label>
@@ -54,7 +54,8 @@
                         <!--TODO: Acá solo va a quedar provincias y ciudades. Json guardado en favs-->
                         <div class="col-sm-3 form-group">
                             <label>País</label>
-                            <select name="pais" required [(ngModel)]="direccion.pais" class="custom-select custom-select-lg" (change)="select_pais()">
+                            <select name="pais" required [(ngModel)]="direccion.pais"
+                                class="custom-select custom-select-lg" (change)="select_pais()">
                                 <option value="" selected disabled>
                                     --Seleccionar--
                                 </option>
@@ -85,8 +86,8 @@
                         <div class="col-sm-3 form-group">
                             <label>Región</label>
                             <!--TODO Este mucho no se usa en ARG-->
-                            <select id="sl-region" name="region" [(ngModel)]="direccion.region" class="custom-select custom-select-lg"
-                                disabled (change) = "select_region()">
+                            <select id="sl-region" name="region" [(ngModel)]="direccion.region"
+                                class="custom-select custom-select-lg" disabled (change)="select_region()">
                                 <option value="" selected disabled>
                                     --Seleccionar--
                                 </option>
@@ -106,8 +107,8 @@
                         <div class="col-sm-3 form-group">
                             <label>Ciudad</label>
                             <!--TODO Esto seria ciudad-->
-                            <select id="sl-ciudad" name="ciudad" [(ngModel)]="direccion.ciudad" class="custom-select custom-select-lg"
-                                disabled>
+                            <select id="sl-ciudad" name="ciudad" [(ngModel)]="direccion.ciudad"
+                                class="custom-select custom-select-lg" disabled>
                                 <option value="" selected disabled>
                                     --Seleccionar--
                                 </option>
@@ -124,6 +125,54 @@
                     </div>
                     <button type="submit" class="btn btn-primary btn-lg">&nbsp;Actualizar dirección&nbsp;</button>
                 </form>
+
+                <div class="d-flex align-items-center justify-content-between mb-4 pb-1 pb-sm-3">
+                    <h1 class="h2 mb-0">Mis direcciones</h1>
+                </div>
+                <div class="row" *ngIf="!load_data">
+                    <div class="col-12" *ngIf="direcciones.length > 0">
+                        <ng-container *ngFor="let item of direcciones">
+                            <div class="card mb-3">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-3 col-sm-4 mb-sm-0 mb-3">
+                                            <h3 class="mb-2 font-size-lg">{{item.destinatario}}</h3>
+                                            <span class="d-block mb-3 font-size-sm text-muted">CP: {{item.zip}}</span>
+                                            <a class="badge badge-primary" *ngIf="item.principal">Dirección
+                                                principal</a>
+                                            <a class="badge badge-secondary" style="cursor: pointer;"
+                                                *ngIf="!item.principal"
+                                                (click)="establecer_principal(item._id)">Establecer principal</a>
+                                        </div>
+                                        <div class="col">
+                                            <p class="mb-3">
+                                                {{item.direccion}}
+                                            </p>
+                                            <p>
+                                                {{item.pais}}
+                                                <span *ngIf="item.region"> - {{item.region}}</span>
+                                                <span *ngIf="item.provincia"> - {{item.provincia}}</span>
+                                                <span *ngIf="item.ciudad"> - {{item.ciudad}}</span>.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </ng-container>
+
+                    </div>
+                    <div class="col-12" *ngIf="direcciones.length == 0">
+                        <h3 class="h3 mb-2 text-uppercase">No se encontraron direcciones</h3>
+                        <h4 class="pb-lg-3">Debe registrar su dirección de envío</h4>
+                    </div>
+                </div>
+                <div class="row" *ngIf="load_data">
+                    <div class="col-12 text-center">
+                        <div class="spinner-border" style="width: 3rem; height: 3rem;" role="status">
+                            <span class="sr-only">Cargando...</span>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
