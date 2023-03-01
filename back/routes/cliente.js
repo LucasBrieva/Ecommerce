@@ -18,5 +18,10 @@ api.put('/actualizar_cliente_admin/:id', auth.auth, clienteController.actualizar
 api.put('/actualizar_perfil_cliente_guest/:id', auth.auth, clienteController.actualizar_perfil_cliente_guest);
 api.put('/baja_cliente_admin/:id', auth.auth, clienteController.baja_cliente_admin);
 
+/*-------------------------------------------------*/
+/*------------------DIRECCIONES--------------------*/
+/*-------------------------------------------------*/
+
+api.post('/registro_direccion_cliente', auth.auth, clienteController.registro_direccion_cliente);
 
 module.exports = api;

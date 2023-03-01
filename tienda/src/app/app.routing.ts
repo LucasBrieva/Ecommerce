@@ -7,15 +7,20 @@ import { PerfilComponent } from "./components/usuario/perfil/perfil.component";
 import { IndexProductoComponent } from "./components/productos/index-producto/index-producto.component";
 import { DetailProductoComponent } from "./components/productos/detail-producto/detail-producto.component";
 import { CarritoComponent } from "./components/carrito/carrito.component";
+import { DireccionesComponent } from "./components/usuario/direcciones/direcciones.component";
 
 
 const appRoute : Routes =[
     {path: '', component: InicioComponent},
     {path: 'login', component: LoginComponent},
+
     {path: 'cuenta/perfil', component: PerfilComponent, canActivate: [SeguridadGuard]},
-    {path: 'carrito', component: CarritoComponent, canActivate: [SeguridadGuard]},
+    {path: 'cuenta/direcciones', component: DireccionesComponent, canActivate: [SeguridadGuard]},
+
     {path: 'productos', component: IndexProductoComponent},
     {path: 'productos/:slug', component: DetailProductoComponent},
+    
+    {path: 'carrito', component: CarritoComponent, canActivate: [SeguridadGuard]},
 
 ]
 

@@ -1,0 +1,133 @@
+<app-nav></app-nav>
+
+<main class="cs-page-wrapper">
+    <nav class="bg-secondary mb-3" aria-label="breadcrumb">
+        <div class="container">
+            <ol class="breadcrumb breadcrumb-alt mb-0">
+                <li class="breadcrumb-item">
+                    <a [routerLink]="['/']"><i class="cxi-home"></i></a>
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">Mis direcciones</li>
+            </ol>
+        </div>
+    </nav>
+    <section class="container pt-3 pt-lg-4 pb-5 pb-lg-6">
+        <div class="row pb-2 pb-lg-0">
+
+            <!-- Account menu (sticky sidebar) -->
+            <aside class="col-xl-3 col-lg-4 pb-3 mb-4 mb-lg-0">
+                <app-siderbar></app-siderbar>
+            </aside>
+
+            <!-- Content -->
+            <div class="col-lg-8 ml-auto">
+                <div class="d-flex align-items-center justify-content-between mb-4 pb-1 pb-sm-3">
+                    <h1 class="h2 mb-0">Mis direcciones</h1>
+                </div>
+                <form action="">
+                    <div class="row mb-3">
+                        <div class="col-sm-6 form-group">
+                            <label>Nombre</label>
+                            <input type="text" required class="form-control form-control-lg" name="destinatario"
+                                [(ngModel)]="direccion.destinatario" placeholder="Nombre del destinatario">
+                        </div>
+                        <div class="col-sm-3 form-group">
+                            <label>DNI</label>
+                            <input type="text" required class="form-control form-control-lg" name="dni"
+                                [(ngModel)]="direccion.dni" placeholder="DNI">
+                        </div>
+                        <div class="col-sm-3 form-group">
+                            <label>Télefono</label>
+                            <input type="text" required class="form-control form-control-lg" name="telefono"
+                                [(ngModel)]="direccion.telefono" placeholder="Télefono">
+                        </div>
+                        <div class="col-sm-9 form-group">
+                            <label>Dirección</label>
+                            <input type="text" required class="form-control form-control-lg" name="direccion"
+                                [(ngModel)]="direccion.direccion" placeholder="Dirección">
+                        </div>
+                        <div class="col-sm-3 form-group">
+                            <label>Código postal</label>
+                            <input type="text" required class="form-control form-control-lg" name="zip"
+                                [(ngModel)]="direccion.zip" placeholder="Código postal">
+                        </div>
+                        <!--TODO: Acá solo va a quedar provincias y ciudades. Json guardado en favs-->
+                        <div class="col-sm-3 form-group">
+                            <label>País</label>
+                            <select name="pais" [(ngModel)]="direccion.pais" class="custom-select custom-select-lg" (change)="select_pais()">
+                                <option value="" selected disabled>
+                                    --Seleccionar--
+                                </option>
+                                <option value="Argentina">Argentina</option>
+                                <option value="Bolivia">Bolivia</option>
+                                <option value="Brasil">Brasil</option>
+                                <option value="Chile">Chile</option>
+                                <option value="Colombia">Colombia</option>
+                                <option value="Costa Rica">Costa Rica</option>
+                                <option value="Cuba">Cuba</option>
+                                <option value="Ecuador">Ecuador</option>
+                                <option value="El Salvador">El Salvador</option>
+                                <option value="España">España</option>
+                                <option value="Estados Unidos">Estados Unidos</option>
+                                <option value="Guatemala">Guatemala</option>
+                                <option value="Haití">Haití</option>
+                                <option value="Honduras">Honduras</option>
+                                <option value="México">México</option>
+                                <option value="Nicaragua">Nicaragua</option>
+                                <option value="Panamá">Panamá</option>
+                                <option value="Paraguay">Paraguay</option>
+                                <option value="Perú">Perú</option>
+                                <option value="República Dominican">República Dominican</option>
+                                <option value="Uruguay">Uruguay</option>
+                                <option value="Venezuela">Venezuela</option>
+                            </select>
+                        </div>
+                        <div class="col-sm-3 form-group">
+                            <label>Región</label>
+                            <!--TODO Este mucho no se usa en ARG-->
+                            <select id="sl-region" name="region" [(ngModel)]="direccion.region" class="custom-select custom-select-lg"
+                                disabled (change) = "select_region()">
+                                <option value="" selected disabled>
+                                    --Seleccionar--
+                                </option>
+                                <option value="{{item.id}}" *ngFor="let item of regiones">{{item.name}}</option>
+                            </select>
+                        </div>
+                        <div class="col-sm-3 form-group">
+                            <label>Provincia</label>
+                            <select id="sl-provincia" name="provincia" [(ngModel)]="direccion.provincia"
+                                class="custom-select custom-select-lg" disabled (change)="select_provincia()">
+                                <option value="" selected disabled>
+                                    --Seleccionar--
+                                </option>
+                                <option value="{{item.id}}" *ngFor="let item of provincias">{{item.name}}</option>
+                            </select>
+                        </div>
+                        <div class="col-sm-3 form-group">
+                            <label>Ciudad</label>
+                            <!--TODO Esto seria ciudad-->
+                            <select id="sl-ciudad" name="ciudad" [(ngModel)]="direccion.ciudad" class="custom-select custom-select-lg"
+                                disabled>
+                                <option value="" selected disabled>
+                                    --Seleccionar--
+                                </option>
+                                <option value="{{item.id}}" *ngFor="let item of ciudades">{{item.name}}</option>
+                            </select>
+                        </div>
+                        <div class="col-sm-12 form-group">
+                            <div class="custom-control custom-checkbox">
+                                <input type="checkbox" class="custom-control-input" id="ctaPrincipal" name="principal"
+                                    [(ngModel)]="direccion.principal">
+                                <label for="ctaPrincipal" class="custom-control-label">Activar cuenta principal</label>
+                            </div>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-lg">&nbsp;Actualizar dirección&nbsp;</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+</main>
+
+<app-footer></app-footer>

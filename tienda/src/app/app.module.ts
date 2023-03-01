@@ -18,6 +18,7 @@ import { DetailProductoComponent } from './components/productos/detail-producto/
 import { CommonModule } from '@angular/common';
 import { NgxGalleryModule } from 'ngx-gallery-9';
 import { CarritoComponent } from './components/carrito/carrito.component';
+import { DireccionesComponent } from './components/usuario/direcciones/direcciones.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { CarritoComponent } from './components/carrito/carrito.component';
     IndexProductoComponent,
     DetailProductoComponent,
     CarritoComponent,
+    DireccionesComponent,
   ],
   imports: [
     BrowserModule,

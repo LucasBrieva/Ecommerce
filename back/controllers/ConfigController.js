@@ -14,6 +14,7 @@ const obtener_config_admin = async function(req,res){
         res.status(500).send({message:'NoAccess'})
     }
 }
+
 const registrar_config_admin = async function(req,res){
     if(req.user){
 
@@ -26,6 +27,7 @@ const registrar_config_admin = async function(req,res){
         })
     }
 }
+
 const actualizar_config_admin = async function(req,res){
     if(req.user){
         if(req.user.role == "Gerente general"){
@@ -68,6 +70,7 @@ const actualizar_config_admin = async function(req,res){
         res.status(500).send({message:'NoAccess'})
     }
 }
+
 const obtener_logo = async function(req,res){
     var img = req.params['img'];
     fs.stat('./uploads/configuraciones/' + img, function(error){
@@ -80,10 +83,12 @@ const obtener_logo = async function(req,res){
         }
     });
 }
+
 const obtener_config_public = async function(req,res){
     let reg = await Config.findById({_id:"62bb9a6476aaee93706e83c1"});
     res.status(200).send({data:reg});
 } 
+
 module.exports={
     actualizar_config_admin,
     obtener_config_admin,

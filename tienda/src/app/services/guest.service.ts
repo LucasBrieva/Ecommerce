@@ -25,4 +25,13 @@ export class GuestService {
     let headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     return this._http.get(this.url + 'listar_productos_recomendados_publico/' + categoria, { headers: headers });
   }
+  get_regiones(): Observable<any> {
+    return this._http.get('./assets/regiones.json');
+  }
+  get_provincias(): Observable<any> {
+    return this._http.get('./assets/provincias.json');
+  }
+  get_ciudades(): Observable<any> {
+    return this._http.get('./assets/distritos.json');
+  }
 }

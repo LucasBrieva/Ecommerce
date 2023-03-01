@@ -1,6 +1,7 @@
 'use strict'
 
 var Cliente = require('../models/cliente');
+var Direccion = require('../models/direccion');
 var bcrypt = require('bcrypt-nodejs');
 var jwt = require('../helpers/jwt');
 var fsHelper = require('../helpers/fsHelper');
@@ -37,6 +38,7 @@ const registro_cliente = async function (req, res) {
     }
 
 }
+
 const listar_clientes_filtro_admin = async function (req, res) {
     if (req.user) {
         if (req.user.role == "Gerente general") {
@@ -226,6 +228,19 @@ const actualizar_perfil_cliente_guest = async function (req, res) {
     }
 }
 
+/*-------------------------------------------------*/
+/*------------------DIRECCIONES--------------------*/
+/*-------------------------------------------------*/
+
+const registro_direccion_cliente = async function (req, res) {
+    if (req.user) {
+        var data = req.body;
+        let reg = await Direccion.create(data);
+        res.status(200).send({ data: reg });
+    } else {
+        res.status(500).send({ message: 'NoAccess' })
+    }
+}
 
 module.exports = {
     registro_cliente,
@@ -236,5 +251,6 @@ module.exports = {
     actualizar_cliente_admin,
     baja_cliente_admin,
     obtener_cliente_guest,
-    actualizar_perfil_cliente_guest
+    actualizar_perfil_cliente_guest,
+    registro_direccion_cliente
 }
