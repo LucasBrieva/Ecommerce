@@ -30,6 +30,25 @@ export class CarritoComponent implements OnInit {
 
   ngOnInit(): void {
     setTimeout(() => {
+      new Cleave('#cc-number', {
+        creditCard: true,
+        onCreditCardTypeChanged: function (type) {
+          debugger;
+          if (type == 'visa') {
+            this.setBlocks([4, 4, 4, 4])
+          }
+          else if (type == 'mastercard') {
+            this.setBlocks([4, 4, 4, 4])
+          }
+          else if (type == 'amex') {
+            this.setBlocks([4, 6, 5])
+          }
+          else {
+            this.setBlocks([4, 4, 4, 4])
+          }
+        },
+      });
+
       new Cleave('#cc-exp-date', {
         date: true,
         datePattern: ['m', 'y']
@@ -40,12 +59,7 @@ export class CarritoComponent implements OnInit {
         numericOnly: true
       });
 
-      new Cleave('#cc-number', {
-        blocks: [4, 4, 4, 4],
-        numericOnly: true
-      });
-
-      var sidebar = new StickySidebar('.sidebar-sticky', {topSpacing: 20});
+      var sidebar = new StickySidebar('.sidebar-sticky ', { topSpacing: 20 });
     }, 500);
   }
   private obtener_carrito() {
