@@ -15,7 +15,7 @@ export class ClienteService {
   ) {
     this.url = GLOBAL.url;
   }
-
+  //TODO: De esta manera debería organizar todos los service. 
   //#region GET
 
   obtener_cliente_guest(id, token): Observable<any> {
