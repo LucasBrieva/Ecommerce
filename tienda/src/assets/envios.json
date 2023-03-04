@@ -1,0 +1,17 @@
+[
+    {
+        "titulo": "Envió express",
+        "tiempo": "1 a 2 semanas",
+        "precio": 25
+    },
+    {
+        "titulo": "Envió estandar",
+        "tiempo": "2 a 3 semanas",
+        "precio": 15
+    },
+    {
+        "titulo": "Envió gratis",
+        "tiempo": "1 mes",
+        "precio": 0
+    }
+]

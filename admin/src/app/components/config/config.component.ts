@@ -174,4 +174,5 @@ export class ConfigComponent implements OnInit {
   ngDoCheck():void{
     $(".cs-file-drop-preview").html("<img src=" + this.imgSelect + ">");
   }
+  
 }

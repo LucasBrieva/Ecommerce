@@ -53,17 +53,21 @@ export class IndexProductoComponent implements OnInit {
     this.url = GLOBAL.url;
 
   }
+
   ngOnInit(): void {
     this.metFiltro();
   }
+
   filtrar() {
     this.metFiltro();
   }
+
   limpiarFiltro() {
     this.filtro.titulo = '';
     this.filtro.codigo = '';
     this.metFiltro();
   }
+
   metFiltro() {
     this.load_data = true;
     this._productoService.listar_productos_filtro_admin(this.filtro, this.token).subscribe(
@@ -89,6 +93,7 @@ export class IndexProductoComponent implements OnInit {
       }
     )
   }
+
   obtenerProducto(id: any) {
     this._productoService.obtener_producto_admin(id, this.token).subscribe(
       response => {
@@ -103,6 +108,7 @@ export class IndexProductoComponent implements OnInit {
       }
     )
   }
+
   baja(id: any) {
     this._productoService.baja_producto_admin(id, this.token).subscribe(
       response => {
@@ -134,10 +140,13 @@ export class IndexProductoComponent implements OnInit {
       }
     )
   }
+
   descargarExcel(){
     this._excelService.descargar_excel(this.arrExcel, "Reporte de inventario", "INVENTARIO");
   }
+
   //#region Variedad
+
   abirPopup(idx: any) {
     this._productoService.obtener_producto_admin(idx, this.token).subscribe(
       response => {
@@ -153,6 +162,7 @@ export class IndexProductoComponent implements OnInit {
       }
     );
   }
+
   agregar_variedad() {
     if (this.nueva_varidad) {
       this.producto.variedades.push({ titulo: this.nueva_varidad });
@@ -170,9 +180,11 @@ export class IndexProductoComponent implements OnInit {
       })
     }
   }
+
   eliminar_variedad(idx: any) {
     this.producto.variedades.splice(idx, 1);
   }
+
   actualizar_variedad() {
     if (this.producto.titulo_variedad) {
       if (this.producto.variedades.length > 0) {
@@ -222,9 +234,11 @@ export class IndexProductoComponent implements OnInit {
       this.load_btn = false;
     }
   }
+
   //#endregion
 
   //#region Galeria
+
   abirPopupGaleria(idx: any) {
     this._productoService.obtener_producto_admin(idx, this.token).subscribe(
       response => {
@@ -245,6 +259,7 @@ export class IndexProductoComponent implements OnInit {
       }
     );
   }
+
   subir_imagen() {
     if (this.file != undefined) {
       let data = {
@@ -274,6 +289,7 @@ export class IndexProductoComponent implements OnInit {
       })
     }
   }
+
   fileChangeEvent(event: any): void {
     var file: any;
 
@@ -323,6 +339,7 @@ export class IndexProductoComponent implements OnInit {
     }
 
   }
+
   eliminar_imagen(idx: any) {
     this._productoService.eliminar_imagen_galeria_admin(this.id, {_id:idx}, this.token).subscribe(
       response => {
@@ -353,11 +370,14 @@ export class IndexProductoComponent implements OnInit {
       }
     )
   }
+
   cancelar_eliminar_imagen(idx:any){
     $('#deleteimg-' + idx).modal('hide');
   }
+
   showImagen(imagen:any){
     this.nombreImagen = imagen;
   }
+  
   //#endregion
 }

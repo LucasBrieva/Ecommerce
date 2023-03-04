@@ -64,4 +64,5 @@ export class PerfilComponent implements OnInit {
   togglePassword(id:string){
     this._helperService.togglePassword(id);
   }
+  
 }

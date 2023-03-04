@@ -15,7 +15,18 @@ export class ClienteService {
   ) {
   this.url = GLOBAL.url;
   }
-  //Servicios que gestionan comunicación entre bd y front
+
+  //#region GET
+
+  obtener_cliente_admin(id:any, token:any):Observable<any>{
+    let headers = new HttpHeaders({'Content-Type':'application/json','Authorization': token});
+    return this._http.get(this.url+'obtener_cliente_admin/' + id, {headers:headers});
+  }
+
+  //#endregion
+  
+  //#region POST
+
   listar_clientes_filtro_admin(filtro:any, token:any):Observable<any>{
     let headers = new HttpHeaders({'Content-Type':'application/json','Authorization': token});
     return this._http.post(this.url+'listar_clientes_filtro_admin/', filtro, {headers:headers});
@@ -26,10 +37,9 @@ export class ClienteService {
     return this._http.post(this.url+'registro_cliente_admin/', data, {headers:headers});
   }
 
-  obtener_cliente_admin(id:any, token:any):Observable<any>{
-    let headers = new HttpHeaders({'Content-Type':'application/json','Authorization': token});
-    return this._http.get(this.url+'obtener_cliente_admin/' + id, {headers:headers});
-  }
+  //#endregion
+  
+  //#region PUT
 
   actualizar_cliente_admin(id:any, data:any, token:any):Observable<any>{
     let headers = new HttpHeaders({'Content-Type':'application/json','Authorization': token});
@@ -40,5 +50,7 @@ export class ClienteService {
     let headers = new HttpHeaders({'Content-Type':'application/json','Authorization': token});
     return this._http.put(this.url+'baja_cliente_admin/'+ id, null,{headers:headers});
   }
+
+  //#endregion
 
 }

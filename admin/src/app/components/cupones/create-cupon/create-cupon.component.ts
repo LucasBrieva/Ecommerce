@@ -70,4 +70,5 @@ export class CreateCuponComponent implements OnInit {
       this.load_btn = false;
     }
   }
+  
 }

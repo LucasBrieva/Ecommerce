@@ -28,6 +28,7 @@ export class CreateProductoComponent implements OnInit {
     mensaje: "",
     tituloMensaje: ""
   };
+
   constructor(
     private _productoService: ProductoService,
     private _adminService: AdminService,
@@ -142,4 +143,5 @@ export class CreateProductoComponent implements OnInit {
     }
 
   }
+  
 }

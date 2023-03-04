@@ -33,4 +33,5 @@ export class DiccionarioService {
       default: return "";
     }
   }
+  
 }

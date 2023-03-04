@@ -58,6 +58,7 @@ export class AdminService {
     let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': token });
     return this._http.get(this.url + 'obtener_config_admin/', { headers: headers });
   }
+
   actualizar_config_admin(id: any, data: any, token: any): Observable<any> {
     if (data.logo) {
       let headers = new HttpHeaders({ 'Authorization': token });
@@ -75,8 +76,10 @@ export class AdminService {
     let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': token });
     return this._http.put(this.url + 'actualizar_config_admin/' + id, data, { headers: headers });
   }
+
   obtener_config_public(): Observable<any> {
     let headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     return this._http.get(this.url + 'obtener_config_public/', { headers: headers });
   }
+  
 }

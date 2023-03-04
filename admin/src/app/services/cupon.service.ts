@@ -16,15 +16,7 @@ export class CuponService {
   this.url = GLOBAL.url;
   }
 
-  registro_cupon_admin(data:any, token:any):Observable<any>{
-    let headers = new HttpHeaders({'Content-Type':'application/json','Authorization': token});
-    return this._http.post(this.url+'registro_cupon_admin', data, {headers:headers});
-  }
-
-  listar_cupones_filtro_admin(filtro:any, token:any):Observable<any>{
-    let headers = new HttpHeaders({'Content-Type':'application/json','Authorization': token});
-    return this._http.post(this.url+'listar_cupones_filtro_admin/', filtro, {headers:headers});
-  }
+  //#region GET
 
   baja_cupon_admin(id:any, token:any):Observable<any>{
     let headers = new HttpHeaders({'Content-Type':'application/json','Authorization': token});
@@ -36,8 +28,29 @@ export class CuponService {
     return this._http.get(this.url+'obtener_cupon_admin/'+ id, {headers:headers});
   }
 
+  //#endregion
+
+  //#region POST
+
+  registro_cupon_admin(data:any, token:any):Observable<any>{
+    let headers = new HttpHeaders({'Content-Type':'application/json','Authorization': token});
+    return this._http.post(this.url+'registro_cupon_admin', data, {headers:headers});
+  }
+
+  listar_cupones_filtro_admin(filtro:any, token:any):Observable<any>{
+    let headers = new HttpHeaders({'Content-Type':'application/json','Authorization': token});
+    return this._http.post(this.url+'listar_cupones_filtro_admin/', filtro, {headers:headers});
+  }
+
+  //#endregion
+  
+  //#region PUT
+
   actualizar_cupon_admin(id:any, data:any, token:any):Observable<any>{
     let headers = new HttpHeaders({'Content-Type':'application/json','Authorization': token});
     return this._http.put(this.url+'actualizar_cupon_admin/'+ id, data, {headers:headers});
   }
+
+  //#endregion
+  
 }

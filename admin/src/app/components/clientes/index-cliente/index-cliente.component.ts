@@ -130,4 +130,5 @@ export class IndexClienteComponent implements OnInit {
   descargarExcel(){
     this._excelService.descargar_excel(this.arrExcel, "Reporte de clientes", "CLIENTES");
   }
+  
 }

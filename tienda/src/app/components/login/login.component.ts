@@ -91,4 +91,5 @@ export class LoginComponent implements OnInit {
       this._helperService.iziToast('Los datos del formulario no son válidos', 'ERROR', false);
     }
   }
+  
 }

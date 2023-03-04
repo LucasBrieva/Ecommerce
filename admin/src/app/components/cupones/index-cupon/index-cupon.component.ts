@@ -36,9 +36,11 @@ export class IndexCuponComponent implements OnInit {
     this.token = this._adminService.getToken();
     this.url = GLOBAL.url;
   }
+
   ngOnInit(): void {
     this.metFiltro();
   }
+
   metFiltro(){
     this.load_data = true;
     this._cuponService.listar_cupones_filtro_admin(this.filtro, this.token).subscribe(
@@ -63,14 +65,17 @@ export class IndexCuponComponent implements OnInit {
       }
     )
   }
+
   filtrar(){
     this.metFiltro();
   }
+
   limpiarFiltro(){
     this.filtro.tipo = '';
     this.filtro.codigo = '';
     this.metFiltro();
   }
+
   baja(id:any){
     this._cuponService.baja_cupon_admin(id, this.token).subscribe(
       response=>{
@@ -106,4 +111,5 @@ export class IndexCuponComponent implements OnInit {
   descargarExcel(){
     this._excelService.descargar_excel(this.arrExcel, "Reporte de cupones", "CUPONES");
   }
+  
 }

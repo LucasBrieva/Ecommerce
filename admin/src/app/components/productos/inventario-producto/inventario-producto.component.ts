@@ -27,7 +27,6 @@ export class InventarioProductoComponent implements OnInit {
   public load_btn = false;
   public arrExcel: Array<any> = [];
 
-
   constructor(
     private _route: ActivatedRoute,
     private _productoService: ProductoService,
@@ -151,4 +150,5 @@ export class InventarioProductoComponent implements OnInit {
   descargarExcel() {
     this._excelService.descargar_excel(this.arrExcel, "Reporte de inventario", "INVENTARIO");
   }
+  
 }

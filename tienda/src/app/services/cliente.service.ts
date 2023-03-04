@@ -43,6 +43,11 @@ export class ClienteService {
     return this._http.get(this.url + 'obtener_direccion_cliente/' + id, { headers: headers });
   }
 
+  obtener_direccion_principal_cliente(id, token): Observable<any> {
+    let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': token });
+    return this._http.get(this.url + 'obtener_direccion_principal_cliente/' + id, { headers: headers });
+  }
+  
   //#endregion
 
   //#region POST

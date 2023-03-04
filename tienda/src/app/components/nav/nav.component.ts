@@ -74,6 +74,7 @@ export class NavComponent implements OnInit {
       }
     );
   }
+
   ngOnInit(): void {
     this.socket.on('new-carrito', this.obtener_carrito.bind(this));
     this.socket.on('new-carrito-add', this.obtener_carrito.bind(this));
@@ -84,6 +85,7 @@ export class NavComponent implements OnInit {
     this.user_lc = undefined;
     this._router.navigate(['/']);
   }
+
  // TODO: Ver de utilizar esto para el problemita con las imagenes
   opModalCart(){
     if(!this.op_cart){
@@ -112,4 +114,5 @@ export class NavComponent implements OnInit {
       this.subtotal += parseInt(e.producto.precio);
     })
   }
+  
 }

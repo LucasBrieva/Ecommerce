@@ -186,6 +186,7 @@ export class IndexProductoComponent implements OnInit {
     });
 
   }
+
   // Esta función configura los precios mínimo y máximo de los productos filtrados.
   config_precios() {
     // Verifica si hay productos filtrados disponibles
@@ -214,6 +215,7 @@ export class IndexProductoComponent implements OnInit {
       this.filter_producto.maxPriceStr = this.filter_producto.maxPrice.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
     }
   }
+
   // Función para establecer un arreglo de categorías
   set_array_categorias(categoria) {
     // Busca si la categoría existe en el arreglo filter_producto.categorias
@@ -228,6 +230,7 @@ export class IndexProductoComponent implements OnInit {
     // Llamar a la función buscar_producto para actualizar los resultados de búsqueda
     this.buscar_producto();
   }
+
   ordenar_por() {
     // Selecciona el criterio de ordenamiento según el valor de sort_by
     switch (this.sort_by) {
@@ -316,6 +319,7 @@ export class IndexProductoComponent implements OnInit {
       }
     }
   }
+
   private agregar_al_carrito(producto) {
     let data = {
       producto: producto._id,
@@ -335,4 +339,5 @@ export class IndexProductoComponent implements OnInit {
       }
     );
   }
+  
 }

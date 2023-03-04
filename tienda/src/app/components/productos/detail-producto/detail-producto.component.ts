@@ -132,7 +132,6 @@ export class DetailProductoComponent implements OnInit {
   ngOnInit(): void {
   }
 
-
   agregar_producto_carrito() {
     //TODO: HACER DIFERENTE LA VALIDACIÓN DEL STOCK, DEBERÍA SOLO MOSTRAR LOS PRODUCTOS QUE SE CUENTA CON STOCK O QUE SOLO MUESTRE LA CANTIDAD MÁXIMA QUE SE PUEDE COMPRAR
     if (this.producto.variedades.length > 0) {
@@ -155,6 +154,7 @@ export class DetailProductoComponent implements OnInit {
       }
     }
   }
+
   private agregar_al_carrito() {
     let data = {
       producto: this.producto._id,
@@ -177,4 +177,5 @@ export class DetailProductoComponent implements OnInit {
       }
     );
   }
+  
 }

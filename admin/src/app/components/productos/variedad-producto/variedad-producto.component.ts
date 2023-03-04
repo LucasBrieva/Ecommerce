@@ -20,6 +20,7 @@ export class VariedadProductoComponent implements OnInit {
   public nueva_varidad ="";
   public load_btn = false;
   public url:any;
+
   constructor(
     private _route : ActivatedRoute,
     private _productoService: ProductoService,
@@ -122,4 +123,5 @@ export class VariedadProductoComponent implements OnInit {
       this.load_btn = true;
     }
   }
+  
 }

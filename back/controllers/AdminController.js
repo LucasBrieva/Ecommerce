@@ -70,7 +70,6 @@ const login_admin = async function(req, res){
     }
 }
 
-
 module.exports = {
     registro_admin,
     login_admin

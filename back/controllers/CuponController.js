@@ -19,6 +19,7 @@ const registro_cupon_admin = async function(req, res){
         res.status(500).send({message:'NoAccess'})
     }
 }
+
 const listar_cupones_filtro_admin = async function(req, res){
     if(req.user){
         if(req.user.role == "Gerente general"){
@@ -41,6 +42,7 @@ const listar_cupones_filtro_admin = async function(req, res){
         res.status(500).send({message:'NoAccess'})
     }
 }
+
 const obtener_cupon_admin = async function (req, res){
     if(req.user){
         if(req.user.role == "Gerente general"){
@@ -60,6 +62,7 @@ const obtener_cupon_admin = async function (req, res){
         res.status(500).send({message: 'Hubo un error en el servidor',data: undefined});
     }
 }
+
 const actualizar_cupon_admin = async function(req,res){
     if(req.user){
         if(req.user.role == "Gerente general"){
@@ -82,6 +85,7 @@ const actualizar_cupon_admin = async function(req,res){
         res.status(500).send({message: 'NoAccess',data: undefined});
     }
 }
+
 const baja_cupon_admin = async function(req, res){
     if(req.user){
         if(req.user.role == "Gerente general"){
@@ -99,6 +103,7 @@ const baja_cupon_admin = async function(req, res){
         res.status(500).send({message: 'NoAccess',data: undefined});
     }
 }
+
 module.exports ={
     registro_cupon_admin,
     listar_cupones_filtro_admin,
