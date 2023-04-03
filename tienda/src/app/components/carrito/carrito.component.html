@@ -132,7 +132,7 @@
         <!-- Shipping -->
         <h2 class="h4 mb-4">3. Métodos de envío</h2>
         <div class="custom-control custom-radio mb-3" *ngFor="let item of envios">
-          <input type="radio" class="custom-control-input" id="courier" name="shipping" checked>
+          <input (change)="calcular_total()" type="radio" class="custom-control-input" id="courier" name="precio_envio" [(ngModel)]="precio_envio" value="{{item.precio}}" checked>
           <label for="courier" class="custom-control-label d-flex align-items-center">
             <span>
               <strong class="d-block">{{item.titulo}}</strong>
@@ -145,7 +145,7 @@
         <hr class="border-top-0 border-bottom pt-4 mb-4">
 
         <!-- Payment -->
-        <h2 class="h4 pt-2 mb-4">4. Método de pago</h2>
+        <h2 class="h4 pt-2 mb-4">4. Métodos de pago</h2>
         <div class="row pb-4">
           <div class="col-lg-7">
             <div class="accordion-alt" id="payment-methods">
@@ -158,7 +158,7 @@
                     <input type="radio" class="custom-control-input" id="cc" name="payment" checked>
                     <label for="cc" class="custom-control-label d-flex align-items-center">
                       <strong class="d-block mr-3">Credit card</strong>
-                      <img src="../../assets/img/ecommerce/checkout/cards.png" width="108" alt="Credit cards">
+                      <img src="assets/img/cards.png" width="108" alt="Tarjetas de crédito">
                     </label>
                   </div>
                 </div>
@@ -193,18 +193,13 @@
                     <input type="radio" class="custom-control-input" id="paypal" name="payment">
                     <label for="paypal" class="custom-control-label d-flex align-items-center">
                       <strong class="d-block mr-3">PayPal</strong>
-                      <img src="../../assets/img/ecommerce/checkout/paypal-badge.png" width="48" alt="PayPal">
+                      <img src="assets/img/paypal-badge.png" width="48" alt="PayPal">
                     </label>
                   </div>
                 </div>
                 <div class="collapse" id="paypal-card" data-parent="#payment-methods">
-                  <div class="card-body pt-3 pb-0">
-                    <a href="#" class="d-inline-block mb-2" style="max-width: 300px;">
-                      <img src="../../assets/img/ecommerce/checkout/paypal.png" alt="PayPal">
-                    </a>
-                    <a href="#" class="d-inline-block mb-2" style="max-width: 300px;">
-                      <img src="../../assets/img/ecommerce/checkout/paypal-credit.png" alt="PayPal Credit">
-                    </a>
+                  <div class="card-body pt-3 pb-0" #paypalButton>
+                   
                   </div>
                 </div>
               </div>
@@ -267,7 +262,7 @@
                 </li>
                 <li class="d-flex justify-content-between mb-2">
                   <span>Costo de envío:</span>
-                  <span>$25.00</span>
+                  <span>${{precio_envio}}</span>
                 </li>
                 <li class="d-flex justify-content-between mb-2">
                   <span>Descuento:</span>
@@ -275,7 +270,7 @@
                 </li>
               </ul>
               <div class="d-flex justify-content-between p-4">
-                <span class="h5 mb-0">Total:</span>
+                <span class="h5 mb-0">Total a pagar:</span>
                 <span class="h5 mb-0">${{total_pagar}}</span>
               </div>
             </div>

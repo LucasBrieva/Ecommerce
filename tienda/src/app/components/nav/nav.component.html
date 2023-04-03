@@ -52,7 +52,8 @@
           <li class="nav-item align-self-center mb-0" *ngIf="user_lc != undefined">
             <a style="cursor: pointer;" class="nav-tool pr-lg-0" (click)="opModalCart()">
               <i class="cxi-cart nav-tool-icon"></i>
-              <span class="badge badge-success align-middle mt-n1 ml-2 px-2 py-1 font-size-xs">{{carrito_arr.length}}</span>
+              <span
+                class="badge badge-success align-middle mt-n1 ml-2 px-2 py-1 font-size-xs">{{carrito_arr.length}}</span>
             </a>
           </li>
           <li class="nav-item align-self-center mb-0" *ngIf="user_lc == undefined">
@@ -202,7 +203,8 @@
         <div class="d-flex justify-content-between">
           <div class="pr-2">
             <h3 class="font-size-sm mb-3">
-              <a [routerLink]="['/productos/', item.producto.slug]" target="_blank" class="nav-link font-weight-bold">{{item.producto.titulo}}</a>
+              <a [routerLink]="['/productos/', item.producto.slug]" target="_blank"
+                class="nav-link font-weight-bold">{{item.producto.titulo}}</a>
             </h3>
             <ul class="list-unstyled font-size-xs mt-n2 mb-2" *ngIf="item.variedad != ''">
               <li class="mb-0"><span
@@ -214,7 +216,7 @@
             <div class="d-flex align-items-center">
               <div class="text-nowrap">
                 <!-- <strong class="text-danger">&nbsp;&nbsp;</strong> -->
-                <p class="text-muted" style="font-size: 1.2rem;" ><b>${{item.producto.precio}}</b></p>
+                <p class="text-muted" style="font-size: 1.2rem;"><b>${{item.producto.precio}}</b></p>
               </div>
             </div>
             <button class="btn btn-link btn-sm text-decoration-none px-0 pb-0">

@@ -1,0 +1,5 @@
+8:8 - Mensaje proveniente de AdminController.js: Hubo un error en AdminController.login_admin, No se encontró el correo
+8:8 - Mensaje proveniente de AdminController.js: Hubo un error en AdminController.login_admin, No se encontró el correo
+21:28 - Mensaje proveniente de AdminController.js: Hubo un error en AdminController.login_admin, La contraseña no coincide
+21:28 - Mensaje proveniente de AdminController.js: Hubo un error en AdminController.login_admin, La contraseña no coincide
+21:28 - Mensaje proveniente de AdminController.js: Hubo un error en AdminController.login_admin, La contraseña no coincide

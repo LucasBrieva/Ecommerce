@@ -1,10 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ClienteService } from 'src/app/services/cliente.service';
 import { GLOBAL } from 'src/app/services/GLOBAL';
 import { io } from 'socket.io-client';
 import { GuestService } from 'src/app/services/guest.service';
 declare var Cleave;
 declare var StickySidebar;
+declare var paypal;
+
+interface HtmlInputEvent extends Event{
+  target : HTMLInputElement & EventTarget;
+} 
 
 @Component({
   selector: 'app-carrito',
@@ -12,27 +17,31 @@ declare var StickySidebar;
   styleUrls: ['./carrito.component.css']
 })
 export class CarritoComponent implements OnInit {
+  @ViewChild('paypalButton',{static:true}) paypalElement! : ElementRef;
+
 
   public token;
   public url;
   public carrito_arr: Array<any> = [];
   public subtotal = 0;
   public id_cliente;
-  public total_pagar = 0;
+  public total_pagar: any = 0;
   public socket = io('http://localhost:4201/');
   public direccion_princial: any = {};
-  public envios : Array<any> = [];
+  public envios: Array<any> = [];
+  public precio_envio = "0";
+
 
   constructor(
     private _clienteService: ClienteService,
-    private _guestService : GuestService
+    private _guestService: GuestService
   ) {
     this.url = GLOBAL.url;
     this.token = localStorage.getItem('token');
     this.id_cliente = localStorage.getItem('_id');
     this.obtener_carrito();
     this._guestService.get_envios().subscribe(
-      res=>{
+      res => {
         this.envios = res;
       }
     )
@@ -72,6 +81,37 @@ export class CarritoComponent implements OnInit {
       var sidebar = new StickySidebar('.sidebar-sticky ', { topSpacing: 20 });
     }, 500);
     this.get_direccion_principal();
+
+    paypal.Buttons({
+      style: {
+          layout: 'horizontal'
+      },
+      createOrder: (data,actions)=>{
+  
+          return actions.order.create({
+            purchase_units : [{
+              description : 'Nombre del pago',
+              amount : {
+                currency_code : 'USD',
+                value: 999
+              },
+            }]
+          });
+        
+      },
+      onApprove : async (data,actions)=>{
+        const order = await actions.order.capture();
+  
+        
+      },
+      onError : err =>{
+       
+      },
+      onCancel: function (data, actions) {
+        
+      }
+    }).render(this.paypalElement.nativeElement);
+  
   }
 
   eliminar_item(id) {
@@ -103,7 +143,7 @@ export class CarritoComponent implements OnInit {
     this.carrito_arr.forEach(e => {
       this.subtotal += parseInt(e.producto.precio);
     });
-    this.total_pagar = this.subtotal;
+    this.calcular_total();
   }
 
   private obtener_carrito() {
@@ -119,5 +159,9 @@ export class CarritoComponent implements OnInit {
       }
     );
   }
-  
+
+  calcular_total() {
+    this.total_pagar = parseFloat(this.subtotal.toString()) + parseFloat(this.precio_envio);
+  }
+
 }

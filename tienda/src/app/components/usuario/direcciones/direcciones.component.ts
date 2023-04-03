@@ -183,7 +183,6 @@ export class DireccionesComponent implements OnInit {
   }
 
   establecer_principal(id){
-    debugger;
     this._clienteService.cambiar_direccion_principal_cliente(id, localStorage.getItem('_id'), this.token).subscribe(
       res=>{
         this.obtener_direccion();
