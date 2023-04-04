@@ -28,6 +28,7 @@ var admin_route = require('./routes/admin');
 var cupon_route = require('./routes/cupon');
 var config_route = require('./routes/config');
 var carrito_route = require('./routes/carrito');
+var venta_route = require('./routes/venta');
 
 mongoose.set('strictQuery', false); // aquí se establece la opción strictQuery
 mongoose.connect('mongodb://127.0.0.1:27017/tienda', (err, res)=>{
@@ -58,5 +59,6 @@ app.use('/api', producto_route);
 app.use('/api', cupon_route);
 app.use('/api', config_route);
 app.use('/api', carrito_route);
+app.use('/api', venta_route);
 
 module.exports = app; 

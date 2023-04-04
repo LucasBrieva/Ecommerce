@@ -7,9 +7,9 @@ declare var Cleave;
 declare var StickySidebar;
 declare var paypal;
 
-interface HtmlInputEvent extends Event{
-  target : HTMLInputElement & EventTarget;
-} 
+interface HtmlInputEvent extends Event {
+  target: HTMLInputElement & EventTarget;
+}
 
 @Component({
   selector: 'app-carrito',
@@ -17,7 +17,7 @@ interface HtmlInputEvent extends Event{
   styleUrls: ['./carrito.component.css']
 })
 export class CarritoComponent implements OnInit {
-  @ViewChild('paypalButton',{static:true}) paypalElement! : ElementRef;
+  @ViewChild('paypalButton', { static: true }) paypalElement!: ElementRef;
 
 
   public token;
@@ -31,6 +31,8 @@ export class CarritoComponent implements OnInit {
   public envios: Array<any> = [];
   public precio_envio = "0";
 
+  public venta: any = {};
+  public dVenta: Array<any> = [];
 
   constructor(
     private _clienteService: ClienteService,
@@ -39,7 +41,8 @@ export class CarritoComponent implements OnInit {
     this.url = GLOBAL.url;
     this.token = localStorage.getItem('token');
     this.id_cliente = localStorage.getItem('_id');
-    this.obtener_carrito();
+    this.venta.cliente = this.id_cliente;
+
     this._guestService.get_envios().subscribe(
       res => {
         this.envios = res;
@@ -48,6 +51,7 @@ export class CarritoComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.obtener_carrito();
     setTimeout(() => {
       new Cleave('#cc-number', {
         creditCard: true,
@@ -84,34 +88,37 @@ export class CarritoComponent implements OnInit {
 
     paypal.Buttons({
       style: {
-          layout: 'horizontal'
+        layout: 'horizontal',
       },
-      createOrder: (data,actions)=>{
-  
-          return actions.order.create({
-            purchase_units : [{
-              description : 'Nombre del pago',
-              amount : {
-                currency_code : 'USD',
-                value: 999
-              },
-            }]
-          });
-        
+      createOrder: (data, actions) => {
+
+        return actions.order.create({
+          purchase_units: [{
+            description: 'Nombre del pago',
+            amount: {
+              currency_code: 'USD',
+              value: 999
+            },
+          }]
+        });
+
       },
-      onApprove : async (data,actions)=>{
+      onApprove: async (data, actions) => {
         const order = await actions.order.capture();
-  
-        
+        console.log(order);
+
+        this.venta.transaccion = order.purchase_units[0].payments.captures[0].id;
+        console.log(this.dVenta);
+
       },
-      onError : err =>{
-       
+      onError: err => {
+
       },
       onCancel: function (data, actions) {
-        
+
       }
     }).render(this.paypalElement.nativeElement);
-  
+
   }
 
   eliminar_item(id) {
@@ -130,7 +137,10 @@ export class CarritoComponent implements OnInit {
     this._clienteService.obtener_direccion_principal_cliente(localStorage.getItem('_id'), this.token).subscribe(
       res => {
         if (res.data == undefined) this.direccion_princial = undefined;
-        else this.direccion_princial = res.data;
+        else {
+          this.direccion_princial = res.data;
+          this.venta.direccion = this.direccion_princial._id;
+        }
 
       },
       err => {
@@ -150,6 +160,15 @@ export class CarritoComponent implements OnInit {
     this._clienteService.obtener_carrito_cliente(this.id_cliente, this.token).subscribe(
       response => {
         this.carrito_arr = response.data;
+        this.carrito_arr.forEach(e => {
+          this.dVenta.push({
+            producto: e.producto._id,
+            subtotal: e.producto.precio,
+            variedad: e.variedad,
+            cantidad: e.cantidad,
+            cliente: this.id_cliente
+          })
+        });
         this.subtotal = 0;
         this.total_pagar = 0;
         this.calcular_carrito();
@@ -162,6 +181,13 @@ export class CarritoComponent implements OnInit {
 
   calcular_total() {
     this.total_pagar = parseFloat(this.subtotal.toString()) + parseFloat(this.precio_envio);
+    this.venta.subtotal = this.total_pagar;
+    this.venta.envio_precio = parseFloat(this.precio_envio);
+    this.envios.forEach(e => {
+      if (this.precio_envio == e.precio) {
+        this.venta.envio_titulo = e.titulo;
+      }
+    });
   }
 
 }
