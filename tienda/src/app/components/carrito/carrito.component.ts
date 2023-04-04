@@ -42,21 +42,20 @@ export class CarritoComponent implements OnInit {
     this.token = localStorage.getItem('token');
     this.id_cliente = localStorage.getItem('_id');
     this.venta.cliente = this.id_cliente;
-
     this._guestService.get_envios().subscribe(
       res => {
         this.envios = res;
       }
-    )
+    );
+    this.obtener_carrito();
+    this.get_direccion_principal();
   }
 
   ngOnInit(): void {
-    this.obtener_carrito();
     setTimeout(() => {
       new Cleave('#cc-number', {
         creditCard: true,
         onCreditCardTypeChanged: function (type) {
-          debugger;
           if (type == 'visa') {
             this.setBlocks([4, 4, 4, 4])
           }
@@ -84,8 +83,7 @@ export class CarritoComponent implements OnInit {
 
       var sidebar = new StickySidebar('.sidebar-sticky ', { topSpacing: 20 });
     }, 500);
-    this.get_direccion_principal();
-
+    
     paypal.Buttons({
       style: {
         layout: 'horizontal',
@@ -105,11 +103,17 @@ export class CarritoComponent implements OnInit {
       },
       onApprove: async (data, actions) => {
         const order = await actions.order.capture();
-        console.log(order);
 
         this.venta.transaccion = order.purchase_units[0].payments.captures[0].id;
-        console.log(this.dVenta);
+        this.venta.detalles = this.dVenta;
+        this._clienteService.registro_compra_cliente(this.venta, this.token).subscribe(
+          res=>{
 
+          },
+          err=>{
+
+          }
+        );
       },
       onError: err => {
 
