@@ -1,5 +1,6 @@
 var Venta = require('../models/venta');
 var DVenta = require('../models/dventa');
+var Producto = require('../models/producto');
 
 const registro_compra_cliente = async function (req, res) {
     if (req.user) {
@@ -21,7 +22,7 @@ const registro_compra_cliente = async function (req, res) {
             if (arr_nventa[1] != '999999') {
                 var new_correlativo = zfill(parseInt(arr_nventa[1]) + 1, 6);
                 n_venta = arr_nventa[0] + '-' + new_correlativo;
-            }else if(arr_nventa[1] == '999999'){
+            } else if (arr_nventa[1] == '999999') {
                 var new_serie = zfill(parseInt(arr_nventa[0]) + 1, 3);
                 n_venta = new_serie + '-000001';
             }
@@ -33,6 +34,11 @@ const registro_compra_cliente = async function (req, res) {
         detalles.forEach(async element => {
             element.venta = venta._id;
             await DVenta.create(element);
+            await Producto.findByIdAndUpdate(
+                element.producto,
+                { $inc: { stock: -element.cantidad } },
+                { new: true }
+            );
         });
         res.status(200).send({ venta: venta });
     } else {
