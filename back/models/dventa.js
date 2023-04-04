@@ -9,7 +9,7 @@ var DVentaSchema = Schema({
     venta: {type: Schema.ObjectId, ref: 'venta', required: true },
     subtotal: {type: Number, required: true},
     cantidad: {type: Number, required: true},
-    variedad: {type: String, required: true},
+    variedad: {type: String, required: false},
     createdAt: {type:Date, default: Date.now, required: true},
 });
 
