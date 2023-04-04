@@ -133,7 +133,7 @@
         <h2 class="h4 mb-4">3. Métodos de envío</h2>
         <div class="custom-control custom-radio mb-3" *ngFor="let item of envios">
           <input (change)="calcular_total()" type="radio" class="custom-control-input" id="courier" name="precio_envio" [(ngModel)]="precio_envio" value="{{item.precio}}" checked>
-          <label for="courier" class="custom-control-label d-flex align-items-center">
+          <label class="custom-control-label d-flex align-items-center">
             <span>
               <strong class="d-block">{{item.titulo}}</strong>
               <span class="text-muted font-size-sm">{{item.tiempo}}</span>
@@ -228,11 +228,11 @@
         <hr class="mb-4 pb-2">
 
         <!-- Additional info -->
-        <h2 class="h4 mb-4">5. Additional Information (optional)</h2>
+        <h2 class="h4 mb-4">5. Información adicional (Opcional)</h2>
         <div class="form-group">
-          <label for="ch-notes">Order notes</label>
+          <label for="ch-notes">Mensaje</label>
           <textarea id="ch-notes" class="form-control form-control-lg" rows="5"
-            placeholder="Notes about your order, e.g. special noted for delivery."></textarea>
+            placeholder="Mensaje" name="nota" [(ngModel)]="venta.nota"></textarea>
         </div>
       </div>
 
@@ -243,11 +243,11 @@
         <div class="sidebar-sticky">
           <div class="sidebar-sticky-inner">
             <div class="form-group">
-              <label for="promo-code">Apply a promo code</label>
+              <label for="promo-code">Aplicar cupón</label>
               <div class="input-group input-group-lg">
-                <input type="text" id="promo-code" class="form-control" placeholder="Enter promo code">
+                <input type="text" id="promo-code" class="form-control" placeholder="Aplicar cupón" name="cupon" [(ngModel)]="venta.cupon">
                 <div class="input-group-append">
-                  <button type="button" class="btn btn-primary">&nbsp;&nbsp;Apply&nbsp;&nbsp;</button>
+                  <button type="button" class="btn btn-primary">&nbsp;&nbsp;Aplicar&nbsp;&nbsp;</button>
                 </div>
               </div>
             </div>
