@@ -1,6 +1,7 @@
 var Venta = require('../models/venta');
 var DVenta = require('../models/dventa');
 var Producto = require('../models/producto');
+var Carrito = require('../models/carrito');
 
 const registro_compra_cliente = async function (req, res) {
     if (req.user) {
@@ -39,6 +40,8 @@ const registro_compra_cliente = async function (req, res) {
                 { $inc: { stock: -element.cantidad } },
                 { new: true }
             );
+            //Limpiar carrito
+            await Carrito.remove({cliente: data.cliente});
         });
         res.status(200).send({ venta: venta });
     } else {
