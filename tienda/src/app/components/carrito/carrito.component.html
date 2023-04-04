@@ -29,47 +29,64 @@
 
         <!-- Order review -->
         <h2 class="h4 mb-4">1. Detalle del carrito</h2>
-        <div class="bg-secondary rounded mb-5 collapsed" data-toggle="collapse">
-          <!-- Item -->
-          <div class="media px-2 px-sm-4 py-4 border-bottom" *ngFor="let item of carrito_arr">
-            <a [routerLink]="['/productos/', item.producto.slug]" style="min-width: 80px;">
-              <img [src]="url+'obtener_portada/'+item.producto.portada" width="80" alt="Product thumb">
-            </a>
-            <div class="media-body w-100 pl-3">
-              <div class="d-sm-flex">
-                <div class="pr-sm-3 w-100" style="max-width: 16rem;">
-                  <h3 class="font-size-sm mb-3">
-                    <a [routerLink]="['/productos/', item.producto.slug]"
-                      class="nav-link font-weight-bold">{{item.producto.titulo}}</a>
-                  </h3>
-                  <ul class="list-unstyled font-size-xs mt-n2 mb-2" *ngIf="item.variedad != ''">
-                    <li class="mb-0">
-                      <span class="text-muted">
-                        {{item.producto.titulo_variedad}}:&nbsp;</span><b>{{item.variedad}}</b>
-                    </li>
-                  </ul>
-                </div>
-                <div class="d-flex pr-sm-3 align-items-center">
-                  <span class="text-muted">Cantidad:&nbsp;</span><b>{{item.cantidad}}</b>
-                </div>
-                <div class="d-flex align-items-center">
-                  <div class="text-nowrap">
-                    <!-- <strong class="text-danger">&nbsp;&nbsp;</strong> -->
-                    <span class="text-muted" style="font-size: 1.2rem;"><b>${{item.producto.precio}}</b></span>
+        <ng-container *ngIf="carrito_arr.length > 0">
+          <div class="bg-secondary rounded mb-5 collapsed" data-toggle="collapse">
+            <!-- Item -->
+            <div class="media px-2 px-sm-4 py-4 border-bottom" *ngFor="let item of carrito_arr">
+              <a [routerLink]="['/productos/', item.producto.slug]" style="min-width: 80px;">
+                <img [src]="url+'obtener_portada/'+item.producto.portada" width="80" alt="Product thumb">
+              </a>
+              <div class="media-body w-100 pl-3">
+                <div class="d-sm-flex">
+                  <div class="pr-sm-3 w-100" style="max-width: 16rem;">
+                    <h3 class="font-size-sm mb-3">
+                      <a [routerLink]="['/productos/', item.producto.slug]"
+                        class="nav-link font-weight-bold">{{item.producto.titulo}}</a>
+                    </h3>
+                    <ul class="list-unstyled font-size-xs mt-n2 mb-2" *ngIf="item.variedad != ''">
+                      <li class="mb-0">
+                        <span class="text-muted">
+                          {{item.producto.titulo_variedad}}:&nbsp;</span><b>{{item.variedad}}</b>
+                      </li>
+                    </ul>
                   </div>
-                </div>
-                <div class="d-flex align-items-center flex-sm-column text-sm-center ml-sm-auto pt-3 pt-sm-0">
-                  <button class="btn btn-outline-primary btn-sm mr-2 mr-sm-0"
-                    (click)="eliminar_item(item._id)">Quitar</button>
-                  <button class="btn btn-link btn-sm text-decoration-none pt-0 pt-sm-2 px-0 pb-0 mt-0 mt-sm-1">
-                    Favoritos
-                    <i class="cxi-star ml-1" style="margin-bottom: 4px;"></i>
-                  </button>
+                  <div class="d-flex pr-sm-3 align-items-center">
+                    <span class="text-muted">Cantidad:&nbsp;</span><b>{{item.cantidad}}</b>
+                  </div>
+                  <div class="d-flex align-items-center">
+                    <div class="text-nowrap">
+                      <!-- <strong class="text-danger">&nbsp;&nbsp;</strong> -->
+                      <span class="text-muted" style="font-size: 1.2rem;"><b>${{item.producto.precio}}</b></span>
+                    </div>
+                  </div>
+                  <div class="d-flex align-items-center flex-sm-column text-sm-center ml-sm-auto pt-3 pt-sm-0">
+                    <button class="btn btn-outline-primary btn-sm mr-2 mr-sm-0"
+                      (click)="eliminar_item(item._id)">Quitar</button>
+                    <button class="btn btn-link btn-sm text-decoration-none pt-0 pt-sm-2 px-0 pb-0 mt-0 mt-sm-1">
+                      Favoritos
+                      <i class="cxi-star ml-1" style="margin-bottom: 4px;"></i>
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
+        </ng-container>
+        <ng-container *ngIf="carrito_arr.length == 0">
+          <div class="bg-secondary rounded mb-5 p-3">
+            <div class="row">
+              <div class="col-lg-3">
+                <img src="assets/img/carrito-de-compras.png" alt="" style="width: 100%;">
+              </div>
+              <div class="col-lg-9" style="display: flex !important; align-items: center !important;">
+                <dl style="font-size: 1.5rem !important;">
+                  <dt>Upps! 😬</dt>
+                  <dd>Tu carrito está vacío.</dd>
+                </dl>
+              </div>
+            </div>
+          </div>
+        </ng-container>
 
         <!-- Adresses -->
         <h2 class="h4 mb-4">2. Dirección de envío</h2>
